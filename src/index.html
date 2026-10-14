@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self' file: blob: data:; script-src 'self' file:; style-src 'self' 'unsafe-inline' file:; img-src 'self' file: blob: data:; media-src 'self' file: blob: data: mediastream:; font-src 'self' file: data:; connect-src 'self' file: blob: data:; worker-src 'self' blob:">
+  <title>KamiCreative</title>
+  <link rel="stylesheet" href="styles/app.css">
+</head>
+<body data-mode="patch">
+  <header id="toolbar" class="toolbar"></header>
+  <main class="workspace">
+    <aside class="col col-left">
+      <section id="scenes" class="panel panel-scenes">
+        <div class="panel-head"><h2>Scenes</h2><div class="panel-actions"></div></div>
+      </section>
+      <section id="library" class="panel panel-library">
+        <div class="panel-head"><h2>Modules</h2></div>
+      </section>
+    </aside>
+    <section class="center">
+      <div id="patch" class="patch"></div>
+      <div id="live" class="live"></div>
+      <div id="stages" class="stages"></div>
+    </section>
+    <aside class="col col-right">
+      <section id="inspector" class="panel panel-inspector">
+        <div class="panel-head"><h2>Inspector</h2></div>
+      </section>
+      <section id="media" class="panel panel-media">
+        <div class="panel-head"><h2>Media</h2><div class="panel-actions"></div></div>
+      </section>
+    </aside>
+  </main>
+  <footer id="statusbar" class="statusbar"></footer>
+  <canvas id="gl" class="gl-canvas" width="1920" height="1080" aria-hidden="true"></canvas>
+  <script src="../dist/app.js"></script>
+</body>
+</html>

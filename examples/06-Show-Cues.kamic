@@ -1,0 +1,684 @@
+{
+  "format": "kamicreative",
+  "version": 1,
+  "meta": {
+    "name": "Show Cues",
+    "created": "2026-10-14T09:44:42.850Z",
+    "modified": "2026-10-14T09:44:42.850Z",
+    "app": "KamiCreative"
+  },
+  "settings": {
+    "oscPort": 8000,
+    "artnetHost": "255.255.255.255",
+    "snapToGrid": true,
+    "previews": true
+  },
+  "stages": [
+    {
+      "id": "stagemv7xbcrm3ygt7o",
+      "name": "Stage 1",
+      "width": 1920,
+      "height": 1080,
+      "display": null,
+      "fullscreen": true,
+      "background": "#000000",
+      "testPattern": false,
+      "mapping": {
+        "enabled": true,
+        "surfaces": [
+          {
+            "id": "smv7xbcrm3zyio0",
+            "name": "Surface 1",
+            "enabled": true,
+            "opacity": 1,
+            "source": [
+              0,
+              0,
+              1,
+              1
+            ],
+            "grid": {
+              "cols": 2,
+              "rows": 2,
+              "points": [
+                [
+                  0,
+                  0
+                ],
+                [
+                  1,
+                  0
+                ],
+                [
+                  0,
+                  1
+                ],
+                [
+                  1,
+                  1
+                ]
+              ]
+            },
+            "blend": {
+              "left": 0,
+              "right": 0,
+              "top": 0,
+              "bottom": 0,
+              "gamma": 1.8,
+              "curve": 2
+            },
+            "color": {
+              "brightness": 1,
+              "contrast": 1,
+              "gamma": 1
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "media": [],
+  "scenes": [
+    {
+      "id": "scenemv7xbcrm40fbd1",
+      "name": "Preset",
+      "fadeIn": 0,
+      "notes": "House open. Holding on a slow texture.",
+      "nodes": [
+        {
+          "id": "nmv7xbcrm41d679",
+          "type": "src.noise",
+          "x": 0,
+          "y": 0,
+          "values": {
+            "scale": 1.6,
+            "speed": 0.04,
+            "a": "#05070c",
+            "b": "#2a3550"
+          },
+          "props": {},
+          "preview": true
+        },
+        {
+          "id": "nmv7xbcrm425emk",
+          "type": "src.text",
+          "x": 0,
+          "y": 380,
+          "values": {
+            "text": "0. Preset",
+            "size": 6,
+            "y": 80,
+            "color": "#e8e4da"
+          },
+          "props": {},
+          "title": "Cue label",
+          "preview": true
+        },
+        {
+          "id": "nmv7xbcrm430eey",
+          "type": "out.projector",
+          "x": 300,
+          "y": 20,
+          "values": {},
+          "props": {},
+          "preview": true
+        },
+        {
+          "id": "nmv7xbcrm448bdq",
+          "type": "out.projector",
+          "x": 300,
+          "y": 400,
+          "values": {
+            "layer": 1
+          },
+          "props": {},
+          "title": "Label projector",
+          "preview": true
+        }
+      ],
+      "links": [
+        {
+          "id": "lmv7xbcrm45mt38",
+          "from": [
+            "nmv7xbcrm41d679",
+            "out"
+          ],
+          "to": [
+            "nmv7xbcrm430eey",
+            "video"
+          ]
+        },
+        {
+          "id": "lmv7xbcrn4681b5",
+          "from": [
+            "nmv7xbcrm425emk",
+            "out"
+          ],
+          "to": [
+            "nmv7xbcrm448bdq",
+            "video"
+          ]
+        }
+      ],
+      "comments": []
+    },
+    {
+      "id": "scenemv7xbcrn47ionb",
+      "name": "Act One",
+      "fadeIn": 2,
+      "notes": "Cue on the first line of dialogue.",
+      "nodes": [
+        {
+          "id": "nmv7xbcrn48zcg8",
+          "type": "src.gradient",
+          "x": 0,
+          "y": 0,
+          "values": {
+            "kind": "linear",
+            "a": "#2c1a0e",
+            "b": "#f2a93b",
+            "angle": 100,
+            "speed": 0.03
+          },
+          "props": {},
+          "preview": true
+        },
+        {
+          "id": "nmv7xbcrn49u525",
+          "type": "src.text",
+          "x": 0,
+          "y": 380,
+          "values": {
+            "text": "1. Act One",
+            "size": 6,
+            "y": 80,
+            "color": "#e8e4da"
+          },
+          "props": {},
+          "title": "Cue label",
+          "preview": true
+        },
+        {
+          "id": "nmv7xbcrn4az352",
+          "type": "out.projector",
+          "x": 300,
+          "y": 20,
+          "values": {},
+          "props": {},
+          "preview": true
+        },
+        {
+          "id": "nmv7xbcrn4bdqfe",
+          "type": "out.projector",
+          "x": 300,
+          "y": 400,
+          "values": {
+            "layer": 1
+          },
+          "props": {},
+          "title": "Label projector",
+          "preview": true
+        },
+        {
+          "id": "nmv7xbcrn4ex9uy",
+          "type": "fx.color",
+          "x": 300,
+          "y": 760,
+          "values": {},
+          "props": {},
+          "title": "Warmth grade",
+          "preview": true
+        },
+        {
+          "id": "nmv7xbcrn4hgki5",
+          "type": "ctl.slider",
+          "x": 0,
+          "y": 760,
+          "values": {
+            "min": -40,
+            "max": 40
+          },
+          "props": {
+            "value": 0,
+            "label": "Warmth"
+          },
+          "title": "Warmth"
+        },
+        {
+          "id": "nmv7xbcrn4jjjjg",
+          "type": "ctl.button",
+          "x": 0,
+          "y": 1000,
+          "values": {},
+          "props": {
+            "label": "FLASH"
+          },
+          "title": "Flash"
+        },
+        {
+          "id": "nmv7xbcrn4kofev",
+          "type": "gen.envelope",
+          "x": 300,
+          "y": 1000,
+          "values": {
+            "attack": 0.01,
+            "hold": 0.1,
+            "release": 0.8,
+            "low": 0,
+            "high": 80,
+            "curve": "ease out"
+          },
+          "props": {}
+        },
+        {
+          "id": "nmv7xbcrn4nwj88",
+          "type": "ctl.toggle",
+          "x": 600,
+          "y": 1000,
+          "values": {},
+          "props": {
+            "value": 1,
+            "label": ""
+          },
+          "title": "Cue labels"
+        },
+        {
+          "id": "nmv7xbcrn4puo9q",
+          "type": "ctl.monitor",
+          "x": 600,
+          "y": 760,
+          "values": {},
+          "props": {
+            "label": "Flash level"
+          },
+          "title": "Flash level"
+        }
+      ],
+      "links": [
+        {
+          "id": "lmv7xbcrn4dt3ty",
+          "from": [
+            "nmv7xbcrn49u525",
+            "out"
+          ],
+          "to": [
+            "nmv7xbcrn4bdqfe",
+            "video"
+          ]
+        },
+        {
+          "id": "lmv7xbcrn4fmeiu",
+          "from": [
+            "nmv7xbcrn48zcg8",
+            "out"
+          ],
+          "to": [
+            "nmv7xbcrn4ex9uy",
+            "video"
+          ]
+        },
+        {
+          "id": "lmv7xbcrn4g0uig",
+          "from": [
+            "nmv7xbcrn4ex9uy",
+            "out"
+          ],
+          "to": [
+            "nmv7xbcrn4az352",
+            "video"
+          ]
+        },
+        {
+          "id": "lmv7xbcrn4iqu0z",
+          "from": [
+            "nmv7xbcrn4hgki5",
+            "out"
+          ],
+          "to": [
+            "nmv7xbcrn4ex9uy",
+            "hue"
+          ]
+        },
+        {
+          "id": "lmv7xbcrn4lk7vb",
+          "from": [
+            "nmv7xbcrn4jjjjg",
+            "press"
+          ],
+          "to": [
+            "nmv7xbcrn4kofev",
+            "trig"
+          ]
+        },
+        {
+          "id": "lmv7xbcrn4mnc10",
+          "from": [
+            "nmv7xbcrn4kofev",
+            "out"
+          ],
+          "to": [
+            "nmv7xbcrn4ex9uy",
+            "bri"
+          ]
+        },
+        {
+          "id": "lmv7xbcrn4of08j",
+          "from": [
+            "nmv7xbcrn4nwj88",
+            "out"
+          ],
+          "to": [
+            "nmv7xbcrn4bdqfe",
+            "active"
+          ]
+        },
+        {
+          "id": "lmv7xbcrn4qo2o2",
+          "from": [
+            "nmv7xbcrn4kofev",
+            "out"
+          ],
+          "to": [
+            "nmv7xbcrn4puo9q",
+            "in"
+          ]
+        }
+      ],
+      "comments": []
+    },
+    {
+      "id": "scenemv7xbcrn4r4t1q",
+      "name": "Storm",
+      "fadeIn": 1,
+      "notes": "Auto-follows to Calm after 12 seconds.",
+      "nodes": [
+        {
+          "id": "nmv7xbcrn4sqkt3",
+          "type": "src.noise",
+          "x": 0,
+          "y": 0,
+          "values": {
+            "scale": 7,
+            "speed": 1.2,
+            "contrast": 2.4,
+            "a": "#020308",
+            "b": "#b9d4ff"
+          },
+          "props": {},
+          "preview": true
+        },
+        {
+          "id": "nmv7xbcrn4t27k5",
+          "type": "src.text",
+          "x": 0,
+          "y": 380,
+          "values": {
+            "text": "2. Storm",
+            "size": 6,
+            "y": 80,
+            "color": "#e8e4da"
+          },
+          "props": {},
+          "title": "Cue label",
+          "preview": true
+        },
+        {
+          "id": "nmv7xbcrn4u1klq",
+          "type": "out.projector",
+          "x": 300,
+          "y": 20,
+          "values": {},
+          "props": {},
+          "preview": true
+        },
+        {
+          "id": "nmv7xbcro4v5qo9",
+          "type": "out.projector",
+          "x": 300,
+          "y": 400,
+          "values": {
+            "layer": 1
+          },
+          "props": {},
+          "title": "Label projector",
+          "preview": true
+        },
+        {
+          "id": "nmv7xbcro4y15ff",
+          "type": "scene.enter",
+          "x": 600,
+          "y": 0,
+          "values": {
+            "delay": 12
+          },
+          "props": {},
+          "title": "Auto-follow"
+        },
+        {
+          "id": "nmv7xbcro4z0859",
+          "type": "scene.jump",
+          "x": 860,
+          "y": 0,
+          "values": {
+            "mode": "next",
+            "fade": -1
+          },
+          "props": {}
+        },
+        {
+          "id": "nmv7xbcro51gw2w",
+          "type": "gen.pulse",
+          "x": 600,
+          "y": 360,
+          "values": {
+            "mode": "Interval (s)",
+            "rate": 2.3
+          },
+          "props": {},
+          "title": "Lightning"
+        },
+        {
+          "id": "nmv7xbcro523s3n",
+          "type": "gen.envelope",
+          "x": 860,
+          "y": 360,
+          "values": {
+            "attack": 0.02,
+            "hold": 0.05,
+            "release": 0.4,
+            "low": 0,
+            "high": 70,
+            "curve": "ease out"
+          },
+          "props": {}
+        },
+        {
+          "id": "nmv7xbcro53no6i",
+          "type": "fx.color",
+          "x": 300,
+          "y": 760,
+          "values": {
+            "bri": 0
+          },
+          "props": {},
+          "preview": true
+        }
+      ],
+      "links": [
+        {
+          "id": "lmv7xbcro4xgsj3",
+          "from": [
+            "nmv7xbcrn4t27k5",
+            "out"
+          ],
+          "to": [
+            "nmv7xbcro4v5qo9",
+            "video"
+          ]
+        },
+        {
+          "id": "lmv7xbcro501cn9",
+          "from": [
+            "nmv7xbcro4y15ff",
+            "trig"
+          ],
+          "to": [
+            "nmv7xbcro4z0859",
+            "trig"
+          ]
+        },
+        {
+          "id": "lmv7xbcro547fyq",
+          "from": [
+            "nmv7xbcro51gw2w",
+            "pulse"
+          ],
+          "to": [
+            "nmv7xbcro523s3n",
+            "trig"
+          ]
+        },
+        {
+          "id": "lmv7xbcro55srx2",
+          "from": [
+            "nmv7xbcro523s3n",
+            "out"
+          ],
+          "to": [
+            "nmv7xbcro53no6i",
+            "bri"
+          ]
+        },
+        {
+          "id": "lmv7xbcro56bm45",
+          "from": [
+            "nmv7xbcrn4sqkt3",
+            "out"
+          ],
+          "to": [
+            "nmv7xbcro53no6i",
+            "video"
+          ]
+        },
+        {
+          "id": "lmv7xbcro57rkyd",
+          "from": [
+            "nmv7xbcro53no6i",
+            "out"
+          ],
+          "to": [
+            "nmv7xbcrn4u1klq",
+            "video"
+          ]
+        }
+      ],
+      "comments": []
+    },
+    {
+      "id": "scenemv7xbcro58l85x",
+      "name": "Calm",
+      "fadeIn": 4,
+      "notes": "Hold until the actor exits.",
+      "nodes": [
+        {
+          "id": "nmv7xbcro59twyp",
+          "type": "src.gradient",
+          "x": 0,
+          "y": 0,
+          "values": {
+            "kind": "radial",
+            "a": "#7fb6d9",
+            "b": "#0a1724",
+            "scale": 160
+          },
+          "props": {},
+          "preview": true
+        },
+        {
+          "id": "nmv7xbcro5a2dgv",
+          "type": "src.text",
+          "x": 0,
+          "y": 380,
+          "values": {
+            "text": "3. Calm",
+            "size": 6,
+            "y": 80,
+            "color": "#e8e4da"
+          },
+          "props": {},
+          "title": "Cue label",
+          "preview": true
+        },
+        {
+          "id": "nmv7xbcro5bz5ur",
+          "type": "out.projector",
+          "x": 300,
+          "y": 20,
+          "values": {},
+          "props": {},
+          "preview": true
+        },
+        {
+          "id": "nmv7xbcro5c1a4h",
+          "type": "out.projector",
+          "x": 300,
+          "y": 400,
+          "values": {
+            "layer": 1
+          },
+          "props": {},
+          "title": "Label projector",
+          "preview": true
+        }
+      ],
+      "links": [
+        {
+          "id": "lmv7xbcro5d6wmn",
+          "from": [
+            "nmv7xbcro59twyp",
+            "out"
+          ],
+          "to": [
+            "nmv7xbcro5bz5ur",
+            "video"
+          ]
+        },
+        {
+          "id": "lmv7xbcro5eh0ny",
+          "from": [
+            "nmv7xbcro5a2dgv",
+            "out"
+          ],
+          "to": [
+            "nmv7xbcro5c1a4h",
+            "video"
+          ]
+        }
+      ],
+      "comments": []
+    },
+    {
+      "id": "scenemv7xbcro5fj91h",
+      "name": "Blackout",
+      "fadeIn": 3,
+      "notes": "End of show.",
+      "nodes": [
+        {
+          "id": "nmv7xbcro5g13bo",
+          "type": "util.comment",
+          "x": 0,
+          "y": 0,
+          "values": {},
+          "props": {
+            "text": "Nothing is projected in this scene: the stage fades to black over the scene's 3 s cross-fade.",
+            "color": "#f3d36b"
+          },
+          "title": "Blackout"
+        }
+      ],
+      "links": [],
+      "comments": []
+    }
+  ],
+  "activeScene": "scenemv7xbcrm40fbd1"
+}

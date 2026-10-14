@@ -1,0 +1,324 @@
+{
+  "format": "kamicreative",
+  "version": 1,
+  "meta": {
+    "name": "Projection Mapping",
+    "created": "2026-10-14T09:44:42.846Z",
+    "modified": "2026-10-14T09:44:42.846Z",
+    "app": "KamiCreative"
+  },
+  "settings": {
+    "oscPort": 8000,
+    "artnetHost": "255.255.255.255",
+    "snapToGrid": true,
+    "previews": true
+  },
+  "stages": [
+    {
+      "id": "stagemv7xbcri18x49u",
+      "name": "Projector",
+      "width": 1920,
+      "height": 1080,
+      "display": null,
+      "fullscreen": true,
+      "background": "#000000",
+      "testPattern": false,
+      "mapping": {
+        "enabled": true,
+        "surfaces": [
+          {
+            "id": "smv7xbcri1kl6wy",
+            "name": "Top face",
+            "enabled": true,
+            "opacity": 1,
+            "source": [
+              0,
+              0,
+              0.3333333333333333,
+              1
+            ],
+            "grid": {
+              "cols": 2,
+              "rows": 2,
+              "points": [
+                [
+                  0.5,
+                  0.08
+                ],
+                [
+                  0.78,
+                  0.22
+                ],
+                [
+                  0.22,
+                  0.22
+                ],
+                [
+                  0.5,
+                  0.36
+                ]
+              ]
+            },
+            "blend": {
+              "left": 0,
+              "right": 0,
+              "top": 0,
+              "bottom": 0,
+              "gamma": 1.8,
+              "curve": 2
+            },
+            "color": {
+              "brightness": 1,
+              "contrast": 1,
+              "gamma": 1
+            }
+          },
+          {
+            "id": "smv7xbcri1l7wvk",
+            "name": "Left face",
+            "enabled": true,
+            "opacity": 1,
+            "source": [
+              0.3333333333333333,
+              0,
+              0.3333333333333333,
+              1
+            ],
+            "grid": {
+              "cols": 2,
+              "rows": 2,
+              "points": [
+                [
+                  0.22,
+                  0.22
+                ],
+                [
+                  0.5,
+                  0.36
+                ],
+                [
+                  0.24,
+                  0.72
+                ],
+                [
+                  0.5,
+                  0.9
+                ]
+              ]
+            },
+            "blend": {
+              "left": 0,
+              "right": 0,
+              "top": 0,
+              "bottom": 0,
+              "gamma": 1.8,
+              "curve": 2
+            },
+            "color": {
+              "brightness": 1,
+              "contrast": 1,
+              "gamma": 1
+            }
+          },
+          {
+            "id": "smv7xbcri1m98jo",
+            "name": "Right face",
+            "enabled": true,
+            "opacity": 1,
+            "source": [
+              0.6666666666666666,
+              0,
+              0.3333333333333333,
+              1
+            ],
+            "grid": {
+              "cols": 2,
+              "rows": 2,
+              "points": [
+                [
+                  0.5,
+                  0.36
+                ],
+                [
+                  0.78,
+                  0.22
+                ],
+                [
+                  0.5,
+                  0.9
+                ],
+                [
+                  0.76,
+                  0.72
+                ]
+              ]
+            },
+            "blend": {
+              "left": 0,
+              "right": 0,
+              "top": 0,
+              "bottom": 0,
+              "gamma": 1.8,
+              "curve": 2
+            },
+            "color": {
+              "brightness": 1,
+              "contrast": 1,
+              "gamma": 1
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "media": [],
+  "scenes": [
+    {
+      "id": "scenemv7xbcri17mfpd",
+      "name": "Cube Mapping",
+      "fadeIn": 0,
+      "notes": "Open Stage → Projection Mapping to adjust the three cube faces.",
+      "nodes": [
+        {
+          "id": "nmv7xbcri1ax2q1",
+          "type": "util.comment",
+          "x": -420,
+          "y": 0,
+          "values": {},
+          "props": {
+            "text": "This stage is split into three surfaces — the three visible faces of a cube.\n\nEach surface shows one third of the composite (its Input region) and is warped onto a face (Output warp).\n\nOpen the mapper from the stage strip (map icon), turn on Test pattern, and drag the corners onto your real object.",
+            "color": "#7fd1ff"
+          },
+          "title": "Projection mapping"
+        },
+        {
+          "id": "nmv7xbcri1b2f56",
+          "type": "src.pattern",
+          "x": 0,
+          "y": 0,
+          "values": {
+            "kind": "stripes",
+            "count": 14,
+            "angle": 45,
+            "speed": 0.15,
+            "a": "#101418",
+            "b": "#f2a93b"
+          },
+          "props": {},
+          "title": "Face A",
+          "preview": true
+        },
+        {
+          "id": "nmv7xbcri1cknw7",
+          "type": "src.pattern",
+          "x": 0,
+          "y": 380,
+          "values": {
+            "kind": "rings",
+            "count": 9,
+            "speed": 0.25,
+            "a": "#0a0f1a",
+            "b": "#5cc8ff"
+          },
+          "props": {},
+          "title": "Face B",
+          "preview": true
+        },
+        {
+          "id": "nmv7xbcri1ds2rl",
+          "type": "src.noise",
+          "x": 0,
+          "y": 760,
+          "values": {
+            "scale": 5,
+            "speed": 0.3,
+            "a": "#12081c",
+            "b": "#ff4f8b"
+          },
+          "props": {},
+          "title": "Face C",
+          "preview": true
+        },
+        {
+          "id": "nmv7xbcri1enpgl",
+          "type": "out.projector",
+          "x": 300,
+          "y": 0,
+          "values": {
+            "aspect": "stretch",
+            "sx": 33.34,
+            "x": -66.67
+          },
+          "props": {},
+          "title": "Left third",
+          "preview": true
+        },
+        {
+          "id": "nmv7xbcri1f7c80",
+          "type": "out.projector",
+          "x": 300,
+          "y": 380,
+          "values": {
+            "aspect": "stretch",
+            "sx": 33.34,
+            "x": 0
+          },
+          "props": {},
+          "title": "Middle third",
+          "preview": true
+        },
+        {
+          "id": "nmv7xbcri1g5bfo",
+          "type": "out.projector",
+          "x": 300,
+          "y": 760,
+          "values": {
+            "aspect": "stretch",
+            "sx": 33.34,
+            "x": 66.67
+          },
+          "props": {},
+          "title": "Right third",
+          "preview": true
+        }
+      ],
+      "links": [
+        {
+          "id": "lmv7xbcri1hu1sk",
+          "from": [
+            "nmv7xbcri1b2f56",
+            "out"
+          ],
+          "to": [
+            "nmv7xbcri1enpgl",
+            "video"
+          ]
+        },
+        {
+          "id": "lmv7xbcri1ih20k",
+          "from": [
+            "nmv7xbcri1cknw7",
+            "out"
+          ],
+          "to": [
+            "nmv7xbcri1f7c80",
+            "video"
+          ]
+        },
+        {
+          "id": "lmv7xbcri1je71g",
+          "from": [
+            "nmv7xbcri1ds2rl",
+            "out"
+          ],
+          "to": [
+            "nmv7xbcri1g5bfo",
+            "video"
+          ]
+        }
+      ],
+      "comments": []
+    }
+  ],
+  "activeScene": "scenemv7xbcri17mfpd"
+}

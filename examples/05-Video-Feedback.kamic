@@ -1,0 +1,301 @@
+{
+  "format": "kamicreative",
+  "version": 1,
+  "meta": {
+    "name": "Video Feedback",
+    "created": "2026-10-14T09:44:42.849Z",
+    "modified": "2026-10-14T09:44:42.849Z",
+    "app": "KamiCreative"
+  },
+  "settings": {
+    "oscPort": 8000,
+    "artnetHost": "255.255.255.255",
+    "snapToGrid": true,
+    "previews": true
+  },
+  "stages": [
+    {
+      "id": "stagemv7xbcrl3exjg0",
+      "name": "Stage 1",
+      "width": 1920,
+      "height": 1080,
+      "display": null,
+      "fullscreen": true,
+      "background": "#000000",
+      "testPattern": false,
+      "mapping": {
+        "enabled": true,
+        "surfaces": [
+          {
+            "id": "smv7xbcrl3ffmxj",
+            "name": "Surface 1",
+            "enabled": true,
+            "opacity": 1,
+            "source": [
+              0,
+              0,
+              1,
+              1
+            ],
+            "grid": {
+              "cols": 2,
+              "rows": 2,
+              "points": [
+                [
+                  0,
+                  0
+                ],
+                [
+                  1,
+                  0
+                ],
+                [
+                  0,
+                  1
+                ],
+                [
+                  1,
+                  1
+                ]
+              ]
+            },
+            "blend": {
+              "left": 0,
+              "right": 0,
+              "top": 0,
+              "bottom": 0,
+              "gamma": 1.8,
+              "curve": 2
+            },
+            "color": {
+              "brightness": 1,
+              "contrast": 1,
+              "gamma": 1
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "media": [],
+  "scenes": [
+    {
+      "id": "scenemv7xbcrl3d1le4",
+      "name": "Feedback Tunnel",
+      "fadeIn": 0,
+      "notes": "",
+      "nodes": [
+        {
+          "id": "nmv7xbcrl3ggl69",
+          "type": "util.comment",
+          "x": -420,
+          "y": 0,
+          "values": {},
+          "props": {
+            "text": "Classic video feedback: each frame is drawn over a slightly zoomed, rotated and hue-shifted copy of the previous one.\n\nDrag the XY pad to move the seed shape. Try Persistence 97 and Zoom 103.",
+            "color": "#ff9fd0"
+          },
+          "title": "Feedback"
+        },
+        {
+          "id": "nmv7xbcrl3hrfvw",
+          "type": "ctl.xy",
+          "x": 0,
+          "y": 380,
+          "values": {},
+          "props": {
+            "value": [
+              50,
+              40
+            ]
+          },
+          "title": "Seed position"
+        },
+        {
+          "id": "nmv7xbcrl3i3fca",
+          "type": "math.scale",
+          "x": 260,
+          "y": 380,
+          "values": {
+            "inMin": 0,
+            "inMax": 100,
+            "outMin": -80,
+            "outMax": 80
+          },
+          "props": {},
+          "title": "X"
+        },
+        {
+          "id": "nmv7xbcrl3ja7jj",
+          "type": "math.scale",
+          "x": 260,
+          "y": 640,
+          "values": {
+            "inMin": 0,
+            "inMax": 100,
+            "outMin": 80,
+            "outMax": -80
+          },
+          "props": {},
+          "title": "Y"
+        },
+        {
+          "id": "nmv7xbcrl3kmi9k",
+          "type": "src.shape",
+          "x": 0,
+          "y": 0,
+          "values": {
+            "kind": "polygon",
+            "sides": 3,
+            "w": 10,
+            "h": 10,
+            "fill": "#56e0c4",
+            "line": 12
+          },
+          "props": {},
+          "preview": true
+        },
+        {
+          "id": "nmv7xbcrl3lgxtk",
+          "type": "fx.feedback",
+          "x": 300,
+          "y": 0,
+          "values": {
+            "decay": 95,
+            "zoom": 102.5,
+            "rot": 1.2,
+            "hue": 2.5,
+            "mode": "lighten"
+          },
+          "props": {},
+          "preview": true
+        },
+        {
+          "id": "nmv7xbcrl3m42wc",
+          "type": "fx.glow",
+          "x": 580,
+          "y": 0,
+          "values": {
+            "thresh": 50,
+            "radius": 30,
+            "amt": 90
+          },
+          "props": {},
+          "preview": true
+        },
+        {
+          "id": "nmv7xbcrl3n8v9v",
+          "type": "fx.vignette",
+          "x": 860,
+          "y": 0,
+          "values": {
+            "amt": 70
+          },
+          "props": {},
+          "preview": true
+        },
+        {
+          "id": "nmv7xbcrl3o9ck3",
+          "type": "out.projector",
+          "x": 1140,
+          "y": 20,
+          "values": {},
+          "props": {},
+          "preview": true
+        }
+      ],
+      "links": [
+        {
+          "id": "lmv7xbcrl3p00kr",
+          "from": [
+            "nmv7xbcrl3hrfvw",
+            "x"
+          ],
+          "to": [
+            "nmv7xbcrl3i3fca",
+            "in"
+          ]
+        },
+        {
+          "id": "lmv7xbcrl3qcacm",
+          "from": [
+            "nmv7xbcrl3hrfvw",
+            "y"
+          ],
+          "to": [
+            "nmv7xbcrl3ja7jj",
+            "in"
+          ]
+        },
+        {
+          "id": "lmv7xbcrl3rotw0",
+          "from": [
+            "nmv7xbcrl3i3fca",
+            "out"
+          ],
+          "to": [
+            "nmv7xbcrl3kmi9k",
+            "x"
+          ]
+        },
+        {
+          "id": "lmv7xbcrl3scxjd",
+          "from": [
+            "nmv7xbcrl3ja7jj",
+            "out"
+          ],
+          "to": [
+            "nmv7xbcrl3kmi9k",
+            "y"
+          ]
+        },
+        {
+          "id": "lmv7xbcrl3tqg9h",
+          "from": [
+            "nmv7xbcrl3kmi9k",
+            "out"
+          ],
+          "to": [
+            "nmv7xbcrl3lgxtk",
+            "video"
+          ]
+        },
+        {
+          "id": "lmv7xbcrl3uvx5g",
+          "from": [
+            "nmv7xbcrl3lgxtk",
+            "out"
+          ],
+          "to": [
+            "nmv7xbcrl3m42wc",
+            "video"
+          ]
+        },
+        {
+          "id": "lmv7xbcrl3vs2ym",
+          "from": [
+            "nmv7xbcrl3m42wc",
+            "out"
+          ],
+          "to": [
+            "nmv7xbcrl3n8v9v",
+            "video"
+          ]
+        },
+        {
+          "id": "lmv7xbcrl3wr0g8",
+          "from": [
+            "nmv7xbcrl3n8v9v",
+            "out"
+          ],
+          "to": [
+            "nmv7xbcrl3o9ck3",
+            "video"
+          ]
+        }
+      ],
+      "comments": []
+    }
+  ],
+  "activeScene": "scenemv7xbcrl3d1le4"
+}

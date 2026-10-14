@@ -1,0 +1,560 @@
+{
+  "format": "kamicreative",
+  "version": 1,
+  "meta": {
+    "name": "Welcome",
+    "created": "2026-10-14T09:44:42.843Z",
+    "modified": "2026-10-14T09:44:42.843Z",
+    "app": "KamiCreative"
+  },
+  "settings": {
+    "oscPort": 8000,
+    "artnetHost": "255.255.255.255",
+    "snapToGrid": true,
+    "previews": true
+  },
+  "stages": [
+    {
+      "id": "stagemv7xbcrg265e3",
+      "name": "Stage 1",
+      "width": 1920,
+      "height": 1080,
+      "display": null,
+      "fullscreen": true,
+      "background": "#000000",
+      "testPattern": false,
+      "mapping": {
+        "enabled": true,
+        "surfaces": [
+          {
+            "id": "smv7xbcrg35gho",
+            "name": "Surface 1",
+            "enabled": true,
+            "opacity": 1,
+            "source": [
+              0,
+              0,
+              1,
+              1
+            ],
+            "grid": {
+              "cols": 2,
+              "rows": 2,
+              "points": [
+                [
+                  0,
+                  0
+                ],
+                [
+                  1,
+                  0
+                ],
+                [
+                  0,
+                  1
+                ],
+                [
+                  1,
+                  1
+                ]
+              ]
+            },
+            "blend": {
+              "left": 0,
+              "right": 0,
+              "top": 0,
+              "bottom": 0,
+              "gamma": 1.8,
+              "curve": 2
+            },
+            "color": {
+              "brightness": 1,
+              "contrast": 1,
+              "gamma": 1
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "media": [],
+  "scenes": [
+    {
+      "id": "scenemv7xbcrf123ji",
+      "name": "Welcome",
+      "fadeIn": 0,
+      "notes": "Press GO (Page Down) to move to the next scene.",
+      "nodes": [
+        {
+          "id": "nmv7xbcrg4q2k1",
+          "type": "util.comment",
+          "x": -420,
+          "y": 0,
+          "values": {},
+          "props": {
+            "text": "Welcome to KamiCreative.\n\n• Double-click empty space (or press Tab) to add a module.\n• Drag from an output port to an input port to connect.\n• Drag a value left/right to scrub it; click to type.\n• Select a module to see every parameter in the Inspector.\n• Space-drag or middle-drag to pan, wheel to zoom, F to frame.",
+            "color": "#f3d36b"
+          },
+          "title": "Start here"
+        },
+        {
+          "id": "nmv7xbcrg5lr9h",
+          "type": "src.noise",
+          "x": 0,
+          "y": 0,
+          "values": {
+            "scale": 2.6,
+            "speed": 0.12,
+            "warp": 1.4,
+            "a": "#0d1530",
+            "b": "#ff4f8b"
+          },
+          "props": {},
+          "preview": true
+        },
+        {
+          "id": "nmv7xbcrg62wqh",
+          "type": "fx.kaleido",
+          "x": 290,
+          "y": 20,
+          "values": {
+            "seg": 6,
+            "spin": 0.03,
+            "zoom": 120
+          },
+          "props": {},
+          "preview": true
+        },
+        {
+          "id": "nmv7xbcrg7tj5m",
+          "type": "fx.color",
+          "x": 560,
+          "y": 20,
+          "values": {
+            "sat": 130,
+            "con": 10
+          },
+          "props": {},
+          "preview": true
+        },
+        {
+          "id": "nmv7xbcrg8xiid",
+          "type": "out.projector",
+          "x": 840,
+          "y": 40,
+          "values": {
+            "layer": 0
+          },
+          "props": {},
+          "preview": true
+        },
+        {
+          "id": "nmv7xbcrg99mdp",
+          "type": "gen.wave",
+          "x": 290,
+          "y": 420,
+          "values": {
+            "freq": 0.05,
+            "min": -180,
+            "max": 180,
+            "shape": "triangle"
+          },
+          "props": {}
+        },
+        {
+          "id": "nmv7xbcrgavy1k",
+          "type": "ctl.slider",
+          "x": 0,
+          "y": 420,
+          "values": {
+            "min": 3,
+            "max": 16
+          },
+          "props": {
+            "value": 6,
+            "label": "Mirror segments"
+          },
+          "title": "Segments"
+        },
+        {
+          "id": "nmv7xbcrgb6ski",
+          "type": "src.text",
+          "x": 560,
+          "y": 420,
+          "values": {
+            "text": "KamiCreative",
+            "size": 13,
+            "weight": "600",
+            "y": 0,
+            "shadow": 30
+          },
+          "props": {},
+          "preview": true
+        },
+        {
+          "id": "nmv7xbcrgcby2v",
+          "type": "out.projector",
+          "x": 840,
+          "y": 440,
+          "values": {
+            "layer": 1,
+            "blend": "alpha"
+          },
+          "props": {},
+          "title": "Title Projector",
+          "preview": true
+        },
+        {
+          "id": "nmv7xbcrgdh9kq",
+          "type": "gen.envelope",
+          "x": 290,
+          "y": 720,
+          "values": {
+            "attack": 2,
+            "hold": 3,
+            "release": 2,
+            "low": 0,
+            "high": 100
+          },
+          "props": {},
+          "title": "Title fade"
+        },
+        {
+          "id": "nmv7xbcrgej77q",
+          "type": "scene.enter",
+          "x": 0,
+          "y": 720,
+          "values": {
+            "delay": 0.5
+          },
+          "props": {}
+        }
+      ],
+      "links": [
+        {
+          "id": "lmv7xbcrgf2cgf",
+          "from": [
+            "nmv7xbcrg5lr9h",
+            "out"
+          ],
+          "to": [
+            "nmv7xbcrg62wqh",
+            "video"
+          ]
+        },
+        {
+          "id": "lmv7xbcrggdjax",
+          "from": [
+            "nmv7xbcrg62wqh",
+            "out"
+          ],
+          "to": [
+            "nmv7xbcrg7tj5m",
+            "video"
+          ]
+        },
+        {
+          "id": "lmv7xbcrghme17",
+          "from": [
+            "nmv7xbcrg7tj5m",
+            "out"
+          ],
+          "to": [
+            "nmv7xbcrg8xiid",
+            "video"
+          ]
+        },
+        {
+          "id": "lmv7xbcrgiyuo1",
+          "from": [
+            "nmv7xbcrg99mdp",
+            "out"
+          ],
+          "to": [
+            "nmv7xbcrg7tj5m",
+            "hue"
+          ]
+        },
+        {
+          "id": "lmv7xbcrgjfswp",
+          "from": [
+            "nmv7xbcrgavy1k",
+            "out"
+          ],
+          "to": [
+            "nmv7xbcrg62wqh",
+            "seg"
+          ]
+        },
+        {
+          "id": "lmv7xbcrgkngp5",
+          "from": [
+            "nmv7xbcrgb6ski",
+            "out"
+          ],
+          "to": [
+            "nmv7xbcrgcby2v",
+            "video"
+          ]
+        },
+        {
+          "id": "lmv7xbcrgltt8q",
+          "from": [
+            "nmv7xbcrgej77q",
+            "trig"
+          ],
+          "to": [
+            "nmv7xbcrgdh9kq",
+            "trig"
+          ]
+        },
+        {
+          "id": "lmv7xbcrgmtbxy",
+          "from": [
+            "nmv7xbcrgdh9kq",
+            "out"
+          ],
+          "to": [
+            "nmv7xbcrgcby2v",
+            "opacity"
+          ]
+        }
+      ],
+      "comments": []
+    },
+    {
+      "id": "scenemv7xbcrgn1vu4",
+      "name": "Beat Shapes",
+      "fadeIn": 1.5,
+      "notes": "A tempo-driven scene. Tap the Tap Tempo trigger to sync to music.",
+      "nodes": [
+        {
+          "id": "nmv7xbcrgozgzu",
+          "type": "src.gradient",
+          "x": 0,
+          "y": 0,
+          "values": {
+            "kind": "radial",
+            "a": "#2b0f3a",
+            "b": "#06070c",
+            "scale": 140
+          },
+          "props": {},
+          "preview": true
+        },
+        {
+          "id": "nmv7xbcrgpjcmr",
+          "type": "gen.beat",
+          "x": 0,
+          "y": 360,
+          "values": {
+            "bpm": 118
+          },
+          "props": {}
+        },
+        {
+          "id": "nmv7xbcrgq44au",
+          "type": "gen.envelope",
+          "x": 280,
+          "y": 360,
+          "values": {
+            "attack": 0.02,
+            "hold": 0,
+            "release": 0.45,
+            "low": 18,
+            "high": 46,
+            "curve": "ease out"
+          },
+          "props": {},
+          "title": "Pulse"
+        },
+        {
+          "id": "nmv7xbcrgrjmlg",
+          "type": "src.shape",
+          "x": 280,
+          "y": 0,
+          "values": {
+            "kind": "star",
+            "sides": 6,
+            "inner": 50,
+            "fill": "#f2a93b",
+            "soft": 0.4
+          },
+          "props": {},
+          "preview": true
+        },
+        {
+          "id": "nmv7xbcrgs4u8n",
+          "type": "gen.wave",
+          "x": 560,
+          "y": 360,
+          "values": {
+            "shape": "sawtooth",
+            "freq": 0.1,
+            "min": 0,
+            "max": 360
+          },
+          "props": {}
+        },
+        {
+          "id": "nmv7xbcrgtry6e",
+          "type": "fx.glow",
+          "x": 560,
+          "y": 0,
+          "values": {
+            "thresh": 40,
+            "radius": 40,
+            "amt": 160
+          },
+          "props": {},
+          "preview": true
+        },
+        {
+          "id": "nmv7xbcrgu9dp3",
+          "type": "comp.blend",
+          "x": 840,
+          "y": 0,
+          "values": {
+            "mode": "screen"
+          },
+          "props": {},
+          "preview": true
+        },
+        {
+          "id": "nmv7xbcrgvo3la",
+          "type": "out.projector",
+          "x": 1120,
+          "y": 20,
+          "values": {},
+          "props": {},
+          "preview": true
+        },
+        {
+          "id": "nmv7xbcrg14t6gp",
+          "type": "ctl.button",
+          "x": 0,
+          "y": 640,
+          "values": {},
+          "props": {
+            "label": "Back to start"
+          },
+          "title": "Back"
+        },
+        {
+          "id": "nmv7xbcrg156z48",
+          "type": "scene.jump",
+          "x": 280,
+          "y": 640,
+          "values": {
+            "mode": "first",
+            "fade": 1
+          },
+          "props": {}
+        }
+      ],
+      "links": [
+        {
+          "id": "lmv7xbcrgwsa2u",
+          "from": [
+            "nmv7xbcrgpjcmr",
+            "beat"
+          ],
+          "to": [
+            "nmv7xbcrgq44au",
+            "trig"
+          ]
+        },
+        {
+          "id": "lmv7xbcrgxt7mw",
+          "from": [
+            "nmv7xbcrgq44au",
+            "out"
+          ],
+          "to": [
+            "nmv7xbcrgrjmlg",
+            "w"
+          ]
+        },
+        {
+          "id": "lmv7xbcrgyb4v6",
+          "from": [
+            "nmv7xbcrgq44au",
+            "out"
+          ],
+          "to": [
+            "nmv7xbcrgrjmlg",
+            "h"
+          ]
+        },
+        {
+          "id": "lmv7xbcrgzmilw",
+          "from": [
+            "nmv7xbcrgs4u8n",
+            "out"
+          ],
+          "to": [
+            "nmv7xbcrgrjmlg",
+            "rot"
+          ]
+        },
+        {
+          "id": "lmv7xbcrg10ica1",
+          "from": [
+            "nmv7xbcrgrjmlg",
+            "out"
+          ],
+          "to": [
+            "nmv7xbcrgtry6e",
+            "video"
+          ]
+        },
+        {
+          "id": "lmv7xbcrg11dfj2",
+          "from": [
+            "nmv7xbcrgozgzu",
+            "out"
+          ],
+          "to": [
+            "nmv7xbcrgu9dp3",
+            "a"
+          ]
+        },
+        {
+          "id": "lmv7xbcrg12zg53",
+          "from": [
+            "nmv7xbcrgtry6e",
+            "out"
+          ],
+          "to": [
+            "nmv7xbcrgu9dp3",
+            "b"
+          ]
+        },
+        {
+          "id": "lmv7xbcrg13yoax",
+          "from": [
+            "nmv7xbcrgu9dp3",
+            "out"
+          ],
+          "to": [
+            "nmv7xbcrgvo3la",
+            "video"
+          ]
+        },
+        {
+          "id": "lmv7xbcrg16vs81",
+          "from": [
+            "nmv7xbcrg14t6gp",
+            "press"
+          ],
+          "to": [
+            "nmv7xbcrg156z48",
+            "trig"
+          ]
+        }
+      ],
+      "comments": []
+    }
+  ],
+  "activeScene": "scenemv7xbcrf123ji"
+}

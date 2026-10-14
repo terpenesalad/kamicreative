@@ -1,0 +1,129 @@
+{
+  "name": "kamicreative",
+  "productName": "KamiCreative",
+  "version": "1.0.0",
+  "description": "Node-based real-time media environment for live performance, interactive installations and projection mapping.",
+  "main": "main/main.cjs",
+  "author": {
+    "name": "KamiCreative",
+    "url": "https://github.com/terpenesalad/kamicreative"
+  },
+  "homepage": "https://github.com/terpenesalad/kamicreative",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/terpenesalad/kamicreative.git"
+  },
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "build:renderer": "node scripts/build-renderer.mjs",
+    "watch": "node scripts/build-renderer.mjs --watch",
+    "start": "npm run build:renderer && electron .",
+    "test": "node --test test/*.test.mjs",
+    "examples": "node scripts/make-examples.mjs",
+    "docs": "node scripts/make-module-docs.mjs",
+    "dist:win": "npm run build:renderer && electron-builder --win nsis --x64 --publish never",
+    "dist": "npm run build:renderer && electron-builder --publish never"
+  },
+  "devDependencies": {
+    "@fontsource/ibm-plex-sans": "^5.3.0",
+    "@fontsource/ibm-plex-sans-condensed": "^5.3.0",
+    "electron": "^33.2.1",
+    "electron-builder": "^25.1.8",
+    "esbuild": "^0.24.2"
+  },
+  "build": {
+    "appId": "com.kamicreative.app",
+    "productName": "KamiCreative",
+    "copyright": "Copyright © 2026 KamiCreative contributors",
+    "directories": {
+      "output": "release",
+      "buildResources": "build"
+    },
+    "files": [
+      "main/**/*",
+      "dist/**/*",
+      "src/index.html",
+      "src/stage.html",
+      "src/styles/**/*",
+      "assets/**/*",
+      "package.json",
+      "build/icon.ico",
+      "build/icon.png"
+    ],
+    "extraResources": [
+      {
+        "from": "examples",
+        "to": "examples"
+      },
+      {
+        "from": "docs",
+        "to": "docs"
+      }
+    ],
+    "fileAssociations": [
+      {
+        "ext": "kamic",
+        "name": "KamiCreative Project",
+        "description": "KamiCreative Project",
+        "icon": "build/project.ico",
+        "role": "Editor"
+      }
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "icon": "build/icon.ico",
+      "artifactName": "KamiCreative-Setup-${version}.${ext}",
+      "legalTrademarks": "KamiCreative",
+      "publisherName": "KamiCreative"
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowElevation": true,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "KamiCreative",
+      "installerIcon": "build/icon.ico",
+      "uninstallerIcon": "build/icon.ico",
+      "installerHeaderIcon": "build/icon.ico",
+      "installerSidebar": "build/installerSidebar.bmp",
+      "uninstallerSidebar": "build/installerSidebar.bmp",
+      "license": "LICENSE",
+      "runAfterFinish": true,
+      "deleteAppDataOnUninstall": false
+    },
+    "mac": {
+      "category": "public.app-category.video",
+      "target": [
+        "dmg"
+      ]
+    },
+    "linux": {
+      "target": [
+        "AppImage"
+      ],
+      "category": "AudioVideo"
+    },
+    "publish": [
+      {
+        "provider": "github",
+        "owner": "terpenesalad",
+        "repo": "kamicreative",
+        "releaseType": "release"
+      }
+    ]
+  },
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  }
+}

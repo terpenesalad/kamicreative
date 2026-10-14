@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- A folded sheet of paper (kami) throwing a beam of light: projection. -->
+  <defs>
+    <linearGradient id="beam" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#F2A93B" stop-opacity="0.95"/>
+      <stop offset="1" stop-color="#F2A93B" stop-opacity="0.15"/>
+    </linearGradient>
+  </defs>
+  <rect x="4" y="4" width="56" height="56" rx="13" fill="#1B2029"/>
+  <path d="M15 14h22l12 12v24H15z" fill="#E9E4D8"/>
+  <path d="M37 14v12h12z" fill="#B9B2A3"/>
+  <path d="M22 24v16l9-8z" fill="#1B2029"/>
+  <path d="M31 32l18 -6v18z" fill="url(#beam)"/>
+</svg>

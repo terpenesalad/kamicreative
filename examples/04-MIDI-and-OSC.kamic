@@ -1,0 +1,449 @@
+{
+  "format": "kamicreative",
+  "version": 1,
+  "meta": {
+    "name": "MIDI and OSC",
+    "created": "2026-10-14T09:44:42.848Z",
+    "modified": "2026-10-14T09:44:42.848Z",
+    "app": "KamiCreative"
+  },
+  "settings": {
+    "oscPort": 8000,
+    "artnetHost": "255.255.255.255",
+    "snapToGrid": true,
+    "previews": true
+  },
+  "stages": [
+    {
+      "id": "stagemv7xbcrk2gnv00",
+      "name": "Stage 1",
+      "width": 1920,
+      "height": 1080,
+      "display": null,
+      "fullscreen": true,
+      "background": "#000000",
+      "testPattern": false,
+      "mapping": {
+        "enabled": true,
+        "surfaces": [
+          {
+            "id": "smv7xbcrk2h24qq",
+            "name": "Surface 1",
+            "enabled": true,
+            "opacity": 1,
+            "source": [
+              0,
+              0,
+              1,
+              1
+            ],
+            "grid": {
+              "cols": 2,
+              "rows": 2,
+              "points": [
+                [
+                  0,
+                  0
+                ],
+                [
+                  1,
+                  0
+                ],
+                [
+                  0,
+                  1
+                ],
+                [
+                  1,
+                  1
+                ]
+              ]
+            },
+            "blend": {
+              "left": 0,
+              "right": 0,
+              "top": 0,
+              "bottom": 0,
+              "gamma": 1.8,
+              "curve": 2
+            },
+            "color": {
+              "brightness": 1,
+              "contrast": 1,
+              "gamma": 1
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "media": [],
+  "scenes": [
+    {
+      "id": "scenemv7xbcrk2fd3vt",
+      "name": "Remote Control",
+      "fadeIn": 0,
+      "notes": "",
+      "nodes": [
+        {
+          "id": "nmv7xbcrk2iywg2",
+          "type": "util.comment",
+          "x": -440,
+          "y": 0,
+          "values": {},
+          "props": {
+            "text": "Control the crossfade three ways:\n\n• MIDI controller CC 1 (any channel)\n• OSC message /kami/mix with a value 0–1 (port in Preferences, default 8000)\n• The on-screen slider\n\nPress the space bar to blackout. The OSC Send module echoes the mix to 127.0.0.1:9000.",
+            "color": "#c9a2ff"
+          },
+          "title": "MIDI & OSC"
+        },
+        {
+          "id": "nmv7xbcrk2j7kve",
+          "type": "src.gradient",
+          "x": 0,
+          "y": 0,
+          "values": {
+            "kind": "angular",
+            "a": "#1b2a6b",
+            "b": "#56e0c4",
+            "speed": 0.05
+          },
+          "props": {},
+          "title": "Look A",
+          "preview": true
+        },
+        {
+          "id": "nmv7xbcrk2kvlin",
+          "type": "src.pattern",
+          "x": 0,
+          "y": 380,
+          "values": {
+            "kind": "checker",
+            "count": 12,
+            "a": "#111",
+            "b": "#f2a93b",
+            "angle": 15
+          },
+          "props": {},
+          "title": "Look B",
+          "preview": true
+        },
+        {
+          "id": "nmv7xbcrk2l7yra",
+          "type": "comp.mixer",
+          "x": 300,
+          "y": 120,
+          "values": {
+            "mode": "iris",
+            "soft": 12
+          },
+          "props": {},
+          "preview": true
+        },
+        {
+          "id": "nmv7xbcrk2mv4qr",
+          "type": "out.projector",
+          "x": 580,
+          "y": 140,
+          "values": {},
+          "props": {},
+          "preview": true
+        },
+        {
+          "id": "nmv7xbcrk2n3as8",
+          "type": "io.midicc",
+          "x": 0,
+          "y": 760,
+          "values": {
+            "chan": 0,
+            "cc": 1
+          },
+          "props": {}
+        },
+        {
+          "id": "nmv7xbcrk2oxnp6",
+          "type": "io.oscin",
+          "x": 0,
+          "y": 1000,
+          "values": {
+            "addr": "/kami/mix"
+          },
+          "props": {}
+        },
+        {
+          "id": "nmv7xbcrk2pr52l",
+          "type": "math.scale",
+          "x": 280,
+          "y": 1000,
+          "values": {
+            "inMin": 0,
+            "inMax": 1,
+            "outMin": 0,
+            "outMax": 100
+          },
+          "props": {},
+          "title": "OSC 0–1 → %"
+        },
+        {
+          "id": "nmv7xbcrk2q6wja",
+          "type": "ctl.slider",
+          "x": 280,
+          "y": 760,
+          "values": {
+            "min": 0,
+            "max": 100
+          },
+          "props": {
+            "value": 50,
+            "label": "Crossfade"
+          },
+          "title": "Crossfade"
+        },
+        {
+          "id": "nmv7xbcrk2rjqaz",
+          "type": "logic.switch",
+          "x": 560,
+          "y": 760,
+          "values": {
+            "sel": 3
+          },
+          "props": {
+            "count": 3
+          },
+          "title": "Last touched"
+        },
+        {
+          "id": "nmv7xbcrk2sygxq",
+          "type": "logic.change",
+          "x": 280,
+          "y": 1260,
+          "values": {},
+          "props": {},
+          "title": "Slider moved"
+        },
+        {
+          "id": "nmv7xbcrk2t0ksr",
+          "type": "util.trigmerge",
+          "x": 560,
+          "y": 1060,
+          "values": {},
+          "props": {},
+          "title": "Which source"
+        },
+        {
+          "id": "nmv7xbcrk2uimu1",
+          "type": "io.key",
+          "x": 840,
+          "y": 760,
+          "values": {
+            "key": "space"
+          },
+          "props": {}
+        },
+        {
+          "id": "nmv7xbcrk2vgo2y",
+          "type": "logic.toggle",
+          "x": 1100,
+          "y": 760,
+          "values": {
+            "init": 1
+          },
+          "props": {},
+          "title": "Blackout toggle"
+        },
+        {
+          "id": "nmv7xbcrk2wuk74",
+          "type": "io.oscout",
+          "x": 840,
+          "y": 1000,
+          "values": {
+            "host": "127.0.0.1",
+            "port": 9000,
+            "addr": "/kami/mix/echo"
+          },
+          "props": {}
+        }
+      ],
+      "links": [
+        {
+          "id": "lmv7xbcrk2x6h0o",
+          "from": [
+            "nmv7xbcrk2j7kve",
+            "out"
+          ],
+          "to": [
+            "nmv7xbcrk2l7yra",
+            "a"
+          ]
+        },
+        {
+          "id": "lmv7xbcrk2yr5p1",
+          "from": [
+            "nmv7xbcrk2kvlin",
+            "out"
+          ],
+          "to": [
+            "nmv7xbcrk2l7yra",
+            "b"
+          ]
+        },
+        {
+          "id": "lmv7xbcrk2zrf2v",
+          "from": [
+            "nmv7xbcrk2l7yra",
+            "out"
+          ],
+          "to": [
+            "nmv7xbcrk2mv4qr",
+            "video"
+          ]
+        },
+        {
+          "id": "lmv7xbcrk30drfm",
+          "from": [
+            "nmv7xbcrk2n3as8",
+            "pct"
+          ],
+          "to": [
+            "nmv7xbcrk2rjqaz",
+            "i1"
+          ]
+        },
+        {
+          "id": "lmv7xbcrk31d3nj",
+          "from": [
+            "nmv7xbcrk2oxnp6",
+            "a1"
+          ],
+          "to": [
+            "nmv7xbcrk2pr52l",
+            "in"
+          ]
+        },
+        {
+          "id": "lmv7xbcrk32h35l",
+          "from": [
+            "nmv7xbcrk2pr52l",
+            "out"
+          ],
+          "to": [
+            "nmv7xbcrk2rjqaz",
+            "i2"
+          ]
+        },
+        {
+          "id": "lmv7xbcrk330hjf",
+          "from": [
+            "nmv7xbcrk2q6wja",
+            "out"
+          ],
+          "to": [
+            "nmv7xbcrk2rjqaz",
+            "i3"
+          ]
+        },
+        {
+          "id": "lmv7xbcrk34cssv",
+          "from": [
+            "nmv7xbcrk2n3as8",
+            "raw"
+          ],
+          "to": [
+            "nmv7xbcrk2t0ksr",
+            "t1"
+          ]
+        },
+        {
+          "id": "lmv7xbcrk35wp5m",
+          "from": [
+            "nmv7xbcrk2oxnp6",
+            "recv"
+          ],
+          "to": [
+            "nmv7xbcrk2t0ksr",
+            "t2"
+          ]
+        },
+        {
+          "id": "lmv7xbcrk36b2ys",
+          "from": [
+            "nmv7xbcrk2q6wja",
+            "out"
+          ],
+          "to": [
+            "nmv7xbcrk2sygxq",
+            "in"
+          ]
+        },
+        {
+          "id": "lmv7xbcrk37j7kz",
+          "from": [
+            "nmv7xbcrk2sygxq",
+            "changed"
+          ],
+          "to": [
+            "nmv7xbcrk2t0ksr",
+            "t3"
+          ]
+        },
+        {
+          "id": "lmv7xbcrk38nr12",
+          "from": [
+            "nmv7xbcrk2t0ksr",
+            "which"
+          ],
+          "to": [
+            "nmv7xbcrk2rjqaz",
+            "sel"
+          ]
+        },
+        {
+          "id": "lmv7xbcrk397vg1",
+          "from": [
+            "nmv7xbcrk2rjqaz",
+            "out"
+          ],
+          "to": [
+            "nmv7xbcrk2l7yra",
+            "mix"
+          ]
+        },
+        {
+          "id": "lmv7xbcrk3a2nsb",
+          "from": [
+            "nmv7xbcrk2rjqaz",
+            "out"
+          ],
+          "to": [
+            "nmv7xbcrk2wuk74",
+            "a1"
+          ]
+        },
+        {
+          "id": "lmv7xbcrk3b0tu3",
+          "from": [
+            "nmv7xbcrk2uimu1",
+            "press"
+          ],
+          "to": [
+            "nmv7xbcrk2vgo2y",
+            "trig"
+          ]
+        },
+        {
+          "id": "lmv7xbcrk3cx68k",
+          "from": [
+            "nmv7xbcrk2vgo2y",
+            "out"
+          ],
+          "to": [
+            "nmv7xbcrk2mv4qr",
+            "active"
+          ]
+        }
+      ],
+      "comments": []
+    }
+  ],
+  "activeScene": "scenemv7xbcrk2fd3vt"
+}
