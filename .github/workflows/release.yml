@@ -1,7 +1,8 @@
 name: Release
 
 # Run from the Actions tab: Release → Run workflow → enter the tag (e.g. v1.0.0).
-# Builds the Windows installer on a Windows runner and publishes it as a GitHub release.
+# Builds the Windows installer on a Windows runner and publishes it as a GitHub release,
+# creating the tag on the current commit of the selected branch if it does not exist yet.
 on:
   workflow_dispatch:
     inputs:
@@ -18,8 +19,6 @@ jobs:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v4
-        with:
-          ref: ${{ inputs.tag }}
       - uses: actions/setup-node@v4
         with:
           node-version: 22
@@ -31,6 +30,7 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ inputs.tag }}
+          target_commitish: ${{ github.sha }}
           name: KamiCreative ${{ inputs.tag }}
           body_path: .github/release-notes/${{ inputs.tag }}.md
           make_latest: true
