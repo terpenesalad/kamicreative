@@ -1,7 +1,7 @@
 {
   "name": "kamicreative",
   "productName": "KamiCreative",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Node-based real-time media environment for live performance, interactive installations and projection mapping.",
   "main": "main/main.cjs",
   "author": {

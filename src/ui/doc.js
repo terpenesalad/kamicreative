@@ -55,6 +55,7 @@ export class Doc extends Emitter {
    * Consecutive edits with the same `coalesce` key within 1.5 s merge into one step.
    */
   edit(label, fn, { scope = 'scene', coalesce = null, quiet = false } = {}) {
+    if (this._group) return fn(); // inside group(): one snapshot covers everything
     const top = this.undoStack[this.undoStack.length - 1];
     const now = performance.now();
     const merge = coalesce && top && top.coalesce === coalesce && now - top.time < 1500;
@@ -71,6 +72,15 @@ export class Doc extends Emitter {
     this.markDirty();
     if (!quiet) this.emit('change', { label, scope });
     return result;
+  }
+
+  /** Run several edits as a single undo step. */
+  group(label, fn, { scope = 'scene' } = {}) {
+    if (this._group) return fn();
+    return this.edit(label, () => {
+      this._group = true;
+      try { return fn(); } finally { this._group = false; }
+    }, { scope });
   }
 
   _projectData() {
@@ -248,7 +258,7 @@ export class Doc extends Emitter {
     return cloneJSON({ kind: 'kamicreative/modules', nodes, links });
   }
 
-  paste(clip, at) {
+  paste(clip, at, label) {
     if (!clip || clip.kind !== 'kamicreative/modules' || !clip.nodes?.length) return;
     const minX = Math.min(...clip.nodes.map((n) => n.x)), minY = Math.min(...clip.nodes.map((n) => n.y));
     const ox = at ? at[0] - minX : 30, oy = at ? at[1] - minY : 30;
@@ -260,7 +270,7 @@ export class Doc extends Emitter {
     });
     const links = clip.links.filter((l) => idMap.has(l.from[0]) && idMap.has(l.to[0]))
       .map((l) => ({ id: uid('l'), from: [idMap.get(l.from[0]), l.from[1]], to: [idMap.get(l.to[0]), l.to[1]] }));
-    this.edit(`Paste ${nodes.length} module${nodes.length > 1 ? 's' : ''}`, () => {
+    this.edit(label || `Paste ${nodes.length} module${nodes.length > 1 ? 's' : ''}`, () => {
       const sc = this.scene;
       sc.nodes.push(...nodes);
       sc.links.push(...links);
@@ -268,6 +278,7 @@ export class Doc extends Emitter {
     });
     this.selection = new Set(nodes.map((n) => n.id));
     this.emit('selection');
+    return { nodes, idMap };
   }
 
   // ------------------------------------------------------------------ scenes

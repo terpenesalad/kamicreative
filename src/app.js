@@ -19,6 +19,10 @@ import { StageStrip, openMapper, openStageSettings } from './ui/stages.js';
 import { LivePanel } from './ui/live.js';
 import { modal, confirmDialog, promptDialog, alertDialog, toast, showMenu } from './ui/dialogs.js';
 import { h, icon, setText } from './ui/dom.js';
+import { Tutorial } from './ui/tutorial.js';
+import { openWelcome } from './ui/welcome.js';
+import { RECIPES, insertRecipe } from './ui/recipes.js';
+import { installHelpBar } from './ui/helpbar.js';
 
 const APP_NAME = 'KamiCreative';
 
@@ -85,13 +89,10 @@ class App extends Emitter {
         bridge.clearRecovery();
       }
     }
-    if (!loaded && !this.prefs.welcomeShown) {
-      const ex = (await bridge.listExamples()).find((e) => /welcome/i.test(e.name));
-      if (ex) loaded = await this.openPath(ex.path, { silent: true, asTemplate: true });
-      this.prefs.welcomeShown = true;
-      bridge.setPrefs(this.prefs);
-    }
+    const firstRun = !this.prefs.welcomeShown;
+    if (firstRun) { this.prefs.welcomeShown = true; bridge.setPrefs(this.prefs); }
     if (!loaded) this.doc.load(createProject());
+    if (!pending && (firstRun || this.prefs.showWelcome !== false)) openWelcome(this);
     await this.host.osc.listen(this.doc.project.settings.oscPort);
 
     this._loop = this._loop.bind(this);
@@ -154,8 +155,25 @@ class App extends Emitter {
       h('span.tb-sep'),
       h('button.btn.small', { title: 'Show all stage windows (Ctrl+Shift+F)', onclick: () => this.command('showStages') }, icon('monitor', 14), 'Show stages'),
       h('button.icon-btn', { title: 'Preferences', onclick: () => this.command('prefs') }, icon('gear', 15)),
+      h('button.btn.small.help-btn', { title: 'Tutorial, recipes and help', onclick: (e) => this.showHelpMenu(e.currentTarget) }, icon('info', 14), 'Help'),
     );
     this.setMode('patch');
+  }
+
+  showHelpMenu(anchor) {
+    const r = (anchor || document.querySelector('.help-btn'))?.getBoundingClientRect() || { right: innerWidth - 10, bottom: 46 };
+    showMenu(r.right - 260, r.bottom + 4, [
+      { label: 'Interactive tutorial', action: () => this.command('tutorial') },
+      { label: 'Welcome screen', action: () => this.command('welcome') },
+      '-',
+      { header: 'Add a ready-made recipe' },
+      ...RECIPES.map((rc) => ({ label: rc.name, action: () => this.addRecipe(rc.id) })),
+      '-',
+      { label: 'What every module does', action: () => this.command('moduleRef') },
+      { label: 'Keyboard shortcuts', shortcut: 'F1', action: () => this.command('shortcuts') },
+      { label: 'User guide (online)', action: () => this.command('docs') },
+      { label: 'Graphics self-test', action: () => this.command('selfTest') },
+    ], { minWidth: 260 });
   }
 
   setMode(mode) {
@@ -176,7 +194,9 @@ class App extends Emitter {
       artnet: h('span.st-item', { title: 'Art-Net output' }),
       msg: h('span.st-msg'),
     };
-    sb.append(this.st.fps, this.st.draws, h('span.st-gap'), this.st.msg, h('span.st-gap'), this.st.midi, this.st.osc, this.st.artnet);
+    this.st.help = h('span.st-help');
+    sb.append(this.st.help, h('span.st-gap'), this.st.msg, this.st.fps, this.st.draws, this.st.midi, this.st.osc, this.st.artnet);
+    installHelpBar(this, this.st.help);
     this.doc.on('history', (label) => { setText(this.st.msg, label); });
   }
 
@@ -305,6 +325,11 @@ class App extends Emitter {
       case 'about': return this.showAbout();
       case 'moduleRef': return this.showModuleReference();
       case 'selfTest': return this.showSelfTest();
+      case 'tutorial': return this.startTutorial();
+      case 'welcome': return openWelcome(this);
+      case 'recipe': return this.addRecipe(arg);
+      case 'addProjector': return this.addProjectorFor();
+      case 'helpMenu': return this.showHelpMenu();
       case 'docs': this.host.bridge.openExternal('https://github.com/terpenesalad/kamicreative#readme'); break;
       case 'website': this.host.bridge.openExternal('https://github.com/terpenesalad/kamicreative'); break;
       case 'issues': this.host.bridge.openExternal('https://github.com/terpenesalad/kamicreative/issues'); break;
@@ -325,10 +350,85 @@ class App extends Emitter {
   }
 
   async newProject() {
-    if (!(await this.confirmDiscard())) return;
+    if (!(await this.confirmDiscard())) return false;
     this.stageWindows.closeAll();
     this.doc.load(createProject());
     this.host.bridge.clearRecovery();
+    this.setMode('patch');
+    return true;
+  }
+
+  // ------------------------------------------------------------- learning
+
+  async startTutorial() {
+    if (!(await this.newProject())) return;
+    this.tutorial?.stop();
+    this.tutorial = new Tutorial(this);
+    this.tutorial.start();
+  }
+
+  addRecipe(id, at) { return insertRecipe(this, id, at); }
+
+  /**
+   * Add a module the friendly way: if one video module is selected and the new
+   * module takes video, place it right after the selection and wire it in
+   * (re-routing whatever the selection used to feed).
+   */
+  addModuleSmart(type, at) {
+    const doc = this.doc;
+    const def = getNodeType(type);
+    if (!def) return null;
+    const sel = [...doc.selection].map((id) => doc.node(id)).filter(Boolean);
+    const src = sel.length === 1 ? sel[0] : null;
+    const sdef = src && getNodeType(src.type);
+    const sOut = sdef && portsOf(sdef, src).outputs.find((p) => p.type === 'video');
+    const ports = portsOf(def, { props: def.props || {} });
+    const nIn = ports.inputs.find((p) => p.type === 'video');
+    const nOut = ports.outputs.find((p) => p.type === 'video');
+    if (!src || !sOut || !nIn) {
+      const [x, y] = at || this.patch.centerWorld();
+      return this.patch._addAt(type, at ? x : x - 110, at ? y : y - 60);
+    }
+    const w = (this.patch.views.get(src.id)?.el.offsetWidth || 230) + 70;
+    const down = doc.scene.links.filter((l) => l.from[0] === src.id && l.from[1] === sOut.id);
+    let m;
+    doc.group(`Add ${def.name}`, () => {
+      if (nOut && down.length) {
+        // Make room: push everything downstream of the selection to the right.
+        const seen = new Set();
+        const stack = down.map((l) => l.to[0]);
+        while (stack.length) {
+          const id = stack.pop();
+          if (seen.has(id) || id === src.id) continue;
+          seen.add(id);
+          for (const l of doc.scene.links) if (l.from[0] === id) stack.push(l.to[0]);
+        }
+        doc.moveNodes([...seen].map((id) => { const n = doc.node(id); return [id, n.x + w, n.y]; }));
+      }
+      m = doc.addNode(type, src.x + w, src.y);
+      doc.connect([src.id, sOut.id], [m.id, nIn.id]);
+      if (nOut) for (const l of down) doc.connect([m.id, nOut.id], l.to);
+    });
+    this.patch.select([m.id]);
+    this.patch.ensureVisible([src.id, m.id, ...down.map((l) => l.to[0])]);
+    const sname = src.title || sdef.name;
+    toast(nOut && down.length ? `Inserted ${def.name} after ${sname} and re-wired the chain. Ctrl+Z undoes it.` : `Added ${def.name} after ${sname} and connected it. Ctrl+Z undoes it.`);
+    return m;
+  }
+
+  /** Add a Projector for the selected (or most recent unconnected) video module. */
+  addProjectorFor() {
+    const doc = this.doc;
+    const sc = doc.scene;
+    const isVideo = (n) => { const d = getNodeType(n.type); return d && !d.projector && portsOf(d, n).outputs.some((p) => p.type === 'video'); };
+    const feedsSomething = (n) => sc.links.some((l) => l.from[0] === n.id && getNodeType(n.type) && portsOf(getNodeType(n.type), n).outputs.find((p) => p.id === l.from[1])?.type === 'video');
+    let src = [...doc.selection].map((id) => doc.node(id)).find((n) => n && isVideo(n));
+    if (!src) src = [...sc.nodes].reverse().find((n) => isVideo(n) && !feedsSomething(n)) || [...sc.nodes].reverse().find(isVideo);
+    if (!src) return this.addModuleAtCenter('out.projector');
+    doc.selection = new Set([src.id]);
+    const m = this.addModuleSmart('out.projector');
+    requestAnimationFrame(() => this.patch.frameAll());
+    return m;
   }
 
   async openProject() {
@@ -461,9 +561,10 @@ class App extends Emitter {
   quickAdd(sx, sy, world, wire) { openQuickAdd(this, sx, sy, world, wire); }
 
   addModuleAtCenter(type) {
+    if (this.doc.selection.size === 1) return this.addModuleSmart(type);
     const [x, y] = this.patch.centerWorld();
     const jitter = (this.doc.scene.nodes.length % 6) * 16;
-    this.patch._addAt(type, x - 110 + jitter, y - 60 + jitter);
+    return this.patch._addAt(type, x - 110 + jitter, y - 60 + jitter);
   }
 
   async renameNode(id) {

@@ -105,7 +105,8 @@ export function openQuickAdd(app, sx, sy, world, wire) {
     let [x, y] = world;
     if (wire?.from) y -= 20;
     if (wire?.to) x -= 240;
-    const m = app.patch._addAt(d.type, x, y);
+    const m = wire ? app.patch._addAt(d.type, x, y) : app.addModuleSmart(d.type, [x, y]);
+    if (!wire) return;
     if (wire?.from) {
       const p = portsOf(d, m).inputs.find((q) => compatible(wire.from.type, q.type) && (wire.from.type !== 'trigger' || q.type === 'trigger')) || portsOf(d, m).inputs.find((q) => compatible(wire.from.type, q.type));
       if (p) app.doc.connect([wire.from.node, wire.from.port], [m.id, p.id]);

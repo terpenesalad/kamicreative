@@ -4,6 +4,7 @@ import { h, svg, icon, clear } from './dom.js';
 import { modal, showMenu, confirmDialog } from './dialogs.js';
 import { surfaceOutline, resampleGrid, defaultGrid } from '../gl/warp.js';
 import { cloneJSON, uid } from '../core/project.js';
+import { getNodeType, portsOf } from '../core/registry.js';
 
 const SIDEBAR_W = 300;
 const PRESETS = [[1920, 1080], [1280, 720], [3840, 2160], [2560, 1440], [1920, 1200], [1024, 768], [1400, 1050], [1080, 1920], [2048, 2048], [5760, 1080]];
@@ -20,7 +21,31 @@ export class StageStrip {
     this.doc.on('change', (e) => { if (e?.scope === 'project') this.render(); });
     this.doc.on('stage', () => this.paintButtons());
     app.on('stages', () => this.paintButtons());
+    this.doc.on('change', () => this.updateHint());
+    app.engine.on('scene', () => this.updateHint());
     this.render();
+  }
+
+  /** Explain, in plain words, why nothing reaches the stage — with a one-click fix. */
+  updateHint() {
+    this.hint?.remove();
+    this.hint = null;
+    const sc = this.doc.scene;
+    if (!sc || !this.list) return;
+    const defs = sc.nodes.map((n) => [n, getNodeType(n.type)]).filter(([, d]) => d);
+    const projectors = defs.filter(([, d]) => d.projector).map(([n]) => n);
+    const video = defs.filter(([n, d]) => !d.projector && portsOf(d, n).outputs.some((p) => p.type === 'video'));
+    let msg = null, btn = null;
+    if (video.length && !projectors.length) {
+      msg = 'Nothing reaches the stage yet. Pictures only appear once they go into a Projector.';
+      btn = h('button.btn.small.primary', { onclick: () => this.app.command('addProjector') }, icon('plus', 12), 'Add a Projector');
+    } else if (projectors.length && !projectors.some((p) => sc.links.some((l) => l.to[0] === p.id && l.to[1] === 'video'))) {
+      msg = 'The Projector has nothing plugged into its Video In.';
+      btn = h('button.btn.small', { onclick: () => { this.app.patch.select([projectors[0].id]); this.app.patch.frameAll(true); } }, 'Show me');
+    }
+    if (!msg) return;
+    this.hint = h('div.stage-hint', null, icon('warn', 16), h('p', null, msg), btn);
+    this.list.appendChild(this.hint);
   }
 
   render() {
@@ -56,6 +81,7 @@ export class StageStrip {
     });
     this.list.appendChild(h('button.stage-add', { title: 'Add stage', onclick: () => this.doc.addStage() }, icon('plus', 16), h('span', null, 'Stage')));
     this.paintButtons();
+    this.updateHint();
   }
 
   stage(id) { return this.doc.project.stages.find((s) => s.id === id); }

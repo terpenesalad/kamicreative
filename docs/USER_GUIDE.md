@@ -2,6 +2,7 @@
 
 This guide walks through how KamiCreative is organised and how to build and run a show with it. For the details of every module, see the [module reference](MODULES.md).
 
+- [Learning KamiCreative](#learning-kamicreative)
 - [The window](#the-window)
 - [Patching](#patching)
 - [Values, triggers and video](#values-triggers-and-video)
@@ -15,6 +16,17 @@ This guide walks through how KamiCreative is organised and how to build and run 
 - [Projects and safety](#projects-and-safety)
 - [Keyboard shortcuts](#keyboard-shortcuts)
 - [Troubleshooting](#troubleshooting)
+
+## Learning KamiCreative
+
+New to KamiCreative? These are built in:
+
+- **Interactive tutorial** (Help → Interactive tutorial, or the Welcome screen). It highlights where to click, explains each part in plain words, and waits while you try each step: adding modules, wiring them, changing values, scenes, the Live view and stage outputs. About five minutes. Skip any step, or leave with Esc.
+- **Welcome screen** at startup with the tutorial, recipes, examples and recent projects. Turn it off with the checkbox at the bottom, and reopen it from Help → Welcome screen.
+- **Recipes**: ready-made, already-connected setups such as *Play a video*, *Webcam with effects*, *Generative visuals*, *Text title*, *Music-reactive shape*, *Fade between two looks* and *Button that flashes*. Add one from the Help button in the toolbar, the Welcome screen, or the "Use a recipe" button in an empty scene. Ctrl+Z removes it again.
+- **Hover help**: point at anything — a port, a value, a module, a scene — and the bar at the bottom of the window says what it is and how to use it.
+- **Smart adding**: with one video module selected, adding a video effect (Tab, or double-clicking it in the Modules list) places it right after the selection and wires it in, re-routing whatever came next. Ctrl+Z undoes it in one step.
+- **Stage hints**: if your scene makes a picture that is not reaching the stage, a note appears next to the stage monitor explaining why, with a button that fixes it.
 
 ## The window
 
@@ -32,7 +44,7 @@ Switch between **Patch** and **Live** at the top of the window (Ctrl+L).
 
 ## Patching
 
-- **Add a module:** double-click empty space or press Tab, type a few letters, press Enter. You can also drag from the Modules panel.
+- **Add a module:** double-click empty space or press Tab, type a few letters, press Enter. You can also drag from the Modules panel. If one video module is selected, a new video module is added after it and connected automatically.
 - **Connect:** drag from an output port (right edge of a module) to an input port (left edge). Ports that can accept the connection light up as you drag.
 - **Connect to something new:** drop a wire on empty space and the quick-add list opens, filtered to modules that accept it. The new module is connected automatically.
 - **Re-route:** drag from a connected input to pick the wire up again.

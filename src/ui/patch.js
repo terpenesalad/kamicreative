@@ -27,9 +27,14 @@ export class PatchEditor {
     this.nodeLayer = h('div.nodes');
     this.world.append(this.wires, this.nodeLayer);
     this.marquee = h('div.marquee');
+    const emptyBtn = (label, ic, fn, primary) => h('button.btn', { class: primary ? 'primary' : '', onclick: fn }, icon(ic, 14), label);
     this.empty = h('div.patch-empty', null,
-      h('p.lead', null, 'This scene is empty.'),
-      h('p', null, 'Double-click anywhere, or drag a module from the library, to start patching.'));
+      h('p.lead', null, 'This scene is empty'),
+      h('p', null, 'Double-click anywhere (or press Tab) to add a module, or pick a starting point:'),
+      h('div.empty-actions', null,
+        emptyBtn('Take the tutorial', 'play', () => app.command('tutorial'), true),
+        emptyBtn('Use a recipe', 'layers', (e) => app.showHelpMenu(e.currentTarget)),
+        emptyBtn('Add a module', 'plus', () => app.command('addModule'))));
     this.zoomLabel = h('button.zoom-label', { title: 'Reset zoom (Ctrl+0)', onclick: () => this.setZoom(1) }, '100%');
     this.viewport.append(this.world, this.marquee, this.empty, this.zoomLabel);
     root.appendChild(this.viewport);
@@ -88,6 +93,34 @@ export class PatchEditor {
     const z = Math.min(1.25, Math.max(0.2, Math.min((r.width - pad * 2) / (x1 - x0), (r.height - pad * 2) / (y1 - y0))));
     this.view = { z, x: (r.width - (x1 - x0) * z) / 2 - x0 * z, y: (r.height - (y1 - y0) * z) / 2 - y0 * z };
     this.applyView();
+  }
+
+  /** Pan just enough that the given modules are on screen (zoom out if they cannot fit). */
+  ensureVisible(ids) {
+    requestAnimationFrame(() => {
+      const vp = this.viewport.getBoundingClientRect();
+      let x0 = Infinity, y0 = Infinity, x1 = -Infinity, y1 = -Infinity;
+      for (const id of ids) {
+        const r = this.views.get(id)?.el.getBoundingClientRect();
+        if (!r) continue;
+        x0 = Math.min(x0, r.left); y0 = Math.min(y0, r.top); x1 = Math.max(x1, r.right); y1 = Math.max(y1, r.bottom);
+      }
+      if (!Number.isFinite(x0)) return;
+      const m = 40;
+      if (x1 - x0 > vp.width - 2 * m || y1 - y0 > vp.height - 2 * m) {
+        const keep = this.doc.selection;
+        this.doc.selection = new Set(ids);
+        this.frameAll(true);
+        this.doc.selection = keep;
+        return;
+      }
+      let dx = 0, dy = 0;
+      if (x1 > vp.right - m) dx = vp.right - m - x1;
+      if (x0 + dx < vp.left + m) dx = vp.left + m - x0;
+      if (y1 > vp.bottom - m) dy = vp.bottom - m - y1;
+      if (y0 + dy < vp.top + m) dy = vp.top + m - y0;
+      if (dx || dy) { this.view.x += dx; this.view.y += dy; this.applyView(); }
+    });
   }
 
   centerWorld() {
@@ -643,6 +676,7 @@ export class PatchEditor {
     const snap = this.doc.project.settings.snapToGrid;
     const m = this.doc.addNode(type, snap ? Math.round(x / GRID) * GRID : x, snap ? Math.round(y / GRID) * GRID : y);
     this.select([m.id]);
+    this.ensureVisible([m.id]);
     return m;
   }
 

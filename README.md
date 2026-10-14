@@ -17,6 +17,7 @@ You build a show by wiring **modules** together: movie players, cameras, generat
 
 ## Highlights
 
+- **Easy to learn.** A five-minute interactive tutorial, a welcome screen, one-click recipes, hover help for everything on screen, and modules that wire themselves in when you add them after a selected one.
 - **106 modules** across video sources, 27 GPU effects, compositing, generators, maths, logic, control surfaces, MIDI, OSC, Art-Net DMX, audio analysis and scene control.
 - **Everything is live.** Values scrub with the mouse, wires connect instantly, and every video module shows its own preview while the show runs.
 - **Scenes as cues.** Cross-fade between scenes, auto-follow with Scene Start + Jump to Scene, and run the show from a dedicated Live view with a big GO button, cue list, notes and operator controls.
@@ -26,13 +27,17 @@ You build a show by wiring **modules** together: movie players, cameras, generat
 - **Write your own shaders** with the GLSL module, with compile errors shown on the module.
 - **Built for the booth:** full undo/redo, crash recovery, atomic saves with a backup, relative media paths so projects travel, and a graphics self-test.
 
+| Welcome screen and recipes | Interactive tutorial |
+|---|---|
+| ![Welcome screen](docs/images/welcome.png) | ![Tutorial step](docs/images/tutorial.png) |
+
 | Projection mapping | Live view |
 |---|---|
 | ![Projection mapper](docs/images/mapping.png) | ![Live operator view](docs/images/live.png) |
 
 ## Install
 
-Download **KamiCreative-Setup-1.0.0.exe** from the [latest release](https://github.com/terpenesalad/kamicreative/releases/latest) and run it. The installer lets you choose the install folder, adds Start-menu and desktop shortcuts, and registers `.kamic` project files.
+Download **KamiCreative-Setup-1.1.0.exe** from the [latest release](https://github.com/terpenesalad/kamicreative/releases/latest) and run it. The installer lets you choose the install folder, adds Start-menu and desktop shortcuts, and registers `.kamic` project files.
 
 Windows may show a SmartScreen prompt because the installer is not code-signed yet. Choose **More info → Run anyway**.
 
@@ -40,11 +45,12 @@ Requirements: Windows 10 or 11 (64-bit) and a GPU with WebGL 2 support (any grap
 
 ## Quick start
 
-1. Open **File → Open Example → Welcome**.
-2. Double-click the patch (or press **Tab**) to add a module. Type to search, press Enter.
-3. Drag from an output port (right side) to an input port (left side) to connect.
-4. Send video to a **Projector**, then click the eye icon on the stage strip to open the output window. Double-click that window to go full screen.
-5. Add scenes on the left. Press **Page Down** or the **GO** button to move through them.
+1. On the Welcome screen, click **Take the 5-minute tutorial** (or Help → Interactive tutorial later). It walks you through everything below.
+2. Or pick a **recipe** for a ready-made starting point.
+3. Double-click the patch (or press **Tab**) to add a module. Type to search, press Enter.
+4. Drag from an output port (right side) to an input port (left side) to connect.
+5. Send video to a **Projector**, then click the eye icon on the stage strip to open the output window. Double-click that window to go full screen.
+6. Add scenes on the left. Press **Page Down** or the **GO** button to move through them.
 
 The [user guide](docs/USER_GUIDE.md) covers patching, scenes, stages, mapping and show control in detail.
 

@@ -24,7 +24,7 @@ export class Inspector {
   render() {
     clear(this.body);
     this.liveEls.clear();
-    const sel = [...this.doc.selection];
+    const sel = [...this.doc.selection].filter((id) => this.doc.node(id));
     if (this.previewType) return this._typeInfo(getNodeType(this.previewType));
     if (sel.length === 1) return this._node(this.doc.node(sel[0]));
     if (sel.length > 1) return this._multi(sel);

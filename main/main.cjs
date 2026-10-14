@@ -214,6 +214,9 @@ function buildMenu() {
     {
       label: '&Help',
       submenu: [
+        item('Interactive Tutorial', 'tutorial'),
+        item('Welcome Screen', 'welcome'),
+        { type: 'separator' },
         item('Keyboard Shortcuts', 'shortcuts', 'F1'),
         item('Module Reference', 'moduleRef'),
         item('Graphics Self-Test', 'selfTest'),
