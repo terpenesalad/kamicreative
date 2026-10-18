@@ -11,6 +11,7 @@ function clip() {
     const def = getNodeType(type);
     const m = { id: `r${n++}`, type, x, y, values, props: { ...(def.props ? JSON.parse(JSON.stringify(def.props)) : {}), ...(extra.props || {}) } };
     if (extra.title) m.title = extra.title;
+    if (extra.react) m.react = extra.react;
     if (def.preview) m.preview = true;
     nodes.push(m);
     return m;
@@ -20,6 +21,47 @@ function clip() {
 }
 
 export const RECIPES = [
+  {
+    id: 'visualizer', name: 'Music visualizer', icon: 'sound', sound: true,
+    description: 'A glowing, spinning spectrum that dances to whatever you are listening to.',
+    build() {
+      const c = clip();
+      const vis = c.add('src.visualizer', 0, 0, { style: 'circle', count: 64, spin: 0.03, scale: 110 });
+      const fb = c.add('fx.feedback', 290, 0, { decay: 82, zoom: 101.5, rot: 0.4, mode: 'lighten' }, { react: { zoom: { band: 'bass', min: 100.5, max: 104, smooth: 30 } } });
+      const glow = c.add('fx.glow', 560, 0, { thresh: 35, radius: 30, amt: 140 });
+      const pj = c.add('out.projector', 830, 0);
+      c.link(vis, 'out', fb, 'video');
+      c.link(fb, 'out', glow, 'video');
+      c.link(glow, 'out', pj, 'video');
+      return c.done();
+    },
+  },
+  {
+    id: 'organ', name: 'Colour organ (photism)', icon: 'layers', sound: true,
+    description: 'See the music as colour: low notes glow red, high notes violet, each light following its own band.',
+    build() {
+      const c = clip();
+      const org = c.add('src.colororgan', 0, 0, { layout: 'lights', bands: 7, bright: 140 });
+      const fb = c.add('fx.feedback', 290, 0, { decay: 88, zoom: 100.6, rot: 0.15, mode: 'lighten' });
+      const pj = c.add('out.projector', 560, 0);
+      c.link(org, 'out', fb, 'video');
+      c.link(fb, 'out', pj, 'video');
+      return c.done();
+    },
+  },
+  {
+    id: 'dance', name: 'Make a video dance', icon: 'film', media: 'video', sound: true,
+    description: 'Your video zooms with the bass and flashes and shifts colour on every beat.',
+    build(mediaId) {
+      const c = clip();
+      const mv = c.add('src.movie', 0, 0, { media: mediaId || '', vol: 0 });
+      const pulse = c.add('fx.soundpulse', 290, 0, { zoom: 15, flash: 25, split: 35, hue: 1 });
+      const pj = c.add('out.projector', 560, 0);
+      c.link(mv, 'out', pulse, 'video');
+      c.link(pulse, 'out', pj, 'video');
+      return c.done();
+    },
+  },
   {
     id: 'movie', name: 'Play a video', icon: 'film', media: 'video',
     description: 'A movie player sent straight to the stage. You choose the video file.',
@@ -44,11 +86,11 @@ export const RECIPES = [
   },
   {
     id: 'generative', name: 'Generative visuals', icon: 'layers',
-    description: 'Flowing noise through a kaleidoscope with slowly shifting colour. No files needed.',
+    description: 'Flowing noise through a kaleidoscope with slowly shifting colour. The zoom pulses with the bass.',
     build() {
       const c = clip();
       const noise = c.add('src.noise', 0, 0, { scale: 2.6, speed: 0.12, warp: 1.4, a: '#0d1530', b: '#ff4f8b' });
-      const kal = c.add('fx.kaleido', 290, 0, { seg: 6, spin: 0.03 });
+      const kal = c.add('fx.kaleido', 290, 0, { seg: 6, spin: 0.03 }, { react: { zoom: { band: 'bass', min: 100, max: 170, smooth: 35 } } });
       const col = c.add('fx.color', 560, 0, { sat: 130 });
       const pj = c.add('out.projector', 830, 0);
       const wave = c.add('gen.wave', 290, 380, { freq: 0.05, min: -180, max: 180 }, { title: 'Colour cycle' });
@@ -86,20 +128,13 @@ export const RECIPES = [
     },
   },
   {
-    id: 'music', name: 'Music-reactive shape', icon: 'sound',
-    description: 'A glowing ring that pulses with sound from your microphone.',
+    id: 'music', name: 'Pulsing ring', icon: 'sound', sound: true,
+    description: 'A glowing ring that grows with the bass and brightens with the volume.',
     build() {
       const c = clip();
-      const an = c.add('audio.analyzer', 0, 300, { gain: 2 });
-      const sm = c.add('math.smooth', 280, 300, { amount: 70 });
-      const sc = c.add('math.scale', 540, 300, { inMin: 0, inMax: 100, outMin: 20, outMax: 90 }, { title: 'Loudness → size' });
-      const ring = c.add('src.shape', 0, 0, { kind: 'ring', fill: '#5cc8ff' });
-      const glow = c.add('fx.glow', 290, 0, { thresh: 30, radius: 40 });
+      const ring = c.add('src.shape', 0, 0, { kind: 'ring', fill: '#5cc8ff' }, { react: { w: { band: 'bass', min: 20, max: 90, smooth: 30 }, h: { band: 'bass', min: 20, max: 90, smooth: 30 } } });
+      const glow = c.add('fx.glow', 290, 0, { thresh: 30, radius: 40 }, { react: { amt: { band: 'level', min: 60, max: 320, smooth: 40 } } });
       const pj = c.add('out.projector', 560, 0);
-      c.link(an, 'low', sm, 'in');
-      c.link(sm, 'out', sc, 'in');
-      c.link(sc, 'out', ring, 'w');
-      c.link(sc, 'out', ring, 'h');
       c.link(ring, 'out', glow, 'video');
       c.link(glow, 'out', pj, 'video');
       return c.done();
@@ -159,6 +194,7 @@ export async function insertRecipe(app, id, at) {
   if (app.mode !== 'patch') app.setMode('patch');
   const pos = at || (() => { const [x, y] = app.patch.centerWorld(); return [x - 300, y - 150]; })();
   const res = app.doc.paste(r.build(mediaId), pos, `Add recipe: ${r.name}`);
+  if (r.sound) app.sound?.ensureListening();
   requestAnimationFrame(() => app.patch.frameAll(true));
   toast(`Added "${r.name}". Ctrl+Z removes it again.`);
   return res;

@@ -3,19 +3,28 @@
   "version": 1,
   "meta": {
     "name": "Welcome",
-    "created": "2026-10-14T09:44:42.843Z",
-    "modified": "2026-10-14T09:44:42.843Z",
+    "created": "2026-10-18T12:12:11.710Z",
+    "modified": "2026-10-18T12:12:11.710Z",
     "app": "KamiCreative"
   },
   "settings": {
     "oscPort": 8000,
     "artnetHost": "255.255.255.255",
     "snapToGrid": true,
-    "previews": true
+    "previews": true,
+    "sound": {
+      "source": "mic",
+      "deviceId": "",
+      "gain": 100,
+      "sensitivity": 50,
+      "smoothing": 40,
+      "autoLevel": true,
+      "autoAdvance": 0
+    }
   },
   "stages": [
     {
-      "id": "stagemv7xbcrg265e3",
+      "id": "stagemvdscf9a2rihi",
       "name": "Stage 1",
       "width": 1920,
       "height": 1080,
@@ -27,7 +36,7 @@
         "enabled": true,
         "surfaces": [
           {
-            "id": "smv7xbcrg35gho",
+            "id": "smvdscf9a3q64s",
             "name": "Surface 1",
             "enabled": true,
             "opacity": 1,
@@ -80,13 +89,13 @@
   "media": [],
   "scenes": [
     {
-      "id": "scenemv7xbcrf123ji",
+      "id": "scenemvdscf9a1ihcn",
       "name": "Welcome",
       "fadeIn": 0,
       "notes": "Press GO (Page Down) to move to the next scene.",
       "nodes": [
         {
-          "id": "nmv7xbcrg4q2k1",
+          "id": "nmvdscf9a4rt2k",
           "type": "util.comment",
           "x": -420,
           "y": 0,
@@ -98,7 +107,7 @@
           "title": "Start here"
         },
         {
-          "id": "nmv7xbcrg5lr9h",
+          "id": "nmvdscf9a5uwoh",
           "type": "src.noise",
           "x": 0,
           "y": 0,
@@ -113,7 +122,7 @@
           "preview": true
         },
         {
-          "id": "nmv7xbcrg62wqh",
+          "id": "nmvdscf9a6c89i",
           "type": "fx.kaleido",
           "x": 290,
           "y": 20,
@@ -126,7 +135,7 @@
           "preview": true
         },
         {
-          "id": "nmv7xbcrg7tj5m",
+          "id": "nmvdscf9a76flm",
           "type": "fx.color",
           "x": 560,
           "y": 20,
@@ -138,7 +147,7 @@
           "preview": true
         },
         {
-          "id": "nmv7xbcrg8xiid",
+          "id": "nmvdscf9a8jidq",
           "type": "out.projector",
           "x": 840,
           "y": 40,
@@ -149,7 +158,7 @@
           "preview": true
         },
         {
-          "id": "nmv7xbcrg99mdp",
+          "id": "nmvdscf9a9yfsw",
           "type": "gen.wave",
           "x": 290,
           "y": 420,
@@ -162,7 +171,7 @@
           "props": {}
         },
         {
-          "id": "nmv7xbcrgavy1k",
+          "id": "nmvdscf9ba4dcq",
           "type": "ctl.slider",
           "x": 0,
           "y": 420,
@@ -177,7 +186,7 @@
           "title": "Segments"
         },
         {
-          "id": "nmv7xbcrgb6ski",
+          "id": "nmvdscf9bbgbs6",
           "type": "src.text",
           "x": 560,
           "y": 420,
@@ -192,7 +201,7 @@
           "preview": true
         },
         {
-          "id": "nmv7xbcrgcby2v",
+          "id": "nmvdscf9bcedsr",
           "type": "out.projector",
           "x": 840,
           "y": 440,
@@ -205,7 +214,7 @@
           "preview": true
         },
         {
-          "id": "nmv7xbcrgdh9kq",
+          "id": "nmvdscf9bdvul1",
           "type": "gen.envelope",
           "x": 290,
           "y": 720,
@@ -220,7 +229,7 @@
           "title": "Title fade"
         },
         {
-          "id": "nmv7xbcrgej77q",
+          "id": "nmvdscf9beh5zv",
           "type": "scene.enter",
           "x": 0,
           "y": 720,
@@ -232,90 +241,90 @@
       ],
       "links": [
         {
-          "id": "lmv7xbcrgf2cgf",
+          "id": "lmvdscf9bfezgx",
           "from": [
-            "nmv7xbcrg5lr9h",
+            "nmvdscf9a5uwoh",
             "out"
           ],
           "to": [
-            "nmv7xbcrg62wqh",
+            "nmvdscf9a6c89i",
             "video"
           ]
         },
         {
-          "id": "lmv7xbcrggdjax",
+          "id": "lmvdscf9bg9ryk",
           "from": [
-            "nmv7xbcrg62wqh",
+            "nmvdscf9a6c89i",
             "out"
           ],
           "to": [
-            "nmv7xbcrg7tj5m",
+            "nmvdscf9a76flm",
             "video"
           ]
         },
         {
-          "id": "lmv7xbcrghme17",
+          "id": "lmvdscf9bhml7z",
           "from": [
-            "nmv7xbcrg7tj5m",
+            "nmvdscf9a76flm",
             "out"
           ],
           "to": [
-            "nmv7xbcrg8xiid",
+            "nmvdscf9a8jidq",
             "video"
           ]
         },
         {
-          "id": "lmv7xbcrgiyuo1",
+          "id": "lmvdscf9bicz22",
           "from": [
-            "nmv7xbcrg99mdp",
+            "nmvdscf9a9yfsw",
             "out"
           ],
           "to": [
-            "nmv7xbcrg7tj5m",
+            "nmvdscf9a76flm",
             "hue"
           ]
         },
         {
-          "id": "lmv7xbcrgjfswp",
+          "id": "lmvdscf9bjx4zd",
           "from": [
-            "nmv7xbcrgavy1k",
+            "nmvdscf9ba4dcq",
             "out"
           ],
           "to": [
-            "nmv7xbcrg62wqh",
+            "nmvdscf9a6c89i",
             "seg"
           ]
         },
         {
-          "id": "lmv7xbcrgkngp5",
+          "id": "lmvdscf9bko3xz",
           "from": [
-            "nmv7xbcrgb6ski",
+            "nmvdscf9bbgbs6",
             "out"
           ],
           "to": [
-            "nmv7xbcrgcby2v",
+            "nmvdscf9bcedsr",
             "video"
           ]
         },
         {
-          "id": "lmv7xbcrgltt8q",
+          "id": "lmvdscf9bladik",
           "from": [
-            "nmv7xbcrgej77q",
+            "nmvdscf9beh5zv",
             "trig"
           ],
           "to": [
-            "nmv7xbcrgdh9kq",
+            "nmvdscf9bdvul1",
             "trig"
           ]
         },
         {
-          "id": "lmv7xbcrgmtbxy",
+          "id": "lmvdscf9bmxxpg",
           "from": [
-            "nmv7xbcrgdh9kq",
+            "nmvdscf9bdvul1",
             "out"
           ],
           "to": [
-            "nmv7xbcrgcby2v",
+            "nmvdscf9bcedsr",
             "opacity"
           ]
         }
@@ -323,13 +332,13 @@
       "comments": []
     },
     {
-      "id": "scenemv7xbcrgn1vu4",
+      "id": "scenemvdscf9bnitc5",
       "name": "Beat Shapes",
       "fadeIn": 1.5,
       "notes": "A tempo-driven scene. Tap the Tap Tempo trigger to sync to music.",
       "nodes": [
         {
-          "id": "nmv7xbcrgozgzu",
+          "id": "nmvdscf9bo3yvn",
           "type": "src.gradient",
           "x": 0,
           "y": 0,
@@ -343,7 +352,7 @@
           "preview": true
         },
         {
-          "id": "nmv7xbcrgpjcmr",
+          "id": "nmvdscf9bpmq8b",
           "type": "gen.beat",
           "x": 0,
           "y": 360,
@@ -353,7 +362,7 @@
           "props": {}
         },
         {
-          "id": "nmv7xbcrgq44au",
+          "id": "nmvdscf9bqzh9b",
           "type": "gen.envelope",
           "x": 280,
           "y": 360,
@@ -369,7 +378,7 @@
           "title": "Pulse"
         },
         {
-          "id": "nmv7xbcrgrjmlg",
+          "id": "nmvdscf9brqv65",
           "type": "src.shape",
           "x": 280,
           "y": 0,
@@ -384,7 +393,7 @@
           "preview": true
         },
         {
-          "id": "nmv7xbcrgs4u8n",
+          "id": "nmvdscf9bs5ol4",
           "type": "gen.wave",
           "x": 560,
           "y": 360,
@@ -397,7 +406,7 @@
           "props": {}
         },
         {
-          "id": "nmv7xbcrgtry6e",
+          "id": "nmvdscf9btk07h",
           "type": "fx.glow",
           "x": 560,
           "y": 0,
@@ -410,7 +419,7 @@
           "preview": true
         },
         {
-          "id": "nmv7xbcrgu9dp3",
+          "id": "nmvdscf9buu266",
           "type": "comp.blend",
           "x": 840,
           "y": 0,
@@ -421,7 +430,7 @@
           "preview": true
         },
         {
-          "id": "nmv7xbcrgvo3la",
+          "id": "nmvdscf9bveojb",
           "type": "out.projector",
           "x": 1120,
           "y": 20,
@@ -430,7 +439,7 @@
           "preview": true
         },
         {
-          "id": "nmv7xbcrg14t6gp",
+          "id": "nmvdscf9b14box1",
           "type": "ctl.button",
           "x": 0,
           "y": 640,
@@ -441,7 +450,7 @@
           "title": "Back"
         },
         {
-          "id": "nmv7xbcrg156z48",
+          "id": "nmvdscf9b15vfyt",
           "type": "scene.jump",
           "x": 280,
           "y": 640,
@@ -454,101 +463,101 @@
       ],
       "links": [
         {
-          "id": "lmv7xbcrgwsa2u",
+          "id": "lmvdscf9bwhq0b",
           "from": [
-            "nmv7xbcrgpjcmr",
+            "nmvdscf9bpmq8b",
             "beat"
           ],
           "to": [
-            "nmv7xbcrgq44au",
+            "nmvdscf9bqzh9b",
             "trig"
           ]
         },
         {
-          "id": "lmv7xbcrgxt7mw",
+          "id": "lmvdscf9bxt8zu",
           "from": [
-            "nmv7xbcrgq44au",
+            "nmvdscf9bqzh9b",
             "out"
           ],
           "to": [
-            "nmv7xbcrgrjmlg",
+            "nmvdscf9brqv65",
             "w"
           ]
         },
         {
-          "id": "lmv7xbcrgyb4v6",
+          "id": "lmvdscf9byjn90",
           "from": [
-            "nmv7xbcrgq44au",
+            "nmvdscf9bqzh9b",
             "out"
           ],
           "to": [
-            "nmv7xbcrgrjmlg",
+            "nmvdscf9brqv65",
             "h"
           ]
         },
         {
-          "id": "lmv7xbcrgzmilw",
+          "id": "lmvdscf9bzk433",
           "from": [
-            "nmv7xbcrgs4u8n",
+            "nmvdscf9bs5ol4",
             "out"
           ],
           "to": [
-            "nmv7xbcrgrjmlg",
+            "nmvdscf9brqv65",
             "rot"
           ]
         },
         {
-          "id": "lmv7xbcrg10ica1",
+          "id": "lmvdscf9b10bbiu",
           "from": [
-            "nmv7xbcrgrjmlg",
+            "nmvdscf9brqv65",
             "out"
           ],
           "to": [
-            "nmv7xbcrgtry6e",
+            "nmvdscf9btk07h",
             "video"
           ]
         },
         {
-          "id": "lmv7xbcrg11dfj2",
+          "id": "lmvdscf9b110x0m",
           "from": [
-            "nmv7xbcrgozgzu",
+            "nmvdscf9bo3yvn",
             "out"
           ],
           "to": [
-            "nmv7xbcrgu9dp3",
+            "nmvdscf9buu266",
             "a"
           ]
         },
         {
-          "id": "lmv7xbcrg12zg53",
+          "id": "lmvdscf9b12ocym",
           "from": [
-            "nmv7xbcrgtry6e",
+            "nmvdscf9btk07h",
             "out"
           ],
           "to": [
-            "nmv7xbcrgu9dp3",
+            "nmvdscf9buu266",
             "b"
           ]
         },
         {
-          "id": "lmv7xbcrg13yoax",
+          "id": "lmvdscf9b13jzua",
           "from": [
-            "nmv7xbcrgu9dp3",
+            "nmvdscf9buu266",
             "out"
           ],
           "to": [
-            "nmv7xbcrgvo3la",
+            "nmvdscf9bveojb",
             "video"
           ]
         },
         {
-          "id": "lmv7xbcrg16vs81",
+          "id": "lmvdscf9b16myii",
           "from": [
-            "nmv7xbcrg14t6gp",
+            "nmvdscf9b14box1",
             "press"
           ],
           "to": [
-            "nmv7xbcrg156z48",
+            "nmvdscf9b15vfyt",
             "trig"
           ]
         }
@@ -556,5 +565,5 @@
       "comments": []
     }
   ],
-  "activeScene": "scenemv7xbcrf123ji"
+  "activeScene": "scenemvdscf9a1ihcn"
 }

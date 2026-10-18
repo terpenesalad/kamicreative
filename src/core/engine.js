@@ -15,6 +15,7 @@
 
 import { Emitter } from './emitter.js';
 import { getNodeType, portsOf, convertValue, compatible } from './registry.js';
+import { reactValue } from '../audio/analysis.js';
 
 const MAX_DEPTH = 96;
 
@@ -503,6 +504,9 @@ export class Engine extends Emitter {
     }
     this._reapFaded();
 
+    // Sound reactions ("React to sound" on inputs), and start listening when needed.
+    this._applyReact();
+
     // Ticks.
     for (const rt of this.runtimes) {
       for (const node of rt.nodes.values()) {
@@ -527,6 +531,44 @@ export class Engine extends Emitter {
     }
     for (const list of layers.values()) list.sort((a, b) => a.layer - b.layer);
     return layers;
+  }
+
+  /** Does any active module use sound? (React bindings or sound modules.) */
+  usesSound() {
+    for (const rt of this.runtimes) for (const n of rt.nodes.values()) {
+      if (n.def.usesSound || (n.model.react && Object.keys(n.model.react).length)) return true;
+    }
+    return false;
+  }
+
+  _applyReact() {
+    const sound = this.host.sound;
+    if (!sound) return;
+    if (!sound.wanted && this.frame % 30 === 1 && this.usesSound()) sound.need();
+    const v = sound.values;
+    for (const rt of this.runtimes) {
+      for (const node of rt.nodes.values()) {
+        const react = node.model.react;
+        if (!react || node.bypass) continue;
+        const st = node.state._react || (node.state._react = {});
+        for (const portId in react) {
+          const b = react[portId];
+          const port = node.inputPort(portId);
+          if (!b || !port) continue;
+          const s = st[portId] || (st[portId] = {});
+          if (port.type === 'trigger') {
+            if (v.beat && (v.beatCount % Math.max(1, b.every || 1) === 0)) this._invoke(node, portId);
+            continue;
+          }
+          let val = reactValue(b, v, s, this.dt);
+          if (port.type === 'bool') val = val >= ((+b.min || 0) + (b.max ?? 100)) / 2 ? 1 : 0;
+          val = convertValue(val, port);
+          if (val === node.inputs[portId]) continue;
+          node.inputs[portId] = val;
+          this._invoke(node, portId);
+        }
+      }
+    }
   }
 
   /** Run fn at the start of the next frame (safe point for structural changes). */

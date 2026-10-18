@@ -1,6 +1,7 @@
 // KamiCreative — project document model (plain JSON, versioned).
 
 import { defaultGrid } from '../gl/warp.js';
+import { defaultSoundSettings } from '../audio/analysis.js';
 
 export const FORMAT = 'kamicreative';
 export const FORMAT_VERSION = 1;
@@ -48,7 +49,7 @@ export function createProject() {
     format: FORMAT,
     version: FORMAT_VERSION,
     meta: { name: 'Untitled', created: new Date().toISOString(), modified: new Date().toISOString(), app: 'KamiCreative' },
-    settings: { oscPort: 8000, artnetHost: '255.255.255.255', snapToGrid: true, previews: true },
+    settings: { oscPort: 8000, artnetHost: '255.255.255.255', snapToGrid: true, previews: true, sound: defaultSoundSettings() },
     stages: [createStage(0)],
     media: [],
     scenes: [scene],
@@ -63,6 +64,7 @@ export function normaliseProject(p) {
   if (p.version > FORMAT_VERSION) throw new Error(`Project was saved by a newer version of KamiCreative (format ${p.version}).`);
   const def = createProject();
   const out = { ...def, ...p, meta: { ...def.meta, ...(p.meta || {}) }, settings: { ...def.settings, ...(p.settings || {}) } };
+  out.settings.sound = { ...defaultSoundSettings(), ...(p.settings?.sound || {}) };
   out.stages = (p.stages && p.stages.length ? p.stages : def.stages).map((s, i) => {
     const base = createStage(i);
     const st = { ...base, ...s };

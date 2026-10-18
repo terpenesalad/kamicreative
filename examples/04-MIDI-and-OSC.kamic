@@ -3,19 +3,28 @@
   "version": 1,
   "meta": {
     "name": "MIDI and OSC",
-    "created": "2026-10-14T09:44:42.848Z",
-    "modified": "2026-10-14T09:44:42.848Z",
+    "created": "2026-10-18T12:12:11.715Z",
+    "modified": "2026-10-18T12:12:11.715Z",
     "app": "KamiCreative"
   },
   "settings": {
     "oscPort": 8000,
     "artnetHost": "255.255.255.255",
     "snapToGrid": true,
-    "previews": true
+    "previews": true,
+    "sound": {
+      "source": "mic",
+      "deviceId": "",
+      "gain": 100,
+      "sensitivity": 50,
+      "smoothing": 40,
+      "autoLevel": true,
+      "autoAdvance": 0
+    }
   },
   "stages": [
     {
-      "id": "stagemv7xbcrk2gnv00",
+      "id": "stagemvdscf9f26qof9",
       "name": "Stage 1",
       "width": 1920,
       "height": 1080,
@@ -27,7 +36,7 @@
         "enabled": true,
         "surfaces": [
           {
-            "id": "smv7xbcrk2h24qq",
+            "id": "smvdscf9f27zrvj",
             "name": "Surface 1",
             "enabled": true,
             "opacity": 1,
@@ -80,13 +89,13 @@
   "media": [],
   "scenes": [
     {
-      "id": "scenemv7xbcrk2fd3vt",
+      "id": "scenemvdscf9f25uwv2",
       "name": "Remote Control",
       "fadeIn": 0,
       "notes": "",
       "nodes": [
         {
-          "id": "nmv7xbcrk2iywg2",
+          "id": "nmvdscf9f28xi2y",
           "type": "util.comment",
           "x": -440,
           "y": 0,
@@ -98,7 +107,7 @@
           "title": "MIDI & OSC"
         },
         {
-          "id": "nmv7xbcrk2j7kve",
+          "id": "nmvdscf9f2959ko",
           "type": "src.gradient",
           "x": 0,
           "y": 0,
@@ -113,7 +122,7 @@
           "preview": true
         },
         {
-          "id": "nmv7xbcrk2kvlin",
+          "id": "nmvdscf9f2akn9b",
           "type": "src.pattern",
           "x": 0,
           "y": 380,
@@ -129,7 +138,7 @@
           "preview": true
         },
         {
-          "id": "nmv7xbcrk2l7yra",
+          "id": "nmvdscf9f2b8voh",
           "type": "comp.mixer",
           "x": 300,
           "y": 120,
@@ -141,7 +150,7 @@
           "preview": true
         },
         {
-          "id": "nmv7xbcrk2mv4qr",
+          "id": "nmvdscf9f2cx86a",
           "type": "out.projector",
           "x": 580,
           "y": 140,
@@ -150,7 +159,7 @@
           "preview": true
         },
         {
-          "id": "nmv7xbcrk2n3as8",
+          "id": "nmvdscf9f2dg9vr",
           "type": "io.midicc",
           "x": 0,
           "y": 760,
@@ -161,7 +170,7 @@
           "props": {}
         },
         {
-          "id": "nmv7xbcrk2oxnp6",
+          "id": "nmvdscf9f2e2qjq",
           "type": "io.oscin",
           "x": 0,
           "y": 1000,
@@ -171,7 +180,7 @@
           "props": {}
         },
         {
-          "id": "nmv7xbcrk2pr52l",
+          "id": "nmvdscf9f2f1juy",
           "type": "math.scale",
           "x": 280,
           "y": 1000,
@@ -185,7 +194,7 @@
           "title": "OSC 0–1 → %"
         },
         {
-          "id": "nmv7xbcrk2q6wja",
+          "id": "nmvdscf9f2g2csa",
           "type": "ctl.slider",
           "x": 280,
           "y": 760,
@@ -200,7 +209,7 @@
           "title": "Crossfade"
         },
         {
-          "id": "nmv7xbcrk2rjqaz",
+          "id": "nmvdscf9f2h1dm0",
           "type": "logic.switch",
           "x": 560,
           "y": 760,
@@ -213,7 +222,7 @@
           "title": "Last touched"
         },
         {
-          "id": "nmv7xbcrk2sygxq",
+          "id": "nmvdscf9f2i6obn",
           "type": "logic.change",
           "x": 280,
           "y": 1260,
@@ -222,7 +231,7 @@
           "title": "Slider moved"
         },
         {
-          "id": "nmv7xbcrk2t0ksr",
+          "id": "nmvdscf9f2jrnau",
           "type": "util.trigmerge",
           "x": 560,
           "y": 1060,
@@ -231,7 +240,7 @@
           "title": "Which source"
         },
         {
-          "id": "nmv7xbcrk2uimu1",
+          "id": "nmvdscf9f2kgyoj",
           "type": "io.key",
           "x": 840,
           "y": 760,
@@ -241,7 +250,7 @@
           "props": {}
         },
         {
-          "id": "nmv7xbcrk2vgo2y",
+          "id": "nmvdscf9f2l5dco",
           "type": "logic.toggle",
           "x": 1100,
           "y": 760,
@@ -252,7 +261,7 @@
           "title": "Blackout toggle"
         },
         {
-          "id": "nmv7xbcrk2wuk74",
+          "id": "nmvdscf9f2mfr9e",
           "type": "io.oscout",
           "x": 840,
           "y": 1000,
@@ -266,178 +275,178 @@
       ],
       "links": [
         {
-          "id": "lmv7xbcrk2x6h0o",
+          "id": "lmvdscf9f2n1a4d",
           "from": [
-            "nmv7xbcrk2j7kve",
+            "nmvdscf9f2959ko",
             "out"
           ],
           "to": [
-            "nmv7xbcrk2l7yra",
+            "nmvdscf9f2b8voh",
             "a"
           ]
         },
         {
-          "id": "lmv7xbcrk2yr5p1",
+          "id": "lmvdscf9f2oz00h",
           "from": [
-            "nmv7xbcrk2kvlin",
+            "nmvdscf9f2akn9b",
             "out"
           ],
           "to": [
-            "nmv7xbcrk2l7yra",
+            "nmvdscf9f2b8voh",
             "b"
           ]
         },
         {
-          "id": "lmv7xbcrk2zrf2v",
+          "id": "lmvdscf9f2ppaj3",
           "from": [
-            "nmv7xbcrk2l7yra",
+            "nmvdscf9f2b8voh",
             "out"
           ],
           "to": [
-            "nmv7xbcrk2mv4qr",
+            "nmvdscf9f2cx86a",
             "video"
           ]
         },
         {
-          "id": "lmv7xbcrk30drfm",
+          "id": "lmvdscf9f2q4vat",
           "from": [
-            "nmv7xbcrk2n3as8",
+            "nmvdscf9f2dg9vr",
             "pct"
           ],
           "to": [
-            "nmv7xbcrk2rjqaz",
+            "nmvdscf9f2h1dm0",
             "i1"
           ]
         },
         {
-          "id": "lmv7xbcrk31d3nj",
+          "id": "lmvdscf9f2rfbtj",
           "from": [
-            "nmv7xbcrk2oxnp6",
+            "nmvdscf9f2e2qjq",
             "a1"
           ],
           "to": [
-            "nmv7xbcrk2pr52l",
+            "nmvdscf9f2f1juy",
             "in"
           ]
         },
         {
-          "id": "lmv7xbcrk32h35l",
+          "id": "lmvdscf9f2svw7e",
           "from": [
-            "nmv7xbcrk2pr52l",
+            "nmvdscf9f2f1juy",
             "out"
           ],
           "to": [
-            "nmv7xbcrk2rjqaz",
+            "nmvdscf9f2h1dm0",
             "i2"
           ]
         },
         {
-          "id": "lmv7xbcrk330hjf",
+          "id": "lmvdscf9f2tmlua",
           "from": [
-            "nmv7xbcrk2q6wja",
+            "nmvdscf9f2g2csa",
             "out"
           ],
           "to": [
-            "nmv7xbcrk2rjqaz",
+            "nmvdscf9f2h1dm0",
             "i3"
           ]
         },
         {
-          "id": "lmv7xbcrk34cssv",
+          "id": "lmvdscf9f2u0j36",
           "from": [
-            "nmv7xbcrk2n3as8",
+            "nmvdscf9f2dg9vr",
             "raw"
           ],
           "to": [
-            "nmv7xbcrk2t0ksr",
+            "nmvdscf9f2jrnau",
             "t1"
           ]
         },
         {
-          "id": "lmv7xbcrk35wp5m",
+          "id": "lmvdscf9f2v3t8m",
           "from": [
-            "nmv7xbcrk2oxnp6",
+            "nmvdscf9f2e2qjq",
             "recv"
           ],
           "to": [
-            "nmv7xbcrk2t0ksr",
+            "nmvdscf9f2jrnau",
             "t2"
           ]
         },
         {
-          "id": "lmv7xbcrk36b2ys",
+          "id": "lmvdscf9f2w5fh1",
           "from": [
-            "nmv7xbcrk2q6wja",
+            "nmvdscf9f2g2csa",
             "out"
           ],
           "to": [
-            "nmv7xbcrk2sygxq",
+            "nmvdscf9f2i6obn",
             "in"
           ]
         },
         {
-          "id": "lmv7xbcrk37j7kz",
+          "id": "lmvdscf9f2xwypn",
           "from": [
-            "nmv7xbcrk2sygxq",
+            "nmvdscf9f2i6obn",
             "changed"
           ],
           "to": [
-            "nmv7xbcrk2t0ksr",
+            "nmvdscf9f2jrnau",
             "t3"
           ]
         },
         {
-          "id": "lmv7xbcrk38nr12",
+          "id": "lmvdscf9f2yc1uj",
           "from": [
-            "nmv7xbcrk2t0ksr",
+            "nmvdscf9f2jrnau",
             "which"
           ],
           "to": [
-            "nmv7xbcrk2rjqaz",
+            "nmvdscf9f2h1dm0",
             "sel"
           ]
         },
         {
-          "id": "lmv7xbcrk397vg1",
+          "id": "lmvdscf9f2zsxkp",
           "from": [
-            "nmv7xbcrk2rjqaz",
+            "nmvdscf9f2h1dm0",
             "out"
           ],
           "to": [
-            "nmv7xbcrk2l7yra",
+            "nmvdscf9f2b8voh",
             "mix"
           ]
         },
         {
-          "id": "lmv7xbcrk3a2nsb",
+          "id": "lmvdscf9f30vfa1",
           "from": [
-            "nmv7xbcrk2rjqaz",
+            "nmvdscf9f2h1dm0",
             "out"
           ],
           "to": [
-            "nmv7xbcrk2wuk74",
+            "nmvdscf9f2mfr9e",
             "a1"
           ]
         },
         {
-          "id": "lmv7xbcrk3b0tu3",
+          "id": "lmvdscf9f31k0ss",
           "from": [
-            "nmv7xbcrk2uimu1",
+            "nmvdscf9f2kgyoj",
             "press"
           ],
           "to": [
-            "nmv7xbcrk2vgo2y",
+            "nmvdscf9f2l5dco",
             "trig"
           ]
         },
         {
-          "id": "lmv7xbcrk3cx68k",
+          "id": "lmvdscf9f32og5h",
           "from": [
-            "nmv7xbcrk2vgo2y",
+            "nmvdscf9f2l5dco",
             "out"
           ],
           "to": [
-            "nmv7xbcrk2mv4qr",
+            "nmvdscf9f2cx86a",
             "active"
           ]
         }
@@ -445,5 +454,5 @@
       "comments": []
     }
   ],
-  "activeScene": "scenemv7xbcrk2fd3vt"
+  "activeScene": "scenemvdscf9f25uwv2"
 }

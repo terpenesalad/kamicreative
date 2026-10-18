@@ -3,19 +3,28 @@
   "version": 1,
   "meta": {
     "name": "Show Cues",
-    "created": "2026-10-14T09:44:42.850Z",
-    "modified": "2026-10-14T09:44:42.850Z",
+    "created": "2026-10-18T12:12:11.716Z",
+    "modified": "2026-10-18T12:12:11.716Z",
     "app": "KamiCreative"
   },
   "settings": {
     "oscPort": 8000,
     "artnetHost": "255.255.255.255",
     "snapToGrid": true,
-    "previews": true
+    "previews": true,
+    "sound": {
+      "source": "mic",
+      "deviceId": "",
+      "gain": 100,
+      "sensitivity": 50,
+      "smoothing": 40,
+      "autoLevel": true,
+      "autoAdvance": 0
+    }
   },
   "stages": [
     {
-      "id": "stagemv7xbcrm3ygt7o",
+      "id": "stagemvdscf9g3ovuxy",
       "name": "Stage 1",
       "width": 1920,
       "height": 1080,
@@ -27,7 +36,7 @@
         "enabled": true,
         "surfaces": [
           {
-            "id": "smv7xbcrm3zyio0",
+            "id": "smvdscf9g3pvuv6",
             "name": "Surface 1",
             "enabled": true,
             "opacity": 1,
@@ -80,13 +89,13 @@
   "media": [],
   "scenes": [
     {
-      "id": "scenemv7xbcrm40fbd1",
+      "id": "scenemvdscf9g3qdy1h",
       "name": "Preset",
       "fadeIn": 0,
       "notes": "House open. Holding on a slow texture.",
       "nodes": [
         {
-          "id": "nmv7xbcrm41d679",
+          "id": "nmvdscf9g3rfgfv",
           "type": "src.noise",
           "x": 0,
           "y": 0,
@@ -100,7 +109,7 @@
           "preview": true
         },
         {
-          "id": "nmv7xbcrm425emk",
+          "id": "nmvdscf9g3suhf3",
           "type": "src.text",
           "x": 0,
           "y": 380,
@@ -115,7 +124,7 @@
           "preview": true
         },
         {
-          "id": "nmv7xbcrm430eey",
+          "id": "nmvdscf9g3tj52x",
           "type": "out.projector",
           "x": 300,
           "y": 20,
@@ -124,7 +133,7 @@
           "preview": true
         },
         {
-          "id": "nmv7xbcrm448bdq",
+          "id": "nmvdscf9g3ublw3",
           "type": "out.projector",
           "x": 300,
           "y": 400,
@@ -138,24 +147,24 @@
       ],
       "links": [
         {
-          "id": "lmv7xbcrm45mt38",
+          "id": "lmvdscf9g3vtel0",
           "from": [
-            "nmv7xbcrm41d679",
+            "nmvdscf9g3rfgfv",
             "out"
           ],
           "to": [
-            "nmv7xbcrm430eey",
+            "nmvdscf9g3tj52x",
             "video"
           ]
         },
         {
-          "id": "lmv7xbcrn4681b5",
+          "id": "lmvdscf9g3w4mba",
           "from": [
-            "nmv7xbcrm425emk",
+            "nmvdscf9g3suhf3",
             "out"
           ],
           "to": [
-            "nmv7xbcrm448bdq",
+            "nmvdscf9g3ublw3",
             "video"
           ]
         }
@@ -163,13 +172,13 @@
       "comments": []
     },
     {
-      "id": "scenemv7xbcrn47ionb",
+      "id": "scenemvdscf9g3xvro4",
       "name": "Act One",
       "fadeIn": 2,
       "notes": "Cue on the first line of dialogue.",
       "nodes": [
         {
-          "id": "nmv7xbcrn48zcg8",
+          "id": "nmvdscf9g3y3srs",
           "type": "src.gradient",
           "x": 0,
           "y": 0,
@@ -184,7 +193,7 @@
           "preview": true
         },
         {
-          "id": "nmv7xbcrn49u525",
+          "id": "nmvdscf9g3zez2n",
           "type": "src.text",
           "x": 0,
           "y": 380,
@@ -199,7 +208,7 @@
           "preview": true
         },
         {
-          "id": "nmv7xbcrn4az352",
+          "id": "nmvdscf9g4090yc",
           "type": "out.projector",
           "x": 300,
           "y": 20,
@@ -208,7 +217,7 @@
           "preview": true
         },
         {
-          "id": "nmv7xbcrn4bdqfe",
+          "id": "nmvdscf9g41pioi",
           "type": "out.projector",
           "x": 300,
           "y": 400,
@@ -220,7 +229,7 @@
           "preview": true
         },
         {
-          "id": "nmv7xbcrn4ex9uy",
+          "id": "nmvdscf9g44j8al",
           "type": "fx.color",
           "x": 300,
           "y": 760,
@@ -230,7 +239,7 @@
           "preview": true
         },
         {
-          "id": "nmv7xbcrn4hgki5",
+          "id": "nmvdscf9g47py2r",
           "type": "ctl.slider",
           "x": 0,
           "y": 760,
@@ -245,7 +254,7 @@
           "title": "Warmth"
         },
         {
-          "id": "nmv7xbcrn4jjjjg",
+          "id": "nmvdscf9h49ltlc",
           "type": "ctl.button",
           "x": 0,
           "y": 1000,
@@ -256,7 +265,7 @@
           "title": "Flash"
         },
         {
-          "id": "nmv7xbcrn4kofev",
+          "id": "nmvdscf9h4abdca",
           "type": "gen.envelope",
           "x": 300,
           "y": 1000,
@@ -271,7 +280,7 @@
           "props": {}
         },
         {
-          "id": "nmv7xbcrn4nwj88",
+          "id": "nmvdscf9h4dm8pc",
           "type": "ctl.toggle",
           "x": 600,
           "y": 1000,
@@ -283,7 +292,7 @@
           "title": "Cue labels"
         },
         {
-          "id": "nmv7xbcrn4puo9q",
+          "id": "nmvdscf9h4f5g4v",
           "type": "ctl.monitor",
           "x": 600,
           "y": 760,
@@ -296,90 +305,90 @@
       ],
       "links": [
         {
-          "id": "lmv7xbcrn4dt3ty",
+          "id": "lmvdscf9g43szat",
           "from": [
-            "nmv7xbcrn49u525",
+            "nmvdscf9g3zez2n",
             "out"
           ],
           "to": [
-            "nmv7xbcrn4bdqfe",
+            "nmvdscf9g41pioi",
             "video"
           ]
         },
         {
-          "id": "lmv7xbcrn4fmeiu",
+          "id": "lmvdscf9g45ayke",
           "from": [
-            "nmv7xbcrn48zcg8",
+            "nmvdscf9g3y3srs",
             "out"
           ],
           "to": [
-            "nmv7xbcrn4ex9uy",
+            "nmvdscf9g44j8al",
             "video"
           ]
         },
         {
-          "id": "lmv7xbcrn4g0uig",
+          "id": "lmvdscf9g460kxm",
           "from": [
-            "nmv7xbcrn4ex9uy",
+            "nmvdscf9g44j8al",
             "out"
           ],
           "to": [
-            "nmv7xbcrn4az352",
+            "nmvdscf9g4090yc",
             "video"
           ]
         },
         {
-          "id": "lmv7xbcrn4iqu0z",
+          "id": "lmvdscf9h48uqt7",
           "from": [
-            "nmv7xbcrn4hgki5",
+            "nmvdscf9g47py2r",
             "out"
           ],
           "to": [
-            "nmv7xbcrn4ex9uy",
+            "nmvdscf9g44j8al",
             "hue"
           ]
         },
         {
-          "id": "lmv7xbcrn4lk7vb",
+          "id": "lmvdscf9h4bj0d2",
           "from": [
-            "nmv7xbcrn4jjjjg",
+            "nmvdscf9h49ltlc",
             "press"
           ],
           "to": [
-            "nmv7xbcrn4kofev",
+            "nmvdscf9h4abdca",
             "trig"
           ]
         },
         {
-          "id": "lmv7xbcrn4mnc10",
+          "id": "lmvdscf9h4c62to",
           "from": [
-            "nmv7xbcrn4kofev",
+            "nmvdscf9h4abdca",
             "out"
           ],
           "to": [
-            "nmv7xbcrn4ex9uy",
+            "nmvdscf9g44j8al",
             "bri"
           ]
         },
         {
-          "id": "lmv7xbcrn4of08j",
+          "id": "lmvdscf9h4e0r8e",
           "from": [
-            "nmv7xbcrn4nwj88",
+            "nmvdscf9h4dm8pc",
             "out"
           ],
           "to": [
-            "nmv7xbcrn4bdqfe",
+            "nmvdscf9g41pioi",
             "active"
           ]
         },
         {
-          "id": "lmv7xbcrn4qo2o2",
+          "id": "lmvdscf9h4g63r2",
           "from": [
-            "nmv7xbcrn4kofev",
+            "nmvdscf9h4abdca",
             "out"
           ],
           "to": [
-            "nmv7xbcrn4puo9q",
+            "nmvdscf9h4f5g4v",
             "in"
           ]
         }
@@ -387,13 +396,13 @@
       "comments": []
     },
     {
-      "id": "scenemv7xbcrn4r4t1q",
+      "id": "scenemvdscf9h4hqo2o",
       "name": "Storm",
       "fadeIn": 1,
       "notes": "Auto-follows to Calm after 12 seconds.",
       "nodes": [
         {
-          "id": "nmv7xbcrn4sqkt3",
+          "id": "nmvdscf9h4iflva",
           "type": "src.noise",
           "x": 0,
           "y": 0,
@@ -408,7 +417,7 @@
           "preview": true
         },
         {
-          "id": "nmv7xbcrn4t27k5",
+          "id": "nmvdscf9h4jj6q0",
           "type": "src.text",
           "x": 0,
           "y": 380,
@@ -423,7 +432,7 @@
           "preview": true
         },
         {
-          "id": "nmv7xbcrn4u1klq",
+          "id": "nmvdscf9h4kqgts",
           "type": "out.projector",
           "x": 300,
           "y": 20,
@@ -432,7 +441,7 @@
           "preview": true
         },
         {
-          "id": "nmv7xbcro4v5qo9",
+          "id": "nmvdscf9h4lqtuu",
           "type": "out.projector",
           "x": 300,
           "y": 400,
@@ -444,7 +453,7 @@
           "preview": true
         },
         {
-          "id": "nmv7xbcro4y15ff",
+          "id": "nmvdscf9h4oop1h",
           "type": "scene.enter",
           "x": 600,
           "y": 0,
@@ -455,7 +464,7 @@
           "title": "Auto-follow"
         },
         {
-          "id": "nmv7xbcro4z0859",
+          "id": "nmvdscf9h4p551n",
           "type": "scene.jump",
           "x": 860,
           "y": 0,
@@ -466,7 +475,7 @@
           "props": {}
         },
         {
-          "id": "nmv7xbcro51gw2w",
+          "id": "nmvdscf9h4rdhqa",
           "type": "gen.pulse",
           "x": 600,
           "y": 360,
@@ -478,7 +487,7 @@
           "title": "Lightning"
         },
         {
-          "id": "nmv7xbcro523s3n",
+          "id": "nmvdscf9h4s27vu",
           "type": "gen.envelope",
           "x": 860,
           "y": 360,
@@ -493,7 +502,7 @@
           "props": {}
         },
         {
-          "id": "nmv7xbcro53no6i",
+          "id": "nmvdscf9h4t8usf",
           "type": "fx.color",
           "x": 300,
           "y": 760,
@@ -506,68 +515,68 @@
       ],
       "links": [
         {
-          "id": "lmv7xbcro4xgsj3",
+          "id": "lmvdscf9h4ncf0r",
           "from": [
-            "nmv7xbcrn4t27k5",
+            "nmvdscf9h4jj6q0",
             "out"
           ],
           "to": [
-            "nmv7xbcro4v5qo9",
+            "nmvdscf9h4lqtuu",
             "video"
           ]
         },
         {
-          "id": "lmv7xbcro501cn9",
+          "id": "lmvdscf9h4qn7w7",
           "from": [
-            "nmv7xbcro4y15ff",
+            "nmvdscf9h4oop1h",
             "trig"
           ],
           "to": [
-            "nmv7xbcro4z0859",
+            "nmvdscf9h4p551n",
             "trig"
           ]
         },
         {
-          "id": "lmv7xbcro547fyq",
+          "id": "lmvdscf9h4uax1i",
           "from": [
-            "nmv7xbcro51gw2w",
+            "nmvdscf9h4rdhqa",
             "pulse"
           ],
           "to": [
-            "nmv7xbcro523s3n",
+            "nmvdscf9h4s27vu",
             "trig"
           ]
         },
         {
-          "id": "lmv7xbcro55srx2",
+          "id": "lmvdscf9h4vxx6y",
           "from": [
-            "nmv7xbcro523s3n",
+            "nmvdscf9h4s27vu",
             "out"
           ],
           "to": [
-            "nmv7xbcro53no6i",
+            "nmvdscf9h4t8usf",
             "bri"
           ]
         },
         {
-          "id": "lmv7xbcro56bm45",
+          "id": "lmvdscf9h4wvdqo",
           "from": [
-            "nmv7xbcrn4sqkt3",
+            "nmvdscf9h4iflva",
             "out"
           ],
           "to": [
-            "nmv7xbcro53no6i",
+            "nmvdscf9h4t8usf",
             "video"
           ]
         },
         {
-          "id": "lmv7xbcro57rkyd",
+          "id": "lmvdscf9h4x0cd4",
           "from": [
-            "nmv7xbcro53no6i",
+            "nmvdscf9h4t8usf",
             "out"
           ],
           "to": [
-            "nmv7xbcrn4u1klq",
+            "nmvdscf9h4kqgts",
             "video"
           ]
         }
@@ -575,13 +584,13 @@
       "comments": []
     },
     {
-      "id": "scenemv7xbcro58l85x",
+      "id": "scenemvdscf9h4yk3fi",
       "name": "Calm",
       "fadeIn": 4,
       "notes": "Hold until the actor exits.",
       "nodes": [
         {
-          "id": "nmv7xbcro59twyp",
+          "id": "nmvdscf9h4z52uq",
           "type": "src.gradient",
           "x": 0,
           "y": 0,
@@ -595,7 +604,7 @@
           "preview": true
         },
         {
-          "id": "nmv7xbcro5a2dgv",
+          "id": "nmvdscf9h50bf9j",
           "type": "src.text",
           "x": 0,
           "y": 380,
@@ -610,7 +619,7 @@
           "preview": true
         },
         {
-          "id": "nmv7xbcro5bz5ur",
+          "id": "nmvdscf9h51quyt",
           "type": "out.projector",
           "x": 300,
           "y": 20,
@@ -619,7 +628,7 @@
           "preview": true
         },
         {
-          "id": "nmv7xbcro5c1a4h",
+          "id": "nmvdscf9h52aya7",
           "type": "out.projector",
           "x": 300,
           "y": 400,
@@ -633,24 +642,24 @@
       ],
       "links": [
         {
-          "id": "lmv7xbcro5d6wmn",
+          "id": "lmvdscf9h53vrf4",
           "from": [
-            "nmv7xbcro59twyp",
+            "nmvdscf9h4z52uq",
             "out"
           ],
           "to": [
-            "nmv7xbcro5bz5ur",
+            "nmvdscf9h51quyt",
             "video"
           ]
         },
         {
-          "id": "lmv7xbcro5eh0ny",
+          "id": "lmvdscf9h54zcpm",
           "from": [
-            "nmv7xbcro5a2dgv",
+            "nmvdscf9h50bf9j",
             "out"
           ],
           "to": [
-            "nmv7xbcro5c1a4h",
+            "nmvdscf9h52aya7",
             "video"
           ]
         }
@@ -658,13 +667,13 @@
       "comments": []
     },
     {
-      "id": "scenemv7xbcro5fj91h",
+      "id": "scenemvdscf9h55cey6",
       "name": "Blackout",
       "fadeIn": 3,
       "notes": "End of show.",
       "nodes": [
         {
-          "id": "nmv7xbcro5g13bo",
+          "id": "nmvdscf9h56i9qm",
           "type": "util.comment",
           "x": 0,
           "y": 0,
@@ -680,5 +689,5 @@
       "comments": []
     }
   ],
-  "activeScene": "scenemv7xbcrm40fbd1"
+  "activeScene": "scenemvdscf9g3qdy1h"
 }

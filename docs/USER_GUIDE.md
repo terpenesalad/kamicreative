@@ -11,6 +11,7 @@ This guide walks through how KamiCreative is organised and how to build and run 
 - [Projection mapping](#projection-mapping)
 - [Running a show](#running-a-show)
 - [Media](#media)
+- [Sound and music](#sound-and-music)
 - [MIDI, OSC, Art-Net and other input](#midi-osc-art-net-and-other-input)
 - [Writing shaders](#writing-shaders)
 - [Projects and safety](#projects-and-safety)
@@ -139,6 +140,56 @@ H.264 MP4 at the stage resolution is the safest choice for smooth playback. ProR
 
 Projects store both the absolute path and the path relative to the project file. Moving a project folder with its media keeps everything linked. Missing files are marked in the Media panel; right-click → Relink to point to the new location.
 
+## Sound and music
+
+KamiCreative can turn sound into pictures, like *photism* (seeing colours when you hear music): any setting can follow the music, and there are visual modules made just for it.
+
+### Choosing what to listen to
+
+Click the **Sound** button in the toolbar. Its three little bars show bass, mids and treble, and the dot flashes on each beat.
+
+| Source | Use it for |
+|---|---|
+| Microphone | A mic or the line input of an audio interface. Pick the device from the list. |
+| Computer | Everything the computer is playing: Spotify, YouTube, a DJ app. Works on Windows; other systems can use a virtual audio cable as a microphone. |
+| Off | Only songs played by Sound Player modules are heard. |
+
+A **Sound Player** with *Visuals React* on is always heard as well, so a song played inside KamiCreative drives the visuals without changing anything.
+
+The panel also has:
+
+- **Sensitivity**: how easily beats are detected and how quiet a sound still counts.
+- **Boost**: extra gain for quiet inputs.
+- **Smoothness**: calm, flowing movement versus fast, twitchy movement.
+- **Auto-level** (on by default): adapts to the room, so quiet speech and a loud club both use the full range. In silence everything stays still.
+- **Change scene every N beats**: an "auto VJ" mode that moves to the next scene by itself (looping back to the first) after a number of beats.
+
+### Making anything react to sound
+
+Right-click any number on a module (or click the ♪ button next to it in the Inspector) and choose what it should follow:
+
+| Choice | Follows |
+|---|---|
+| Bass | Kick drums and low notes |
+| Mids | Vocals, guitars and keys |
+| Treble | Hi-hats, cymbals and sparkle |
+| Loudness | Overall volume |
+| Beat | Jumps up on every beat, then falls back |
+
+The value turns purple with a ♪ and moves on its own. Click it to fine-tune: the value **when quiet** and **when loud**, smoothness (or fall-off for Beat), and *Reverse* to make loud sounds shrink it instead. Trigger inputs such as *Reset*, *Next* or *Trigger* can fire on every beat, or every 2, 4, 8 or 16 beats. Choose **Stop reacting to sound** from the same menu to switch it off. Reactions are saved with the project and can be undone.
+
+### Sound modules
+
+| Module | What it does |
+|---|---|
+| Sound Visualizer | Instant music visuals in eight styles: bars, mirror bars, circle, waveform, ring wave, tunnel, stars and blob. Colours can follow pitch (rainbow), two colours or one. |
+| Colour Organ | The photism idea: the music is split into bands, and each band glows its own colour (low notes red, high notes violet). Layouts: columns, rings, drifting lights, or a full-screen colour wash. |
+| Sound Pulse | Makes any video move with the music: zoom on the bass, flash and shake on beats, colour split and hue jumps. |
+| Sound Input | Outputs loudness, bass, mids, treble, a beat trigger, beat count, tempo (BPM), beat phase and a custom frequency band, for wiring into anything. |
+| Sound Player | Plays a song from the Media bin; with *Visuals React* on, everything that reacts to sound follows it. |
+
+The recipes **Music visualizer**, **Colour organ (photism)** and **Make a video dance**, and the **Music Visuals** example (File → Open Example), are quick ways to start.
+
 ## MIDI, OSC, Art-Net and other input
 
 - **MIDI:** connected devices are detected automatically (see the status bar or Preferences). MIDI Note In and MIDI Control In listen on any channel or a chosen one. MIDI Out sends notes, controllers or program changes to an output device by number.
@@ -147,7 +198,7 @@ Projects store both the absolute path and the path relative to the project file.
 - **Keyboard Watcher** reacts to a key (`a`, `space`, `enter`, `up`, … or `any`), in the editor or a stage window.
 - **Mouse Watcher** reports the pointer position over a stage window, for interactive installations.
 - **Gamepad** reads the sticks and face buttons of a game controller.
-- **Sound Analyser** listens to the default audio input and outputs level, low, mid and high bands and a beat trigger.
+- **Sound** input is covered in [Sound and music](#sound-and-music).
 - **Live Capture** brings in webcams and capture cards by device number.
 
 ## Writing shaders

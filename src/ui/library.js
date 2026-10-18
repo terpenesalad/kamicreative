@@ -30,7 +30,7 @@ export class LibraryPanel {
     this.search = h('input.field.search', { type: 'search', placeholder: 'Search modules', spellcheck: false, 'aria-label': 'Search modules' });
     this.list = h('div.lib-list', { role: 'list' });
     root.append(h('div.lib-search', null, icon('search', 14), this.search), this.list);
-    this.collapsed = new Set(['Utility']);
+    this.collapsed = new Set(['Utility', 'Logic', 'Math']);
     this.search.addEventListener('input', () => this.render());
     this.search.addEventListener('keydown', (e) => {
       if (e.key === 'Enter') { const first = this.list.querySelector('.lib-item'); if (first) app.addModuleAtCenter(first.dataset.type); }

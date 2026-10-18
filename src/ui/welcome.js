@@ -35,6 +35,10 @@ export async function openWelcome(app) {
             h('span', null, 'Build your first visual step by step. The tutorial shows you where to click and waits while you try it.'),
             h('span.tc-go', null, icon('play', 14), 'Start tutorial')),
 
+          h('button.music-card', { onclick: act(async () => { if (await app.newProject()) { await app.addRecipe('visualizer'); app.sound.open(); } }) },
+            h('span.recipe-icon', null, icon('sound', 18)),
+            h('span', null, h('strong', null, 'Make visuals that react to music'), h('span', null, 'Starts a music visualizer and opens the Sound panel so you can pick your microphone or your computer\'s audio.'))),
+
           h('h2', null, 'Start from a recipe'),
           h('p.welcome-sub', null, 'A ready-made, already-connected setup you can change. Added to a new, empty project.'),
           h('div.recipe-grid', null, ...RECIPES.map((r) => h('button.recipe', {

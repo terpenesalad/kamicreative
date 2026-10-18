@@ -23,6 +23,7 @@ import { Tutorial } from './ui/tutorial.js';
 import { openWelcome } from './ui/welcome.js';
 import { RECIPES, insertRecipe } from './ui/recipes.js';
 import { installHelpBar } from './ui/helpbar.js';
+import { SoundUI } from './ui/soundui.js';
 
 const APP_NAME = 'KamiCreative';
 
@@ -42,6 +43,7 @@ class App extends Emitter {
     this.doc = new Doc(this.engine);
     this.stageWindows = new StageWindows(this);
     this.toast = toast;
+    this.sound = new SoundUI(this);
 
     this.patch = new PatchEditor(document.getElementById('patch'), this);
     this.library = new LibraryPanel(document.getElementById('library'), this);
@@ -115,7 +117,9 @@ class App extends Emitter {
     if (!p) return;
     try {
       this.renderer.stats.draws = 0;
+      this.host.sound.update(now);
       const layers = this.engine.step(now);
+      this.sound.tick();
       const results = this.stageRenderer.render(p.stages, layers, this.engine.time, { outlineStage: this.mapperOutline });
       this.stageRenderer.present(p.stages, results);
       this.host.artnet.flush(now);
@@ -149,6 +153,8 @@ class App extends Emitter {
       h('div.tb-spacer'),
       h('button.icon-btn', { title: 'Undo (Ctrl+Z)', onclick: () => this.command('undo') }, icon('undo', 15)),
       h('button.icon-btn', { title: 'Redo (Ctrl+Shift+Z)', onclick: () => this.command('redo') }, icon('redo', 15)),
+      h('span.tb-sep'),
+      this.sound.button(),
       h('span.tb-sep'),
       h('button.icon-btn', { title: 'Previous scene (Page Up)', onclick: () => this.command('prev') }, icon('prev', 15)),
       h('button.go-mini', { title: 'Next scene (Page Down)', onclick: () => this.command('next') }, 'GO'),
@@ -329,6 +335,7 @@ class App extends Emitter {
       case 'welcome': return openWelcome(this);
       case 'recipe': return this.addRecipe(arg);
       case 'addProjector': return this.addProjectorFor();
+      case 'sound': return this.sound.open();
       case 'helpMenu': return this.showHelpMenu();
       case 'docs': this.host.bridge.openExternal('https://github.com/terpenesalad/kamicreative#readme'); break;
       case 'website': this.host.bridge.openExternal('https://github.com/terpenesalad/kamicreative'); break;

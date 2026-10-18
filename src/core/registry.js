@@ -13,6 +13,7 @@ export const PORT_TYPES = {
 };
 
 export const CATEGORIES = [
+  { id: 'Sound', color: '#b58cff' },
   { id: 'Video Sources', color: '#1fb79e' },
   { id: 'Video FX', color: '#2aa7c9' },
   { id: 'Compositing', color: '#3b82c4' },
@@ -22,7 +23,7 @@ export const CATEGORIES = [
   { id: 'Logic', color: '#a865c9' },
   { id: 'Control', color: '#4fae5c' },
   { id: 'Input / Output', color: '#c95f9a' },
-  { id: 'Audio', color: '#c9a03b' },
+
   { id: 'Scene', color: '#d0563b' },
   { id: 'Utility', color: '#6b7685' },
 ];

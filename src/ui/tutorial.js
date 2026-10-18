@@ -94,6 +94,19 @@ export class Tutorial {
         done: () => this.linked('src.noise', 'out', 'fx.kaleido', 'video') && this.linked('fx.kaleido', 'out', 'out.projector', 'video'),
       },
       {
+        enter: () => app.sound.ensureListening(),
+        target: () => { const n = this.nodeOf('fx.kaleido'); return n ? q(`.node[data-id="${n.id}"] .cell.in[data-port="zoom"] .val`) : null; },
+        title: 'Make it react to sound',
+        text: 'Right-click the Zoom % number on the Kaleidoscope and choose "Bass". Now play some music or clap — the zoom pulses with the sound. Any number can react to sound this way.',
+        tip: 'If your computer asks to use the microphone, allow it.',
+        done: () => { const n = this.nodeOf('fx.kaleido'); return !!(n && n.react && Object.keys(n.react).length); },
+      },
+      {
+        target: () => q('.snd-btn'), place: 'bottom',
+        title: 'The Sound button',
+        text: 'This shows what KamiCreative hears: the three bars are bass, mids and treble, and the dot flashes on each beat. Click it any time to switch between the microphone and your computer\'s own audio (Spotify, YouTube…), or to add a ready-made music visualizer.',
+      },
+      {
         target: () => q('#scenes'), place: 'right',
         title: 'Scenes are your cues',
         text: 'A show is a list of scenes, played one after another. Click the + next to "Scenes" to add a second scene.',

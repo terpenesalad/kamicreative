@@ -3,19 +3,28 @@
   "version": 1,
   "meta": {
     "name": "Video Feedback",
-    "created": "2026-10-14T09:44:42.849Z",
-    "modified": "2026-10-14T09:44:42.849Z",
+    "created": "2026-10-18T12:12:11.716Z",
+    "modified": "2026-10-18T12:12:11.716Z",
     "app": "KamiCreative"
   },
   "settings": {
     "oscPort": 8000,
     "artnetHost": "255.255.255.255",
     "snapToGrid": true,
-    "previews": true
+    "previews": true,
+    "sound": {
+      "source": "mic",
+      "deviceId": "",
+      "gain": 100,
+      "sensitivity": 50,
+      "smoothing": 40,
+      "autoLevel": true,
+      "autoAdvance": 0
+    }
   },
   "stages": [
     {
-      "id": "stagemv7xbcrl3exjg0",
+      "id": "stagemvdscf9g3414ky",
       "name": "Stage 1",
       "width": 1920,
       "height": 1080,
@@ -27,7 +36,7 @@
         "enabled": true,
         "surfaces": [
           {
-            "id": "smv7xbcrl3ffmxj",
+            "id": "smvdscf9g35df0p",
             "name": "Surface 1",
             "enabled": true,
             "opacity": 1,
@@ -80,13 +89,13 @@
   "media": [],
   "scenes": [
     {
-      "id": "scenemv7xbcrl3d1le4",
+      "id": "scenemvdscf9g3394bk",
       "name": "Feedback Tunnel",
       "fadeIn": 0,
       "notes": "",
       "nodes": [
         {
-          "id": "nmv7xbcrl3ggl69",
+          "id": "nmvdscf9g36vpll",
           "type": "util.comment",
           "x": -420,
           "y": 0,
@@ -98,7 +107,7 @@
           "title": "Feedback"
         },
         {
-          "id": "nmv7xbcrl3hrfvw",
+          "id": "nmvdscf9g37bkmb",
           "type": "ctl.xy",
           "x": 0,
           "y": 380,
@@ -112,7 +121,7 @@
           "title": "Seed position"
         },
         {
-          "id": "nmv7xbcrl3i3fca",
+          "id": "nmvdscf9g38jnft",
           "type": "math.scale",
           "x": 260,
           "y": 380,
@@ -126,7 +135,7 @@
           "title": "X"
         },
         {
-          "id": "nmv7xbcrl3ja7jj",
+          "id": "nmvdscf9g39qbde",
           "type": "math.scale",
           "x": 260,
           "y": 640,
@@ -140,7 +149,7 @@
           "title": "Y"
         },
         {
-          "id": "nmv7xbcrl3kmi9k",
+          "id": "nmvdscf9g3aby84",
           "type": "src.shape",
           "x": 0,
           "y": 0,
@@ -156,7 +165,7 @@
           "preview": true
         },
         {
-          "id": "nmv7xbcrl3lgxtk",
+          "id": "nmvdscf9g3bbn94",
           "type": "fx.feedback",
           "x": 300,
           "y": 0,
@@ -171,7 +180,7 @@
           "preview": true
         },
         {
-          "id": "nmv7xbcrl3m42wc",
+          "id": "nmvdscf9g3ccr6n",
           "type": "fx.glow",
           "x": 580,
           "y": 0,
@@ -184,7 +193,7 @@
           "preview": true
         },
         {
-          "id": "nmv7xbcrl3n8v9v",
+          "id": "nmvdscf9g3dfi9x",
           "type": "fx.vignette",
           "x": 860,
           "y": 0,
@@ -195,7 +204,7 @@
           "preview": true
         },
         {
-          "id": "nmv7xbcrl3o9ck3",
+          "id": "nmvdscf9g3e75ej",
           "type": "out.projector",
           "x": 1140,
           "y": 20,
@@ -206,90 +215,90 @@
       ],
       "links": [
         {
-          "id": "lmv7xbcrl3p00kr",
+          "id": "lmvdscf9g3fz0cs",
           "from": [
-            "nmv7xbcrl3hrfvw",
+            "nmvdscf9g37bkmb",
             "x"
           ],
           "to": [
-            "nmv7xbcrl3i3fca",
+            "nmvdscf9g38jnft",
             "in"
           ]
         },
         {
-          "id": "lmv7xbcrl3qcacm",
+          "id": "lmvdscf9g3g28lh",
           "from": [
-            "nmv7xbcrl3hrfvw",
+            "nmvdscf9g37bkmb",
             "y"
           ],
           "to": [
-            "nmv7xbcrl3ja7jj",
+            "nmvdscf9g39qbde",
             "in"
           ]
         },
         {
-          "id": "lmv7xbcrl3rotw0",
+          "id": "lmvdscf9g3h69y0",
           "from": [
-            "nmv7xbcrl3i3fca",
+            "nmvdscf9g38jnft",
             "out"
           ],
           "to": [
-            "nmv7xbcrl3kmi9k",
+            "nmvdscf9g3aby84",
             "x"
           ]
         },
         {
-          "id": "lmv7xbcrl3scxjd",
+          "id": "lmvdscf9g3irtkr",
           "from": [
-            "nmv7xbcrl3ja7jj",
+            "nmvdscf9g39qbde",
             "out"
           ],
           "to": [
-            "nmv7xbcrl3kmi9k",
+            "nmvdscf9g3aby84",
             "y"
           ]
         },
         {
-          "id": "lmv7xbcrl3tqg9h",
+          "id": "lmvdscf9g3jznm1",
           "from": [
-            "nmv7xbcrl3kmi9k",
+            "nmvdscf9g3aby84",
             "out"
           ],
           "to": [
-            "nmv7xbcrl3lgxtk",
+            "nmvdscf9g3bbn94",
             "video"
           ]
         },
         {
-          "id": "lmv7xbcrl3uvx5g",
+          "id": "lmvdscf9g3kc19j",
           "from": [
-            "nmv7xbcrl3lgxtk",
+            "nmvdscf9g3bbn94",
             "out"
           ],
           "to": [
-            "nmv7xbcrl3m42wc",
+            "nmvdscf9g3ccr6n",
             "video"
           ]
         },
         {
-          "id": "lmv7xbcrl3vs2ym",
+          "id": "lmvdscf9g3ltgxq",
           "from": [
-            "nmv7xbcrl3m42wc",
+            "nmvdscf9g3ccr6n",
             "out"
           ],
           "to": [
-            "nmv7xbcrl3n8v9v",
+            "nmvdscf9g3dfi9x",
             "video"
           ]
         },
         {
-          "id": "lmv7xbcrl3wr0g8",
+          "id": "lmvdscf9g3mqdyd",
           "from": [
-            "nmv7xbcrl3n8v9v",
+            "nmvdscf9g3dfi9x",
             "out"
           ],
           "to": [
-            "nmv7xbcrl3o9ck3",
+            "nmvdscf9g3e75ej",
             "video"
           ]
         }
@@ -297,5 +306,5 @@
       "comments": []
     }
   ],
-  "activeScene": "scenemv7xbcrl3d1le4"
+  "activeScene": "scenemvdscf9g3394bk"
 }

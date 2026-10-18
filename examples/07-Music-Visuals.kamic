@@ -1,0 +1,524 @@
+{
+  "format": "kamicreative",
+  "version": 1,
+  "meta": {
+    "name": "Music Visuals",
+    "created": "2026-10-18T12:12:11.717Z",
+    "modified": "2026-10-18T12:12:11.717Z",
+    "app": "KamiCreative"
+  },
+  "settings": {
+    "oscPort": 8000,
+    "artnetHost": "255.255.255.255",
+    "snapToGrid": true,
+    "previews": true,
+    "sound": {
+      "source": "mic",
+      "deviceId": "",
+      "gain": 100,
+      "sensitivity": 50,
+      "smoothing": 40,
+      "autoLevel": true,
+      "autoAdvance": 16
+    }
+  },
+  "stages": [
+    {
+      "id": "stagemvdscf9h58v6m8",
+      "name": "Stage 1",
+      "width": 1920,
+      "height": 1080,
+      "display": null,
+      "fullscreen": true,
+      "background": "#000000",
+      "testPattern": false,
+      "mapping": {
+        "enabled": true,
+        "surfaces": [
+          {
+            "id": "smvdscf9h593w2y",
+            "name": "Surface 1",
+            "enabled": true,
+            "opacity": 1,
+            "source": [
+              0,
+              0,
+              1,
+              1
+            ],
+            "grid": {
+              "cols": 2,
+              "rows": 2,
+              "points": [
+                [
+                  0,
+                  0
+                ],
+                [
+                  1,
+                  0
+                ],
+                [
+                  0,
+                  1
+                ],
+                [
+                  1,
+                  1
+                ]
+              ]
+            },
+            "blend": {
+              "left": 0,
+              "right": 0,
+              "top": 0,
+              "bottom": 0,
+              "gamma": 1.8,
+              "curve": 2
+            },
+            "color": {
+              "brightness": 1,
+              "contrast": 1,
+              "gamma": 1
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "media": [],
+  "scenes": [
+    {
+      "id": "scenemvdscf9h5a0b5r",
+      "name": "Spectrum Halo",
+      "fadeIn": 1.5,
+      "notes": "Changes scene every 16 beats (Sound button → Change scene). Play music!",
+      "nodes": [
+        {
+          "id": "nmvdscf9h5bs62c",
+          "type": "util.comment",
+          "x": -440,
+          "y": 0,
+          "values": {},
+          "props": {
+            "text": "A ready-to-play music visual show. Each scene listens to the sound and the show moves on by itself every 16 beats.\n\nPick what to listen to with the Sound button, then press Ctrl+Shift+F to show it full screen.",
+            "color": "#b58cff"
+          },
+          "title": "Music visuals"
+        },
+        {
+          "id": "nmvdscf9h5c8hya",
+          "type": "src.visualizer",
+          "x": 0,
+          "y": 0,
+          "values": {
+            "style": "circle",
+            "count": 72,
+            "spin": 0.02,
+            "scale": 115
+          },
+          "props": {},
+          "preview": true
+        },
+        {
+          "id": "nmvdscf9h5dgx83",
+          "type": "fx.feedback",
+          "x": 290,
+          "y": 0,
+          "values": {
+            "decay": 84,
+            "rot": 0.5,
+            "mode": "lighten"
+          },
+          "props": {},
+          "react": {
+            "zoom": {
+              "band": "bass",
+              "min": 100.5,
+              "max": 104.5,
+              "smooth": 25
+            }
+          },
+          "preview": true
+        },
+        {
+          "id": "nmvdscf9h5ebs56",
+          "type": "fx.glow",
+          "x": 560,
+          "y": 0,
+          "values": {
+            "thresh": 35,
+            "radius": 30,
+            "amt": 150
+          },
+          "props": {},
+          "preview": true
+        },
+        {
+          "id": "nmvdscf9h5fh9zb",
+          "type": "out.projector",
+          "x": 830,
+          "y": 0,
+          "values": {},
+          "props": {},
+          "preview": true
+        }
+      ],
+      "links": [
+        {
+          "id": "lmvdscf9h5glv3y",
+          "from": [
+            "nmvdscf9h5c8hya",
+            "out"
+          ],
+          "to": [
+            "nmvdscf9h5dgx83",
+            "video"
+          ]
+        },
+        {
+          "id": "lmvdscf9h5hs0yt",
+          "from": [
+            "nmvdscf9h5dgx83",
+            "out"
+          ],
+          "to": [
+            "nmvdscf9h5ebs56",
+            "video"
+          ]
+        },
+        {
+          "id": "lmvdscf9h5ilo7g",
+          "from": [
+            "nmvdscf9h5ebs56",
+            "out"
+          ],
+          "to": [
+            "nmvdscf9h5fh9zb",
+            "video"
+          ]
+        }
+      ],
+      "comments": []
+    },
+    {
+      "id": "scenemvdscf9h5j3w3m",
+      "name": "Colour Organ",
+      "fadeIn": 2,
+      "notes": "",
+      "nodes": [
+        {
+          "id": "nmvdscf9h5kbor2",
+          "type": "src.colororgan",
+          "x": 0,
+          "y": 0,
+          "values": {
+            "layout": "lights",
+            "bands": 9,
+            "bright": 150,
+            "drift": 0.5
+          },
+          "props": {},
+          "preview": true
+        },
+        {
+          "id": "nmvdscf9h5l7b6d",
+          "type": "fx.kaleido",
+          "x": 290,
+          "y": 0,
+          "values": {
+            "seg": 6,
+            "spin": 0.02
+          },
+          "props": {},
+          "react": {
+            "zoom": {
+              "band": "bass",
+              "min": 90,
+              "max": 150,
+              "smooth": 35
+            }
+          },
+          "preview": true
+        },
+        {
+          "id": "nmvdscf9h5m0p8c",
+          "type": "out.projector",
+          "x": 560,
+          "y": 0,
+          "values": {},
+          "props": {},
+          "preview": true
+        }
+      ],
+      "links": [
+        {
+          "id": "lmvdscf9h5nc9i1",
+          "from": [
+            "nmvdscf9h5kbor2",
+            "out"
+          ],
+          "to": [
+            "nmvdscf9h5l7b6d",
+            "video"
+          ]
+        },
+        {
+          "id": "lmvdscf9h5ov3iv",
+          "from": [
+            "nmvdscf9h5l7b6d",
+            "out"
+          ],
+          "to": [
+            "nmvdscf9h5m0p8c",
+            "video"
+          ]
+        }
+      ],
+      "comments": []
+    },
+    {
+      "id": "scenemvdscf9h5pvfn9",
+      "name": "Equaliser Wall",
+      "fadeIn": 1,
+      "notes": "",
+      "nodes": [
+        {
+          "id": "nmvdscf9h5q53yy",
+          "type": "src.visualizer",
+          "x": 0,
+          "y": 0,
+          "values": {
+            "style": "mirror bars",
+            "count": 40,
+            "gap": 30,
+            "mode": "two colours",
+            "a": "#3bd1ff",
+            "b": "#ff3b9a",
+            "scale": 100
+          },
+          "props": {},
+          "preview": true
+        },
+        {
+          "id": "nmvdscf9h5rpbyw",
+          "type": "fx.tile",
+          "x": 290,
+          "y": 0,
+          "values": {
+            "h": 2,
+            "v": 2,
+            "mirror": 1
+          },
+          "props": {},
+          "preview": true
+        },
+        {
+          "id": "nmvdscf9h5sskbc",
+          "type": "fx.soundpulse",
+          "x": 560,
+          "y": 0,
+          "values": {
+            "zoom": 10,
+            "flash": 20,
+            "split": 40,
+            "hue": 1
+          },
+          "props": {},
+          "preview": true
+        },
+        {
+          "id": "nmvdscf9h5te1e7",
+          "type": "out.projector",
+          "x": 830,
+          "y": 0,
+          "values": {},
+          "props": {},
+          "preview": true
+        }
+      ],
+      "links": [
+        {
+          "id": "lmvdscf9h5uckm2",
+          "from": [
+            "nmvdscf9h5q53yy",
+            "out"
+          ],
+          "to": [
+            "nmvdscf9h5rpbyw",
+            "video"
+          ]
+        },
+        {
+          "id": "lmvdscf9h5vpcws",
+          "from": [
+            "nmvdscf9h5rpbyw",
+            "out"
+          ],
+          "to": [
+            "nmvdscf9h5sskbc",
+            "video"
+          ]
+        },
+        {
+          "id": "lmvdscf9h5wuirz",
+          "from": [
+            "nmvdscf9h5sskbc",
+            "out"
+          ],
+          "to": [
+            "nmvdscf9h5te1e7",
+            "video"
+          ]
+        }
+      ],
+      "comments": []
+    },
+    {
+      "id": "scenemvdscf9h5xupwc",
+      "name": "Star Tunnel",
+      "fadeIn": 2,
+      "notes": "",
+      "nodes": [
+        {
+          "id": "nmvdscf9h5y2y1y",
+          "type": "src.visualizer",
+          "x": 0,
+          "y": 0,
+          "values": {
+            "style": "stars",
+            "speed": 2,
+            "thick": 4,
+            "mode": "rainbow (pitch → colour)"
+          },
+          "props": {},
+          "preview": true
+        },
+        {
+          "id": "nmvdscf9h5zpuco",
+          "type": "src.visualizer",
+          "x": 0,
+          "y": 420,
+          "values": {
+            "style": "tunnel",
+            "speed": 1.5,
+            "count": 48,
+            "bg": "#00000000"
+          },
+          "props": {},
+          "preview": true
+        },
+        {
+          "id": "nmvdscf9h601eti",
+          "type": "comp.blend",
+          "x": 290,
+          "y": 120,
+          "values": {
+            "mode": "screen"
+          },
+          "props": {},
+          "preview": true
+        },
+        {
+          "id": "nmvdscf9h6154ye",
+          "type": "src.text",
+          "x": 290,
+          "y": 520,
+          "values": {
+            "text": "KamiCreative",
+            "size": 9,
+            "weight": "600",
+            "shadow": 30
+          },
+          "props": {},
+          "react": {
+            "size": {
+              "band": "bass",
+              "min": 8,
+              "max": 11,
+              "smooth": 20
+            }
+          },
+          "preview": true
+        },
+        {
+          "id": "nmvdscf9h629kyy",
+          "type": "out.projector",
+          "x": 560,
+          "y": 120,
+          "values": {},
+          "props": {},
+          "preview": true
+        },
+        {
+          "id": "nmvdscf9h63wwh3",
+          "type": "out.projector",
+          "x": 560,
+          "y": 520,
+          "values": {
+            "layer": 1
+          },
+          "props": {},
+          "title": "Title Projector",
+          "react": {
+            "opacity": {
+              "band": "beat",
+              "min": 30,
+              "max": 100,
+              "smooth": 50
+            }
+          },
+          "preview": true
+        }
+      ],
+      "links": [
+        {
+          "id": "lmvdscf9h64n7y3",
+          "from": [
+            "nmvdscf9h5y2y1y",
+            "out"
+          ],
+          "to": [
+            "nmvdscf9h601eti",
+            "a"
+          ]
+        },
+        {
+          "id": "lmvdscf9h656s1w",
+          "from": [
+            "nmvdscf9h5zpuco",
+            "out"
+          ],
+          "to": [
+            "nmvdscf9h601eti",
+            "b"
+          ]
+        },
+        {
+          "id": "lmvdscf9h66micq",
+          "from": [
+            "nmvdscf9h601eti",
+            "out"
+          ],
+          "to": [
+            "nmvdscf9h629kyy",
+            "video"
+          ]
+        },
+        {
+          "id": "lmvdscf9h671pld",
+          "from": [
+            "nmvdscf9h6154ye",
+            "out"
+          ],
+          "to": [
+            "nmvdscf9h63wwh3",
+            "video"
+          ]
+        }
+      ],
+      "comments": []
+    }
+  ],
+  "activeScene": "scenemvdscf9h5a0b5r"
+}

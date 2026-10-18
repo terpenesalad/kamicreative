@@ -17,8 +17,9 @@ You build a show by wiring **modules** together: movie players, cameras, generat
 
 ## Highlights
 
+- **Reacts to music.** Listen to a microphone or everything your computer plays, then make any setting follow the bass, mids, treble, loudness or beat with a right-click. Includes a Sound Visualizer (eight styles), a photism-style Colour Organ, Sound Pulse for any video, beat and tempo detection, and scenes that change on the beat.
 - **Easy to learn.** A five-minute interactive tutorial, a welcome screen, one-click recipes, hover help for everything on screen, and modules that wire themselves in when you add them after a selected one.
-- **106 modules** across video sources, 27 GPU effects, compositing, generators, maths, logic, control surfaces, MIDI, OSC, Art-Net DMX, audio analysis and scene control.
+- **110 modules** across video sources, 27 GPU effects, compositing, generators, maths, logic, control surfaces, MIDI, OSC, Art-Net DMX, audio analysis and scene control.
 - **Everything is live.** Values scrub with the mouse, wires connect instantly, and every video module shows its own preview while the show runs.
 - **Scenes as cues.** Cross-fade between scenes, auto-follow with Scene Start + Jump to Scene, and run the show from a dedicated Live view with a big GO button, cue list, notes and operator controls.
 - **Projection mapping** on every stage: any number of surfaces, perspective-correct corner pin, bicubic mesh warps up to 8×8, per-surface input regions, soft-edge blending with gamma and curve, colour trim, a calibration test pattern, and pixel nudging with the keyboard.
@@ -26,6 +27,8 @@ You build a show by wiring **modules** together: movie players, cameras, generat
 - **Show control.** MIDI notes / CC in and out, OSC receive and send over UDP, Art-Net DMX output for lighting, keyboard, mouse and gamepad input.
 - **Write your own shaders** with the GLSL module, with compile errors shown on the module.
 - **Built for the booth:** full undo/redo, crash recovery, atomic saves with a backup, relative media paths so projects travel, and a graphics self-test.
+
+![Sound panel and music visuals](docs/images/sound.png)
 
 | Welcome screen and recipes | Interactive tutorial |
 |---|---|
@@ -37,7 +40,7 @@ You build a show by wiring **modules** together: movie players, cameras, generat
 
 ## Install
 
-Download **KamiCreative-Setup-1.1.0.exe** from the [latest release](https://github.com/terpenesalad/kamicreative/releases/latest) and run it. The installer lets you choose the install folder, adds Start-menu and desktop shortcuts, and registers `.kamic` project files.
+Download **KamiCreative-Setup-1.2.0.exe** from the [latest release](https://github.com/terpenesalad/kamicreative/releases/latest) and run it. The installer lets you choose the install folder, adds Start-menu and desktop shortcuts, and registers `.kamic` project files.
 
 Windows may show a SmartScreen prompt because the installer is not code-signed yet. Choose **More info → Run anyway**.
 
@@ -60,10 +63,11 @@ The [user guide](docs/USER_GUIDE.md) covers patching, scenes, stages, mapping an
 |---|---|
 | Welcome | Patching basics, previews, a slider and a title that fades in on scene start |
 | Projection Mapping | Three surfaces mapped onto the faces of a cube |
-| Audio Reactive | Microphone analysis driving shapes, colour and glow with feedback |
+| Audio Reactive | Shapes, colour, glow and trails that follow the bass, mids, loudness and beat |
 | MIDI and OSC | Crossfading from a MIDI controller, OSC or an on-screen slider; keyboard blackout |
 | Video Feedback | A feedback tunnel steered with an XY pad |
 | Show Cues | A five-cue show with fades, an auto-follow, operator controls and notes |
+| Music Visuals | Four sound-reactive scenes that change by themselves every 16 beats |
 
 ## Building from source
 

@@ -33,8 +33,9 @@ export function describe(el) {
   }
   const val = el.closest('.val');
   if (val && !val.classList.contains('out')) {
+    if (val.closest('.cell')?.classList.contains('reacting')) return 'This setting follows the sound. Click it to change how it reacts, or right-click to stop.';
     if (val.closest('.cell')?.classList.contains('linked')) return 'This setting is controlled by the wire plugged into it. Unplug the wire to edit it by hand.';
-    return VALUE_HELP[val.dataset.type] || VALUE_HELP.any;
+    return (VALUE_HELP[val.dataset.type] || VALUE_HELP.any) + (['number', 'trigger', 'bool', 'any'].includes(val.dataset.type) ? ' Right-click to make it react to sound.' : '');
   }
   if (el.closest('.val.out')) return 'The live value this module is sending out right now.';
   if (el.closest('.node-preview')) return 'Live preview of this module\'s picture. Turn previews off from the right-click menu.';
@@ -51,6 +52,7 @@ export function describe(el) {
   if (el.closest('.lib-cat')) return 'Click to show or hide this group of modules.';
   if (el.closest('.scene')) return 'A scene (cue). Click to go to it, double-click to rename, drag to reorder, right-click for more.';
   if (el.closest('.stage-mon')) return 'What the audience sees on this stage, live. Double-click to open projection mapping.';
+  if (el.closest('.snd-btn')) return 'Sound: shows what KamiCreative hears (bass, mids, treble and the beat). Click to choose the microphone or your computer\'s audio.';
   if (el.closest('.stage-hint')) return 'KamiCreative noticed something that will stop your picture from showing. Click the button to fix it.';
   if (el.closest('.media-item')) return 'A media file. Drag it into the patch to make a player for it, or right-click for more.';
   if (el.closest('.patch-viewport') && !el.closest('.node')) return 'The patch. Double-click (or press Tab) to add a module · Space+drag to move around · scroll to zoom · F fits everything on screen.';

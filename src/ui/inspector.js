@@ -2,6 +2,8 @@
 
 import { h, icon, clear, setText } from './dom.js';
 import { getNodeType, portsOf, PORT_TYPES, formatNumber, hexToRgb } from '../core/registry.js';
+import { openReactEditor, canReact } from './soundui.js';
+import { REACT_BANDS } from '../audio/analysis.js';
 
 export class Inspector {
   constructor(root, app) {
@@ -180,11 +182,20 @@ export class Inspector {
         ctl = t;
       }
     }
-    const row = h('div.form-row.param', { class: linked ? 'linked' : '' }, h('span', { title: PORT_TYPES[p.type]?.label }, h('span.pdot', { style: { background: PORT_TYPES[p.type]?.color } }), p.name), ctl);
-    if (linked) {
+    const react = !linked && model.react?.[p.id];
+    const soundBtn = canReact(p) && !linked
+      ? h('button.icon-btn.react-btn', { class: react ? 'on' : '', title: react ? 'Reacting to sound — click to change' : 'Make this react to sound', onclick: () => openReactEditor(this.app, model.id, p.id) }, icon('sound', 13))
+      : null;
+    const row = h('div.form-row.param', { class: linked ? 'linked' : react ? 'linked reacting' : '' },
+      h('span', { title: PORT_TYPES[p.type]?.label }, h('span.pdot', { style: { background: PORT_TYPES[p.type]?.color } }), p.name),
+      h('div.param-ctl', null, ctl, soundBtn));
+    if (linked || react) {
       const live = h('span.live-val');
       this.liveEls.set('in:' + p.id, { el: live, p, input: true });
-      row.appendChild(h('span.linked-note', null, 'driven by a connection: ', live));
+      const band = react && REACT_BANDS.find((b) => b.id === react.band);
+      row.appendChild(h('span.linked-note', null, react
+        ? (p.type === 'trigger' ? `fires on ${react.every > 1 ? `every ${react.every} beats` : 'every beat'}` : `follows ${band?.label.toLowerCase() || 'sound'} (${formatNumber(react.min)} → ${formatNumber(react.max)}): `)
+        : 'driven by a connection: ', p.type === 'trigger' ? null : live));
     }
     return row;
   }

@@ -13,7 +13,7 @@ export function createWebBridge() {
   return {
     isElectron: false,
     platform: 'web',
-    version: '1.1.0',
+    version: '1.2.0',
     async openProjectDialog() {
       const [f] = await pick('.kamic,application/json', false);
       if (!f) return null;

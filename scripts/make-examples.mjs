@@ -14,6 +14,11 @@ function builder(scene) {
     if (!def) throw new Error(`unknown type ${type}`);
     const model = { id: uid(), type, x, y, values, props: { ...(def.props ? JSON.parse(JSON.stringify(def.props)) : {}), ...(extra.props || {}) } };
     if (extra.title) model.title = extra.title;
+    if (extra.react) {
+      const ports = portsOf(def, model).inputs;
+      for (const k of Object.keys(extra.react)) if (!ports.find((p) => p.id === k)) throw new Error(`${type} cannot react on "${k}"`);
+      model.react = extra.react;
+    }
     if (def.preview && extra.preview !== false) model.preview = true;
     const ports = portsOf(def, model);
     for (const k of Object.keys(values)) if (!ports.inputs.find((p) => p.id === k)) throw new Error(`${type} has no input "${k}"`);
@@ -129,33 +134,23 @@ function save(name, project) {
   const p = createProject();
   const s = p.scenes[0];
   s.name = 'Audio Reactive';
-  s.notes = 'Needs a microphone or line input. Clap or play music.';
+  s.notes = 'Uses the sound chosen with the Sound button: microphone or computer audio.';
   const b = builder(s);
-  b.note(-420, 0, 'Sound Analyser listens to your default audio input.\n\nLow frequencies drive the ring size, the beat trigger picks a random hue, and the overall level drives the glow.\n\nIf nothing moves, check the input level and raise Gain.', 'Audio reactive', '#9be59b');
-  const an = b.add('audio.analyzer', 0, 0, { gain: 2, smooth: 70, sens: 60 });
-  const sm = b.add('math.smooth', 300, 0, { amount: 75 });
-  const sc = b.add('math.scale', 560, 0, { inMin: 0, inMax: 100, outMin: 20, outMax: 90 }, { title: 'Bass → size' });
-  const ring = b.add('src.shape', 840, 0, { kind: 'ring', w: 40, h: 40, fill: '#5cc8ff', soft: 1 });
-  const rnd = b.add('gen.random', 300, 360, { min: -180, max: 180 }, { title: 'Hue on beat' });
-  const col = b.add('fx.color', 1120, 0, { sat: 140 });
-  const lvl = b.add('math.scale', 300, 620, { inMin: 0, inMax: 100, outMin: 40, outMax: 400 }, { title: 'Level → glow' });
-  const glow = b.add('fx.glow', 1400, 0, { thresh: 30, radius: 50 });
-  const fb = b.add('fx.feedback', 1680, 0, { decay: 86, zoom: 102, rot: 1 });
-  const pj = b.add('out.projector', 1960, 20);
-  const scope = b.add('ctl.scope', 560, 360, { min: 0, max: 100 }, { title: 'Bass level' });
-  b.link(an, 'low', sm, 'in');
-  b.link(sm, 'out', sc, 'in');
-  b.link(sm, 'out', scope, 'in');
-  b.link(sc, 'out', ring, 'w');
-  b.link(sc, 'out', ring, 'h');
+  b.note(-440, 0, 'Values with a purple ♪ follow the sound. Right-click any number and choose Bass, Mids, Treble, Loudness or Beat to make it react; click a ♪ value to fine-tune it.\n\nHere: the ring grows with the bass, the glow follows the loudness, the colour jumps on every beat and the trails zoom with the mids.\n\nChoose what to listen to with the Sound button at the top.', 'React to sound', '#b58cff');
+  const ring = b.add('src.shape', 0, 0, { kind: 'ring', fill: '#5cc8ff', soft: 1 }, { react: { w: { band: 'bass', min: 18, max: 85, smooth: 25 }, h: { band: 'bass', min: 18, max: 85, smooth: 25 } } });
+  const rnd = b.add('gen.random', 0, 420, { min: -180, max: 180 }, { title: 'Hue on beat', react: { trig: { band: 'beat', every: 1 } } });
+  const col = b.add('fx.color', 290, 0, { sat: 140 });
+  const glow = b.add('fx.glow', 560, 0, { thresh: 30, radius: 50 }, { react: { amt: { band: 'level', min: 60, max: 380, smooth: 40 } } });
+  const fb = b.add('fx.feedback', 830, 0, { decay: 86, rot: 1 }, { react: { zoom: { band: 'mid', min: 100.5, max: 104, smooth: 30 } } });
+  const pj = b.add('out.projector', 1100, 20);
+  const snd = b.add('audio.sound', 290, 420);
+  const scope = b.add('ctl.scope', 560, 420, { min: 0, max: 100 }, { title: 'Bass' });
   b.link(ring, 'out', col, 'video');
-  b.link(an, 'beat', rnd, 'trig');
   b.link(rnd, 'out', col, 'hue');
   b.link(col, 'out', glow, 'video');
-  b.link(an, 'level', lvl, 'in');
-  b.link(lvl, 'out', glow, 'amt');
   b.link(glow, 'out', fb, 'video');
   b.link(fb, 'out', pj, 'video');
+  b.link(snd, 'bass', scope, 'in');
   save('03-Audio-Reactive', p);
 }
 
@@ -286,4 +281,45 @@ function save(name, project) {
     return s;
   });
   save('06-Show-Cues', p);
+}
+
+// ------------------------------------------------------------- 07 Music Visuals
+{
+  const p = createProject();
+  p.settings.sound.autoAdvance = 16;
+  const mk = (name, fade, fn) => { const sc = createScene(name); sc.fadeIn = fade; fn(builder(sc), sc); return sc; };
+  p.scenes = [
+    mk('Spectrum Halo', 1.5, (b, sc) => {
+      sc.notes = 'Changes scene every 16 beats (Sound button → Change scene). Play music!';
+      b.note(-440, 0, 'A ready-to-play music visual show. Each scene listens to the sound and the show moves on by itself every 16 beats.\n\nPick what to listen to with the Sound button, then press Ctrl+Shift+F to show it full screen.', 'Music visuals', '#b58cff');
+      const v = b.add('src.visualizer', 0, 0, { style: 'circle', count: 72, spin: 0.02, scale: 115 });
+      const fb = b.add('fx.feedback', 290, 0, { decay: 84, rot: 0.5, mode: 'lighten' }, { react: { zoom: { band: 'bass', min: 100.5, max: 104.5, smooth: 25 } } });
+      const g = b.add('fx.glow', 560, 0, { thresh: 35, radius: 30, amt: 150 });
+      const pj = b.add('out.projector', 830, 0);
+      b.link(v, 'out', fb, 'video'); b.link(fb, 'out', g, 'video'); b.link(g, 'out', pj, 'video');
+    }),
+    mk('Colour Organ', 2, (b) => {
+      const o = b.add('src.colororgan', 0, 0, { layout: 'lights', bands: 9, bright: 150, drift: 0.5 });
+      const k = b.add('fx.kaleido', 290, 0, { seg: 6, spin: 0.02 }, { react: { zoom: { band: 'bass', min: 90, max: 150, smooth: 35 } } });
+      const pj = b.add('out.projector', 560, 0);
+      b.link(o, 'out', k, 'video'); b.link(k, 'out', pj, 'video');
+    }),
+    mk('Equaliser Wall', 1, (b) => {
+      const v = b.add('src.visualizer', 0, 0, { style: 'mirror bars', count: 40, gap: 30, mode: 'two colours', a: '#3bd1ff', b: '#ff3b9a', scale: 100 });
+      const t = b.add('fx.tile', 290, 0, { h: 2, v: 2, mirror: 1 });
+      const p2 = b.add('fx.soundpulse', 560, 0, { zoom: 10, flash: 20, split: 40, hue: 1 });
+      const pj = b.add('out.projector', 830, 0);
+      b.link(v, 'out', t, 'video'); b.link(t, 'out', p2, 'video'); b.link(p2, 'out', pj, 'video');
+    }),
+    mk('Star Tunnel', 2, (b) => {
+      const st = b.add('src.visualizer', 0, 0, { style: 'stars', speed: 2, thick: 4, mode: 'rainbow (pitch → colour)' });
+      const tn = b.add('src.visualizer', 0, 420, { style: 'tunnel', speed: 1.5, count: 48, bg: '#00000000' });
+      const bl = b.add('comp.blend', 290, 120, { mode: 'screen' });
+      const txt = b.add('src.text', 290, 520, { text: 'KamiCreative', size: 9, weight: '600', shadow: 30 }, { react: { size: { band: 'bass', min: 8, max: 11, smooth: 20 } } });
+      const pj = b.add('out.projector', 560, 120);
+      const pt = b.add('out.projector', 560, 520, { layer: 1 }, { title: 'Title Projector', react: { opacity: { band: 'beat', min: 30, max: 100, smooth: 50 } } });
+      b.link(st, 'out', bl, 'a'); b.link(tn, 'out', bl, 'b'); b.link(bl, 'out', pj, 'video'); b.link(txt, 'out', pt, 'video');
+    }),
+  ];
+  save('07-Music-Visuals', p);
 }

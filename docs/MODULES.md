@@ -1,9 +1,10 @@
 # Module reference
 
-KamiCreative ships with 106 modules. This page is generated from the source (`npm run docs`), so it always matches the app.
+KamiCreative ships with 110 modules. This page is generated from the source (`npm run docs`), so it always matches the app.
 
 Port types: **Number**, **On/Off**, **Choice**, **Text**, **Colour**, **Trigger**, **Video**, **Media**, **Any**.
 
+- [Sound](#sound) (6)
 - [Video Sources](#video-sources) (11)
 - [Video FX](#video-fx) (27)
 - [Compositing](#compositing) (5)
@@ -13,9 +14,140 @@ Port types: **Number**, **On/Off**, **Choice**, **Text**, **Colour**, **Trigger*
 - [Logic](#logic) (14)
 - [Control](#control) (8)
 - [Input / Output](#input-output) (9)
-- [Audio](#audio) (2)
 - [Scene](#scene) (5)
 - [Utility](#utility) (4)
+
+## Sound
+
+### Colour Organ
+
+Photism-style light organ: the music is split into bands from low to high, and each band glows its own colour — low notes red, high notes violet by default.
+
+| Input | Type | Range / default |
+|---|---|---|
+| Layout | Choice | columns / rings / lights / wash; default lights |
+| Bands | Number | 3 to 12; default 7 |
+| Palette | Choice | rainbow (pitch → colour) / warm / cool / two colours; default rainbow (pitch → colour) |
+| Colour A | Colour | default #ff3b6b |
+| Colour B | Colour | default #3bd1ff |
+| Softness % | Number | 0 to 100; default 50 |
+| Brightness % | Number | 0 to 400; default 100 |
+| Drift | Number | 0 to 5; default 0.3 |
+| Smoothing % | Number | 0 to 99; default 50 |
+| Resolution | Choice | stage / 3840x2160 / 1920x1080 / 1280x720 / 1080x1920 / 1024x1024; default stage |
+
+| Output | Type |
+|---|---|
+| Video Out | Video |
+
+### Sound Analyser
+
+Older version of Sound Input with its own gain. Outputs level, low, mid and high bands and a beat trigger.
+
+| Input | Type | Range / default |
+|---|---|---|
+| Listen | On/Off | default on |
+| Gain | Number | 0 to 20; default 1 |
+| Smoothing | Number | 0 to 99; default 60 |
+| Beat Sensitivity | Number | 0 to 100; default 50 |
+
+| Output | Type |
+|---|---|
+| Level | Number |
+| Low | Number |
+| Mid | Number |
+| High | Number |
+| Beat | Trigger |
+
+### Sound Input
+
+Listens to the sound chosen in the Sound panel (microphone, computer audio or a Sound Player) and outputs loudness, bass, mids, treble (0-100), a trigger on every beat and the tempo.
+
+| Input | Type | Range / default |
+|---|---|---|
+| Beat Every N | Number | 1 to 64; default 1 |
+| Custom Low Hz | Number | 20 to 20000; default 200 |
+| Custom High Hz | Number | 20 to 20000; default 800 |
+
+| Output | Type |
+|---|---|
+| Loudness | Number |
+| Bass | Number |
+| Mids | Number |
+| Treble | Number |
+| Beat | Trigger |
+| Beat Count | Number |
+| Tempo (BPM) | Number |
+| Beat Phase | Number |
+| Custom Band | Number |
+
+### Sound Player
+
+Plays a music or sound file from the Media Bin. With "Visuals React" on, everything that reacts to sound follows this song.
+
+| Input | Type | Range / default |
+|---|---|---|
+| Sound | Media |  |
+| Play | On/Off | default on |
+| Loop | On/Off | default off |
+| Volume % | Number | 0 to 200; default 100 |
+| Pan | Number | -100 to 100; default 0 |
+| Speed | Number | 0.1 to 4; default 1 |
+| Visuals React | On/Off | default on |
+| Position % | Number | 0 to 100; default 0 |
+| Seek | Trigger |  |
+| Restart | Trigger |  |
+
+| Output | Type |
+|---|---|
+| Position % | Number |
+| Level | Number |
+| Ended | Trigger |
+| Duration (s) | Number |
+
+### Sound Pulse
+
+Makes any video move with the music: it zooms with the bass, flashes and shakes on beats, splits colours and shifts hue. Turn amounts to 0 to switch an effect off.
+
+| Input | Type | Range / default |
+|---|---|---|
+| Video In | Video |  |
+| Follow | Choice | bass / level / mid / treble; default bass |
+| Zoom % | Number | 0 to 100; default 12 |
+| Flash on Beat % | Number | 0 to 100; default 20 |
+| Shake % | Number | 0 to 100; default 0 |
+| Colour Split % | Number | 0 to 100; default 25 |
+| Brightness % | Number | 0 to 200; default 30 |
+| Hue Jump on Beat | On/Off | default off |
+
+| Output | Type |
+|---|---|
+| Video Out | Video |
+
+### Sound Visualizer
+
+Instant music visuals: spectrum bars, circle, waveform, tunnel, stars or a pulsing blob, all driven by the sound you choose in the Sound panel.
+
+| Input | Type | Range / default |
+|---|---|---|
+| Style | Choice | bars / mirror bars / circle / waveform / ring wave / tunnel / stars / blob; default circle |
+| Colours | Choice | rainbow (pitch → colour) / two colours / single colour; default rainbow (pitch → colour) |
+| Colour A | Colour | default #5cc8ff |
+| Colour B | Colour | default #ff4f8b |
+| Bars | Number | 4 to 256; default 48 |
+| Gap % | Number | 0 to 90; default 25 |
+| Height % | Number | 0 to 300; default 90 |
+| Line Width | Number | 0.5 to 40; default 3 |
+| Rotation | Number | default 0 |
+| Spin Speed | Number | default 0 |
+| Travel Speed | Number | 0 to 10; default 1 |
+| Colour Cycle | Number | default 0.02 |
+| Background | Colour | default #000000 |
+| Resolution | Choice | stage / 3840x2160 / 1920x1080 / 1280x720 / 1080x1920 / 1024x1024; default stage |
+
+| Output | Type |
+|---|---|
+| Video Out | Video |
 
 ## Video Sources
 
@@ -1537,50 +1669,6 @@ Sends an OSC message over UDP to another app or device.
 | Arg 2 | Any |  |
 | Send | Trigger |  |
 | Send On Change | On/Off | default on |
-
-## Audio
-
-### Sound Analyser
-
-Listens to the microphone / line input. Outputs overall level, low / mid / high bands and a beat trigger.
-
-| Input | Type | Range / default |
-|---|---|---|
-| Listen | On/Off | default on |
-| Gain | Number | 0 to 20; default 1 |
-| Smoothing | Number | 0 to 99; default 60 |
-| Beat Sensitivity | Number | 0 to 100; default 50 |
-
-| Output | Type |
-|---|---|
-| Level | Number |
-| Low | Number |
-| Mid | Number |
-| High | Number |
-| Beat | Trigger |
-
-### Sound Player
-
-Plays an audio file from the Media Bin with volume, pan, speed and looping. Outputs its level.
-
-| Input | Type | Range / default |
-|---|---|---|
-| Sound | Media |  |
-| Play | On/Off | default on |
-| Loop | On/Off | default off |
-| Volume % | Number | 0 to 200; default 100 |
-| Pan | Number | -100 to 100; default 0 |
-| Speed | Number | 0.1 to 4; default 1 |
-| Position % | Number | 0 to 100; default 0 |
-| Seek | Trigger |  |
-| Restart | Trigger |  |
-
-| Output | Type |
-|---|---|
-| Position % | Number |
-| Level | Number |
-| Ended | Trigger |
-| Duration (s) | Number |
 
 ## Scene
 

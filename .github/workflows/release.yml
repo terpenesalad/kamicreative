@@ -1,15 +1,15 @@
 name: Release
 
-# Run from the Actions tab: Release → Run workflow → enter the tag (e.g. v1.1.0).
+# Run from the Actions tab: Release → Run workflow → enter the tag (e.g. v1.2.0).
 # Builds the Windows installer on a Windows runner and publishes it as a GitHub release,
 # creating the tag on the current commit of the selected branch if it does not exist yet.
 on:
   workflow_dispatch:
     inputs:
       tag:
-        description: Tag to release (must match the version in package.json, e.g. v1.1.0)
+        description: Tag to release (must match the version in package.json, e.g. v1.2.0)
         required: true
-        default: v1.1.0
+        default: v1.2.0
 
 permissions:
   contents: write

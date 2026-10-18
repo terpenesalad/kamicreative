@@ -3,19 +3,28 @@
   "version": 1,
   "meta": {
     "name": "Audio Reactive",
-    "created": "2026-10-14T09:44:42.847Z",
-    "modified": "2026-10-14T09:44:42.847Z",
+    "created": "2026-10-18T12:12:11.714Z",
+    "modified": "2026-10-18T12:12:11.714Z",
     "app": "KamiCreative"
   },
   "settings": {
     "oscPort": 8000,
     "artnetHost": "255.255.255.255",
     "snapToGrid": true,
-    "previews": true
+    "previews": true,
+    "sound": {
+      "source": "mic",
+      "deviceId": "",
+      "gain": 100,
+      "sensitivity": 50,
+      "smoothing": 40,
+      "autoLevel": true,
+      "autoAdvance": 0
+    }
   },
   "stages": [
     {
-      "id": "stagemv7xbcrj1ox1wi",
+      "id": "stagemvdscf9e1o172x",
       "name": "Stage 1",
       "width": 1920,
       "height": 1080,
@@ -27,7 +36,7 @@
         "enabled": true,
         "surfaces": [
           {
-            "id": "smv7xbcrj1pvvb8",
+            "id": "smvdscf9e1pboui",
             "name": "Surface 1",
             "enabled": true,
             "opacity": 1,
@@ -80,90 +89,72 @@
   "media": [],
   "scenes": [
     {
-      "id": "scenemv7xbcrj1nsuf7",
+      "id": "scenemvdscf9d1nejg4",
       "name": "Audio Reactive",
       "fadeIn": 0,
-      "notes": "Needs a microphone or line input. Clap or play music.",
+      "notes": "Uses the sound chosen with the Sound button: microphone or computer audio.",
       "nodes": [
         {
-          "id": "nmv7xbcrj1qwoxz",
+          "id": "nmvdscf9e1q9hmr",
           "type": "util.comment",
-          "x": -420,
+          "x": -440,
           "y": 0,
           "values": {},
           "props": {
-            "text": "Sound Analyser listens to your default audio input.\n\nLow frequencies drive the ring size, the beat trigger picks a random hue, and the overall level drives the glow.\n\nIf nothing moves, check the input level and raise Gain.",
-            "color": "#9be59b"
+            "text": "Values with a purple ♪ follow the sound. Right-click any number and choose Bass, Mids, Treble, Loudness or Beat to make it react; click a ♪ value to fine-tune it.\n\nHere: the ring grows with the bass, the glow follows the loudness, the colour jumps on every beat and the trails zoom with the mids.\n\nChoose what to listen to with the Sound button at the top.",
+            "color": "#b58cff"
           },
-          "title": "Audio reactive"
+          "title": "React to sound"
         },
         {
-          "id": "nmv7xbcrj1r736y",
-          "type": "audio.analyzer",
+          "id": "nmvdscf9e1r9rnq",
+          "type": "src.shape",
           "x": 0,
           "y": 0,
           "values": {
-            "gain": 2,
-            "smooth": 70,
-            "sens": 60
-          },
-          "props": {}
-        },
-        {
-          "id": "nmv7xbcrj1sukuq",
-          "type": "math.smooth",
-          "x": 300,
-          "y": 0,
-          "values": {
-            "amount": 75
-          },
-          "props": {}
-        },
-        {
-          "id": "nmv7xbcrj1tluy2",
-          "type": "math.scale",
-          "x": 560,
-          "y": 0,
-          "values": {
-            "inMin": 0,
-            "inMax": 100,
-            "outMin": 20,
-            "outMax": 90
-          },
-          "props": {},
-          "title": "Bass → size"
-        },
-        {
-          "id": "nmv7xbcrj1uz1ky",
-          "type": "src.shape",
-          "x": 840,
-          "y": 0,
-          "values": {
             "kind": "ring",
-            "w": 40,
-            "h": 40,
             "fill": "#5cc8ff",
             "soft": 1
           },
           "props": {},
+          "react": {
+            "w": {
+              "band": "bass",
+              "min": 18,
+              "max": 85,
+              "smooth": 25
+            },
+            "h": {
+              "band": "bass",
+              "min": 18,
+              "max": 85,
+              "smooth": 25
+            }
+          },
           "preview": true
         },
         {
-          "id": "nmv7xbcrj1vw2nn",
+          "id": "nmvdscf9e1sxul0",
           "type": "gen.random",
-          "x": 300,
-          "y": 360,
+          "x": 0,
+          "y": 420,
           "values": {
             "min": -180,
             "max": 180
           },
           "props": {},
-          "title": "Hue on beat"
+          "title": "Hue on beat",
+          "react": {
+            "trig": {
+              "band": "beat",
+              "every": 1
+            }
+          }
         },
         {
-          "id": "nmv7xbcrj1wnb1n",
+          "id": "nmvdscf9e1t8nn6",
           "type": "fx.color",
-          "x": 1120,
+          "x": 290,
           "y": 0,
           "values": {
             "sat": 140
@@ -172,213 +163,145 @@
           "preview": true
         },
         {
-          "id": "nmv7xbcrj1xe9ti",
-          "type": "math.scale",
-          "x": 300,
-          "y": 620,
-          "values": {
-            "inMin": 0,
-            "inMax": 100,
-            "outMin": 40,
-            "outMax": 400
-          },
-          "props": {},
-          "title": "Level → glow"
-        },
-        {
-          "id": "nmv7xbcrj1yzsdf",
+          "id": "nmvdscf9e1ucigd",
           "type": "fx.glow",
-          "x": 1400,
+          "x": 560,
           "y": 0,
           "values": {
             "thresh": 30,
             "radius": 50
           },
           "props": {},
+          "react": {
+            "amt": {
+              "band": "level",
+              "min": 60,
+              "max": 380,
+              "smooth": 40
+            }
+          },
           "preview": true
         },
         {
-          "id": "nmv7xbcrj1zs17z",
+          "id": "nmvdscf9e1vrblo",
           "type": "fx.feedback",
-          "x": 1680,
+          "x": 830,
           "y": 0,
           "values": {
             "decay": 86,
-            "zoom": 102,
             "rot": 1
           },
           "props": {},
+          "react": {
+            "zoom": {
+              "band": "mid",
+              "min": 100.5,
+              "max": 104,
+              "smooth": 30
+            }
+          },
           "preview": true
         },
         {
-          "id": "nmv7xbcrj200eav",
+          "id": "nmvdscf9e1w4nej",
           "type": "out.projector",
-          "x": 1960,
+          "x": 1100,
           "y": 20,
           "values": {},
           "props": {},
           "preview": true
         },
         {
-          "id": "nmv7xbcrj21qpc7",
+          "id": "nmvdscf9e1xhkw6",
+          "type": "audio.sound",
+          "x": 290,
+          "y": 420,
+          "values": {},
+          "props": {}
+        },
+        {
+          "id": "nmvdscf9e1yi887",
           "type": "ctl.scope",
           "x": 560,
-          "y": 360,
+          "y": 420,
           "values": {
             "min": 0,
             "max": 100
           },
           "props": {},
-          "title": "Bass level"
+          "title": "Bass"
         }
       ],
       "links": [
         {
-          "id": "lmv7xbcrj22febq",
+          "id": "lmvdscf9e1zk7ie",
           "from": [
-            "nmv7xbcrj1r736y",
-            "low"
-          ],
-          "to": [
-            "nmv7xbcrj1sukuq",
-            "in"
-          ]
-        },
-        {
-          "id": "lmv7xbcrj23ncyz",
-          "from": [
-            "nmv7xbcrj1sukuq",
+            "nmvdscf9e1r9rnq",
             "out"
           ],
           "to": [
-            "nmv7xbcrj1tluy2",
-            "in"
-          ]
-        },
-        {
-          "id": "lmv7xbcrj24whzc",
-          "from": [
-            "nmv7xbcrj1sukuq",
-            "out"
-          ],
-          "to": [
-            "nmv7xbcrj21qpc7",
-            "in"
-          ]
-        },
-        {
-          "id": "lmv7xbcrj2528v9",
-          "from": [
-            "nmv7xbcrj1tluy2",
-            "out"
-          ],
-          "to": [
-            "nmv7xbcrj1uz1ky",
-            "w"
-          ]
-        },
-        {
-          "id": "lmv7xbcrj260g27",
-          "from": [
-            "nmv7xbcrj1tluy2",
-            "out"
-          ],
-          "to": [
-            "nmv7xbcrj1uz1ky",
-            "h"
-          ]
-        },
-        {
-          "id": "lmv7xbcrj27q6v9",
-          "from": [
-            "nmv7xbcrj1uz1ky",
-            "out"
-          ],
-          "to": [
-            "nmv7xbcrj1wnb1n",
+            "nmvdscf9e1t8nn6",
             "video"
           ]
         },
         {
-          "id": "lmv7xbcrj28ruik",
+          "id": "lmvdscf9f208y6c",
           "from": [
-            "nmv7xbcrj1r736y",
-            "beat"
-          ],
-          "to": [
-            "nmv7xbcrj1vw2nn",
-            "trig"
-          ]
-        },
-        {
-          "id": "lmv7xbcrj29j4jh",
-          "from": [
-            "nmv7xbcrj1vw2nn",
+            "nmvdscf9e1sxul0",
             "out"
           ],
           "to": [
-            "nmv7xbcrj1wnb1n",
+            "nmvdscf9e1t8nn6",
             "hue"
           ]
         },
         {
-          "id": "lmv7xbcrj2aa74b",
+          "id": "lmvdscf9f21bk8f",
           "from": [
-            "nmv7xbcrj1wnb1n",
+            "nmvdscf9e1t8nn6",
             "out"
           ],
           "to": [
-            "nmv7xbcrj1yzsdf",
+            "nmvdscf9e1ucigd",
             "video"
           ]
         },
         {
-          "id": "lmv7xbcrj2bedgl",
+          "id": "lmvdscf9f22t2qg",
           "from": [
-            "nmv7xbcrj1r736y",
-            "level"
+            "nmvdscf9e1ucigd",
+            "out"
           ],
           "to": [
-            "nmv7xbcrj1xe9ti",
+            "nmvdscf9e1vrblo",
+            "video"
+          ]
+        },
+        {
+          "id": "lmvdscf9f231rby",
+          "from": [
+            "nmvdscf9e1vrblo",
+            "out"
+          ],
+          "to": [
+            "nmvdscf9e1w4nej",
+            "video"
+          ]
+        },
+        {
+          "id": "lmvdscf9f24aa0m",
+          "from": [
+            "nmvdscf9e1xhkw6",
+            "bass"
+          ],
+          "to": [
+            "nmvdscf9e1yi887",
             "in"
-          ]
-        },
-        {
-          "id": "lmv7xbcrj2c6ijr",
-          "from": [
-            "nmv7xbcrj1xe9ti",
-            "out"
-          ],
-          "to": [
-            "nmv7xbcrj1yzsdf",
-            "amt"
-          ]
-        },
-        {
-          "id": "lmv7xbcrj2dxl1a",
-          "from": [
-            "nmv7xbcrj1yzsdf",
-            "out"
-          ],
-          "to": [
-            "nmv7xbcrj1zs17z",
-            "video"
-          ]
-        },
-        {
-          "id": "lmv7xbcrj2elqns",
-          "from": [
-            "nmv7xbcrj1zs17z",
-            "out"
-          ],
-          "to": [
-            "nmv7xbcrj200eav",
-            "video"
           ]
         }
       ],
       "comments": []
     }
   ],
-  "activeScene": "scenemv7xbcrj1nsuf7"
+  "activeScene": "scenemvdscf9d1nejg4"
 }

@@ -3,6 +3,7 @@
 import { h, svg, icon, clear, setText } from './dom.js';
 import { getNodeType, portsOf, PORT_TYPES, formatNumber, compatible, hexToRgb } from '../core/registry.js';
 import { showMenu } from './dialogs.js';
+import { reactMenuItems, openReactEditor, canReact } from './soundui.js';
 
 const GRID = 8;
 const PREVIEW_W = 200, PREVIEW_H = 112;
@@ -280,8 +281,11 @@ export class PatchEditor {
       const p = c.port;
       if (p.type === 'video') continue;
       const linked = this._connectedIn(v, id);
+      const reacting = !!v.model.react?.[id];
       c.cell.classList.toggle('linked', linked);
-      const val = linked && rt ? rt.inputs[id] : v.model.values?.[id] ?? p.default;
+      c.cell.classList.toggle('reacting', reacting && !linked);
+      c.value.title = reacting ? 'Follows the sound — click to change how' : '';
+      const val = (linked || reacting) && rt ? rt.inputs[id] : v.model.values?.[id] ?? p.default;
       this._paintValue(c.value, p, val);
     }
   }
@@ -304,6 +308,7 @@ export class PatchEditor {
     el.addEventListener('pointerdown', (e) => {
       if (e.button !== 0) return;
       e.stopPropagation();
+      if (v.model.react?.[p.id] && !this._connectedIn(v, p.id)) { openReactEditor(this.app, v.id, p.id); return; }
       if (p.type === 'trigger') { this.doc.fire(v.id, p.id); el.classList.add('fired'); setTimeout(() => el.classList.remove('fired'), 150); return; }
       if (!editable()) return;
       if (p.type === 'bool') { const cur = +(v.model.values?.[p.id] ?? p.default); this.doc.setValue(v.id, p.id, cur ? 0 : 1, `b${Math.random()}`); this._refreshInputs(v); return; }
@@ -539,7 +544,8 @@ export class PatchEditor {
       setText(c.value, val === null || val === undefined ? '' : typeof val === 'number' ? formatNumber(val) : p.type === 'bool' ? (val ? 'on' : 'off') : String(val));
     }
     for (const [id, c] of v.inputs) {
-      if (c.port.type === 'video' || !c.cell.classList.contains('linked')) continue;
+      if (c.port.type === 'video' || !(c.cell.classList.contains('linked') || c.cell.classList.contains('reacting'))) continue;
+      if (c.port.type === 'trigger') { if (n.model.react?.[c.port.id] && this.app.host.sound.values.beat) { c.value.classList.remove('fired'); void c.value.offsetWidth; c.value.classList.add('fired'); setTimeout(() => c.value.classList.remove('fired'), 120); } continue; }
       this._paintValue(c.value, c.port, n.inputs[id]);
     }
     if (v.widget && !v.widget.live) v.widget.update(n);
@@ -876,6 +882,19 @@ export class PatchEditor {
     if (wire) {
       showMenu(e.clientX, e.clientY, [{ label: 'Delete connection', danger: true, action: () => this.doc.disconnect([wire.dataset.link]) }]);
       return;
+    }
+    const cell = e.target.closest('.cell.in');
+    if (nodeEl && cell && !nodeEl.classList.contains('comment')) {
+      const v = this.views.get(nodeEl.dataset.id);
+      const c = v?.inputs.get(cell.dataset.port);
+      if (c && canReact(c.port)) {
+        const items = reactMenuItems(this.app, v.model, c.port);
+        if (items.length) {
+          this.select([v.id]);
+          showMenu(e.clientX, e.clientY, [...items, '-', { label: 'Module menu…', action: () => this._onContext({ ...e, preventDefault() {}, target: nodeEl.querySelector('.node-head'), clientX: e.clientX, clientY: e.clientY }) }], { minWidth: 280 });
+          return;
+        }
+      }
     }
     if (nodeEl) {
       const id = nodeEl.dataset.id;

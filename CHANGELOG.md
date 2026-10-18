@@ -2,6 +2,25 @@
 
 All notable changes to KamiCreative are documented here. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and the project uses [semantic versioning](https://semver.org/).
 
+## [1.2.0] — 2026-10-18
+
+Visuals that react to sound.
+
+### Added
+- Shared sound engine with three sources: microphone (choose the device), computer audio (everything the PC plays, via Windows loopback) and Sound Players. Bass, mids, treble and loudness on a 0-100 scale, beat detection, tempo (BPM), a log-spaced spectrum and waveform.
+- Auto-level that adapts to quiet and loud rooms, a silence gate, and a moving floor so kicks stand out over sustained basslines.
+- **React to sound** on any number, on/off or trigger input: right-click it (or use the ♪ button in the Inspector) and choose Bass, Mids, Treble, Loudness or Beat; fine-tune the quiet/loud range, smoothness, fall-off and reverse. Triggers can fire every 1, 2, 4, 8 or 16 beats. Saved with the project and undoable.
+- Sound button in the toolbar with live bass/mid/treble meters and a beat light, and a Sound panel with source, device, meters, spectrum, tempo, sensitivity, boost, smoothness and auto-level.
+- Change scene automatically every 4-64 beats ("auto VJ").
+- New modules: Sound Visualizer (bars, mirror bars, circle, waveform, ring wave, tunnel, stars, blob), Colour Organ (photism-style colour per frequency band: columns, rings, lights, wash), Sound Pulse (zoom, flash, shake, colour split and hue jumps for any video), Sound Input.
+- Recipes: Music visualizer, Colour organ (photism), Make a video dance. Generative visuals and Pulsing ring now react to sound.
+- Example: Music Visuals (four scenes that change every 16 beats). The Audio Reactive example was rebuilt with React to sound.
+- Welcome screen card "Make visuals that react to music"; two new tutorial steps on sound; Help → Sound Settings.
+
+### Changed
+- Sound Player can feed the visuals (Visuals React, on by default). Sound Analyser now uses the shared sound engine, so it follows the source chosen in the Sound panel.
+- New Sound category at the top of the module library; Logic and Math start collapsed.
+
 ## [1.1.0] — 2026-10-14
 
 Making KamiCreative easy to learn.

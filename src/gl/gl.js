@@ -94,6 +94,19 @@ export class Texture {
     return true;
   }
 
+  /** Upload raw RGBA8 pixels (row 0 = bottom in GL; callers treat rows as data rows). */
+  uploadData(data, width, height) {
+    const gl = this.gl;
+    gl.bindTexture(gl.TEXTURE_2D, this.tex);
+    if (width !== this.width || height !== this.height) {
+      this.width = width;
+      this.height = height;
+      gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA8, width, height, 0, gl.RGBA, gl.UNSIGNED_BYTE, data);
+    } else {
+      gl.texSubImage2D(gl.TEXTURE_2D, 0, 0, 0, width, height, gl.RGBA, gl.UNSIGNED_BYTE, data);
+    }
+  }
+
   dispose() {
     const gl = this.gl;
     gl.deleteTexture(this.tex);

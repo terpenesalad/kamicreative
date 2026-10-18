@@ -1,6 +1,7 @@
 // KamiCreative — host services exposed to modules (ctx.host) and to the UI.
 
 import { createWebBridge } from './bridge-web.js';
+import { SoundEngine } from '../audio/sound.js';
 
 const VIDEO_EXT = /\.(mp4|m4v|mov|webm|mkv|ogv|avi)$/i;
 const IMAGE_EXT = /\.(png|jpe?g|gif|webp|bmp|svg|avif)$/i;
@@ -162,5 +163,7 @@ export function createHost(app) {
     return st ? app.stageRenderer.comp.get(st.id) || null : null;
   }
 
-  return { bridge, status, media, midi, osc, artnet, audio, camera, stageComposite, mediaKind };
+  const host = { bridge, status, media, midi, osc, artnet, audio, camera, stageComposite, mediaKind };
+  host.sound = new SoundEngine(host);
+  return host;
 }

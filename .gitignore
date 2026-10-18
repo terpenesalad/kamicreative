@@ -6,3 +6,4 @@ release/
 Thumbs.db
 *.kamic.bak
 *.kamic.*.tmp
+.test-media/

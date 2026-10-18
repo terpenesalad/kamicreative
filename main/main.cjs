@@ -1,7 +1,7 @@
 // KamiCreative — Electron main process.
 'use strict';
 
-const { app, BrowserWindow, Menu, dialog, ipcMain, screen, shell, session, nativeTheme } = require('electron');
+const { app, BrowserWindow, Menu, dialog, ipcMain, screen, shell, session, nativeTheme, desktopCapturer } = require('electron');
 const path = require('path');
 const fs = require('fs');
 const fsp = fs.promises;
@@ -215,6 +215,7 @@ function buildMenu() {
       label: '&Help',
       submenu: [
         item('Interactive Tutorial', 'tutorial'),
+        item('Sound Settings…', 'sound'),
         item('Welcome Screen', 'welcome'),
         { type: 'separator' },
         item('Keyboard Shortcuts', 'shortcuts', 'F1'),
@@ -388,7 +389,13 @@ if (!app.requestSingleInstanceLock()) {
 
   app.whenReady().then(() => {
     session.defaultSession.setPermissionRequestHandler((_wc, permission, cb) => {
-      cb(['media', 'midi', 'midiSysex', 'fullscreen', 'clipboard-sanitized-write'].includes(permission));
+      cb(['media', 'midi', 'midiSysex', 'fullscreen', 'clipboard-sanitized-write', 'display-capture'].includes(permission));
+    });
+    // "Computer audio" in the Sound panel: share the system audio mix (loopback) with no picker.
+    session.defaultSession.setDisplayMediaRequestHandler((_req, callback) => {
+      desktopCapturer.getSources({ types: ['screen'] })
+        .then((sources) => callback(sources[0] ? { video: sources[0], audio: 'loopback' } : {}))
+        .catch(() => callback({}));
     });
     session.defaultSession.setPermissionCheckHandler((_wc, permission) => ['media', 'midi', 'midiSysex', 'fullscreen'].includes(permission));
     registerIpc();

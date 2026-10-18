@@ -3,19 +3,28 @@
   "version": 1,
   "meta": {
     "name": "Projection Mapping",
-    "created": "2026-10-14T09:44:42.846Z",
-    "modified": "2026-10-14T09:44:42.846Z",
+    "created": "2026-10-18T12:12:11.713Z",
+    "modified": "2026-10-18T12:12:11.713Z",
     "app": "KamiCreative"
   },
   "settings": {
     "oscPort": 8000,
     "artnetHost": "255.255.255.255",
     "snapToGrid": true,
-    "previews": true
+    "previews": true,
+    "sound": {
+      "source": "mic",
+      "deviceId": "",
+      "gain": 100,
+      "sensitivity": 50,
+      "smoothing": 40,
+      "autoLevel": true,
+      "autoAdvance": 0
+    }
   },
   "stages": [
     {
-      "id": "stagemv7xbcri18x49u",
+      "id": "stagemvdscf9d184mm9",
       "name": "Projector",
       "width": 1920,
       "height": 1080,
@@ -27,7 +36,7 @@
         "enabled": true,
         "surfaces": [
           {
-            "id": "smv7xbcri1kl6wy",
+            "id": "smvdscf9d1kbdc4",
             "name": "Top face",
             "enabled": true,
             "opacity": 1,
@@ -74,7 +83,7 @@
             }
           },
           {
-            "id": "smv7xbcri1l7wvk",
+            "id": "smvdscf9d1liei4",
             "name": "Left face",
             "enabled": true,
             "opacity": 1,
@@ -121,7 +130,7 @@
             }
           },
           {
-            "id": "smv7xbcri1m98jo",
+            "id": "smvdscf9d1mhc64",
             "name": "Right face",
             "enabled": true,
             "opacity": 1,
@@ -174,13 +183,13 @@
   "media": [],
   "scenes": [
     {
-      "id": "scenemv7xbcri17mfpd",
+      "id": "scenemvdscf9d17mmpw",
       "name": "Cube Mapping",
       "fadeIn": 0,
       "notes": "Open Stage → Projection Mapping to adjust the three cube faces.",
       "nodes": [
         {
-          "id": "nmv7xbcri1ax2q1",
+          "id": "nmvdscf9d1azdg3",
           "type": "util.comment",
           "x": -420,
           "y": 0,
@@ -192,7 +201,7 @@
           "title": "Projection mapping"
         },
         {
-          "id": "nmv7xbcri1b2f56",
+          "id": "nmvdscf9d1buldu",
           "type": "src.pattern",
           "x": 0,
           "y": 0,
@@ -209,7 +218,7 @@
           "preview": true
         },
         {
-          "id": "nmv7xbcri1cknw7",
+          "id": "nmvdscf9d1cslnh",
           "type": "src.pattern",
           "x": 0,
           "y": 380,
@@ -225,7 +234,7 @@
           "preview": true
         },
         {
-          "id": "nmv7xbcri1ds2rl",
+          "id": "nmvdscf9d1dl1ms",
           "type": "src.noise",
           "x": 0,
           "y": 760,
@@ -240,7 +249,7 @@
           "preview": true
         },
         {
-          "id": "nmv7xbcri1enpgl",
+          "id": "nmvdscf9d1enm6r",
           "type": "out.projector",
           "x": 300,
           "y": 0,
@@ -254,7 +263,7 @@
           "preview": true
         },
         {
-          "id": "nmv7xbcri1f7c80",
+          "id": "nmvdscf9d1flxoy",
           "type": "out.projector",
           "x": 300,
           "y": 380,
@@ -268,7 +277,7 @@
           "preview": true
         },
         {
-          "id": "nmv7xbcri1g5bfo",
+          "id": "nmvdscf9d1gvj49",
           "type": "out.projector",
           "x": 300,
           "y": 760,
@@ -284,35 +293,35 @@
       ],
       "links": [
         {
-          "id": "lmv7xbcri1hu1sk",
+          "id": "lmvdscf9d1hoipy",
           "from": [
-            "nmv7xbcri1b2f56",
+            "nmvdscf9d1buldu",
             "out"
           ],
           "to": [
-            "nmv7xbcri1enpgl",
+            "nmvdscf9d1enm6r",
             "video"
           ]
         },
         {
-          "id": "lmv7xbcri1ih20k",
+          "id": "lmvdscf9d1i5dgq",
           "from": [
-            "nmv7xbcri1cknw7",
+            "nmvdscf9d1cslnh",
             "out"
           ],
           "to": [
-            "nmv7xbcri1f7c80",
+            "nmvdscf9d1flxoy",
             "video"
           ]
         },
         {
-          "id": "lmv7xbcri1je71g",
+          "id": "lmvdscf9d1jn7f9",
           "from": [
-            "nmv7xbcri1ds2rl",
+            "nmvdscf9d1dl1ms",
             "out"
           ],
           "to": [
-            "nmv7xbcri1g5bfo",
+            "nmvdscf9d1gvj49",
             "video"
           ]
         }
@@ -320,5 +329,5 @@
       "comments": []
     }
   ],
-  "activeScene": "scenemv7xbcri17mfpd"
+  "activeScene": "scenemvdscf9d17mmpw"
 }

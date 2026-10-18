@@ -213,6 +213,23 @@ export class Doc extends Emitter {
     });
   }
 
+  /** Make an input follow the sound (binding) or stop (null). */
+  setReact(nodeId, port, binding, coalesce) {
+    const n = this.node(nodeId);
+    if (!n) return;
+    this.edit(binding ? 'React to sound' : 'Stop reacting to sound', () => {
+      const r = { ...(n.react || {}) };
+      if (binding) r[port] = { ...binding }; else delete r[port];
+      if (Object.keys(r).length) n.react = r; else delete n.react;
+      const rt = this.engine.runtimeFor(this.scene.id)?.nodes.get(nodeId);
+      if (rt) {
+        rt.model = n;
+        if (rt.state._react) delete rt.state._react[port];
+        if (!binding) this.engine.valueChanged(this.scene.id, nodeId, port, n.values?.[port] ?? rt.inputPort(port)?.default);
+      }
+    }, { coalesce: coalesce || null });
+  }
+
   /** Persist a control widget value (sliders etc.) without flooding the undo stack. */
   widgetValue(nodeId, value) {
     const n = this.node(nodeId);
